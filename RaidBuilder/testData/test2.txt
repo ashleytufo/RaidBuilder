@@ -1,0 +1,32 @@
+:Tank: Tank (2):
+:Bear: 21 Solu
+
+:Hunter: Hunter (4):
+:Hunter: 44 Pinkee/Inthewa
+‎
+:Druid: Druid (7) :
+:RestoDruid: 58 Andarin
+
+:Warrior: Warrior (8):
+:Warrior: 10 Kraw
+
+:Mage: Mage (8) :
+:Mage: 25 HoesKnows
+
+:Shaman: Shaman (10) :
+:Elemental: 44 Whipsnchains
+
+:Rogue: Rogue (3):
+:Rogue: 59 skown
+‎
+:Warlock: Warlock (5) :
+:Warlock: 17 Saccharine-P
+
+:Priest: Priest (9):
+:Priest: 25 Syzzurp
+
+:Late: Late (2) : :Hunter: 16 Babadook/Botanist,
+:Bench: Bench (1) : :Hunter: 54 VeeVee/Scryugemcduk,
+
+:Tentative: Tentative (2) : :Warrior: 43 Tohroo/Medaka,
+:Absence: Absence (8) : 3 Hellohidead,

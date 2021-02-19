@@ -1,0 +1,70 @@
+:Tank: Tank (5):
+:Tank: 3 torontocap
+:Bear: 7 Kanzabear/Kanz
+:Bear: 11 Olykos
+:Tank: 42 Dartanko/Darho
+:Tank: 43 Mink
+‎
+:Hunter: Hunter (5):
+:Hunter: 1 ⇝𝕸𝖎𝖎𝖘𝖙𝖎e
+:Hunter: 22 Pickwick
+:Hunter: 24 Wraithsexual
+:Hunter: 26 Pinkee/Inthewa
+:Hunter: 45 Mo(Tom/Alpha)
+‎
+:Druid: Druid (2):
+:RestoDruid: 19 Razor/Chibs
+:RestoDruid: 20 Zuludelta
+‎
+:Warrior: Warrior (9):
+:Warrior: 6 Gombos
+:Warrior: 12 Warsoldier
+:Warrior: 14 dpsmeharder/cr
+:Warrior: 18 beefiboi
+:Warrior: 27 Käbäl
+:Warrior: 37 Alizzah
+:Warrior: 40 Rageup
+:Warrior: 46 cwarrior
+:Warrior: 50 Havvokk
+‎
+:Mage: Mage (7):
+:Mage: 5 Venable
+:Mage: 8 Siyanti/Reneca
+:Mage: 15 Kazrik
+:Mage: 16 Roundeye
+:Mage: 21 Durdle
+:Mage: 36 Healthledger-A
+:Mage: 48 Dangle/Ambr
+‎
+:Shaman: Shaman (7):
+:RestoShaman: 4 Anck
+:RestoShaman: 32 Cozymend
+:RestoShaman: 33 Moontotemz
+:RestoShaman: 38 Snookies
+:RestoShaman: 49 Vaevictís
+:RestoShaman: 51 Reshal
+:RestoShaman: 56 Kahl
+‎
+:Rogue: Rogue (2):
+:Rogue: 2 Leithia
+:Rogue: 13 Bettywight/Ath
+‎
+:Warlock: Warlock (5):
+:Warlock: 25 Pharmz
+:Warlock: 29 Bobjira
+:Warlock: 31 Shadowboxx
+:Warlock: 53 Metrocard
+:Warlock: 55 Ferk
+‎
+:Priest: Priest (8):
+:Priest: 9 Zawmb
+:Priest: 10 Epyca/Tarjah
+:Shadow: 17 Winderella/Jin
+:Priest: 23 Treyen
+:Priest: 30 Twit
+:Priest: 35 Syzzurp
+:Priest: 39 Kengy
+:Priest: 47 Faustuss/Aerod
+‎
+:Tentative: Tentative (2) : :Hunter: 41 Flexor(a)/Dedd, :Priest: 44 Dro<Antiquity>,
+:Absence: Absence (4) : 28 Karellia, 34 Sardand, 52 Lichttraeger, 54 Rainseeker,

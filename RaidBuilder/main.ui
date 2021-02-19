@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1174</width>
-    <height>928</height>
+    <width>1160</width>
+    <height>937</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,16 +36,307 @@ background-color: rgb(46, 48, 62);</string>
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="styleSheet">
-       <string notr="true">QLabel{color: rgb(145, 153, 190);}
+       <string notr="true">QLabel{color: rgb(145, 153, 190);
+padding: 1px;}
 </string>
       </property>
       <property name="currentIndex">
        <number>1</number>
       </property>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="import_signups_tab">
        <attribute name="title">
         <string>Import Signups</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QFrame" name="import_signups_frame">
+          <property name="styleSheet">
+           <string notr="true">QPushButton{background-color: rgb(195, 206, 255);
+color: rgb(46, 48, 62);
+font: 700 12pt &quot;Segoe UI&quot;;}
+QPushButton:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
+QComboBox{background-color: rgb(255, 255, 255);
+font: 9pt &quot;Segoe UI&quot;;
+padding: 2px;
+}
+QComboBox:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);
+}
+QLineEdit{background-color: rgb(255, 255, 255);
+font: 9pt &quot;Segoe UI&quot;;
+padding: 2px;
+}
+QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
+QDateEdit{background-color: rgb(255, 255, 255);
+font: 9pt &quot;Segoe UI&quot;;
+padding: 2px;
+}
+QDateEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
+QTimeEdit{background-color: rgb(255, 255, 255);
+font: 9pt &quot;Segoe UI&quot;;
+padding: 2px;
+}
+QTimeEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
+QPlainTextEdit{
+	background-color: rgb(46, 48, 62);
+	color: rgb(255, 255, 255);
+font: 9pt &quot;Segoe UI&quot;;
+padding: 2px;
+}
+QPlainTextEdit:disabled{;color: rgb(136, 136, 136);}</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>10</number>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QFrame" name="create_update_frame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QPushButton" name="create_new_btn">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string>Create New</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Maximum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="update_exist_btn">
+                <property name="text">
+                 <string>Update Existing</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="existing_combo">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(255, 255, 255);
+font: 9pt &quot;Segoe UI&quot;;
+padding: 2px;
+</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Choose an existing signup...</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <spacer name="create_update_spacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Expanding</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="signup_info_frame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="1" column="2">
+               <widget class="QDateEdit" name="signup_date_edit">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="dateTime">
+                 <datetime>
+                  <hour>21</hour>
+                  <minute>0</minute>
+                  <second>0</second>
+                  <year>2021</year>
+                  <month>1</month>
+                  <day>1</day>
+                 </datetime>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="signup_name_edit">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="placeholderText">
+                 <string>Name the signup</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QTimeEdit" name="signup_time_edit">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="dateTime">
+                 <datetime>
+                  <hour>21</hour>
+                  <minute>0</minute>
+                  <second>0</second>
+                  <year>2021</year>
+                  <month>1</month>
+                  <day>1</day>
+                 </datetime>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="signup_date_lbl">
+                <property name="text">
+                 <string>Date</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="signup_time_lbl">
+                <property name="text">
+                 <string>Time</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="signup_name_lbl">
+                <property name="text">
+                 <string>Signup Name</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="4">
+               <spacer name="signup_info_spacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPlainTextEdit" name="signup_txt_edit">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="cursor" stdset="0">
+              <cursorShape>ArrowCursor</cursorShape>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="verticalScrollBarPolicy">
+              <enum>Qt::ScrollBarAlwaysOn</enum>
+             </property>
+             <property name="horizontalScrollBarPolicy">
+              <enum>Qt::ScrollBarAsNeeded</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Paste the signup from discord...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="save_reset_frame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <item>
+               <spacer name="save_reset_spacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="reset_signup_btn">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="save_signup_btn">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>Save</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -62,6 +353,51 @@ background-color: rgb(46, 48, 62);</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
+            <widget class="QFrame" name="load_btn_frame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="topMargin">
+               <number>6</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <widget class="QComboBox" name="signup_cmbo">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(255, 255, 255);
+font: 9pt &quot;Segoe UI&quot;;
+padding: 2px;
+</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Choose a signup list...</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="load_btn">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(195, 206, 255);
+color: rgb(46, 48, 62);
+font: 700 12pt &quot;Segoe UI&quot;;</string>
+                </property>
+                <property name="text">
+                 <string>Load Signups</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
             <widget class="QFrame" name="signup_frame">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
@@ -70,8 +406,43 @@ background-color: rgb(46, 48, 62);</string>
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_6">
+              <property name="spacing">
+               <number>6</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
               <item>
                <layout class="QGridLayout" name="signup_grid">
+                <item row="1" column="4">
+                 <widget class="QListWidget" name="signup_list_druids">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QListWidget" name="signup_list_warriors">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="1">
                  <widget class="QLabel" name="warrior_lbl">
                   <property name="text">
@@ -79,45 +450,16 @@ background-color: rgb(46, 48, 62);</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="3">
-                 <widget class="QLabel" name="hunter_lbl">
-                  <property name="text">
-                   <string>Hunters</string>
+                <item row="1" column="6">
+                 <widget class="QListWidget" name="signup_list_mages">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
                   </property>
-                 </widget>
-                </item>
-                <item row="0" column="4">
-                 <widget class="QLabel" name="druid_lbl">
-                  <property name="text">
-                   <string>Druids</string>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
                   </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QLabel" name="rogue_lbl">
-                  <property name="text">
-                   <string>Rogues</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="5">
-                 <widget class="QLabel" name="shaman_lbl">
-                  <property name="text">
-                   <string>Shamans</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="6">
-                 <widget class="QLabel" name="mage_lbl">
-                  <property name="text">
-                   <string>Mages</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="tank_lbl">
-                  <property name="text">
-                   <string>Tanks</string>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
                   </property>
                  </widget>
                 </item>
@@ -132,187 +474,13 @@ background-color: rgb(46, 48, 62);</string>
                   <property name="defaultDropAction">
                    <enum>Qt::MoveAction</enum>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>Dartanko/Darho</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>199</red>
-                      <green>156</green>
-                      <blue>110</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Kanzabear/Kanz</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>125</green>
-                      <blue>10</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Ajjax</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>125</green>
-                      <blue>10</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Mink</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>199</red>
-                      <green>156</green>
-                      <blue>110</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QListWidget" name="signup_list_warriors">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
+                <item row="0" column="6">
+                 <widget class="QLabel" name="mage_lbl">
+                  <property name="text">
+                   <string>Mages</string>
                   </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Hmong</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>233</red>
-                      <green>196</green>
-                      <blue>157</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>dpsmeharder/cr</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>233</red>
-                      <green>196</green>
-                      <blue>157</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Brudos</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>233</red>
-                      <green>196</green>
-                      <blue>157</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Warsoldier</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>233</red>
-                      <green>196</green>
-                      <blue>157</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Healthledger</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>233</red>
-                      <green>196</green>
-                      <blue>157</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>sgtboot</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>233</red>
-                      <green>196</green>
-                      <blue>157</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Erised</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>233</red>
-                      <green>196</green>
-                      <blue>157</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Rotallytad</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>233</red>
-                      <green>196</green>
-                      <blue>157</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                 <item row="1" column="2">
@@ -326,48 +494,13 @@ background-color: rgb(46, 48, 62);</string>
                   <property name="defaultDropAction">
                    <enum>Qt::MoveAction</enum>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>Bladesaxor</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>245</green>
-                      <blue>105</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Hushwho</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>245</green>
-                      <blue>105</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Nidalel/zulizz</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>245</green>
-                      <blue>105</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QLabel" name="hunter_lbl">
+                  <property name="text">
+                   <string>Hunters</string>
+                  </property>
                  </widget>
                 </item>
                 <item row="1" column="3">
@@ -381,61 +514,13 @@ background-color: rgb(46, 48, 62);</string>
                   <property name="defaultDropAction">
                    <enum>Qt::MoveAction</enum>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>Miistie</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>171</red>
-                      <green>212</green>
-                      <blue>115</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
                  </widget>
                 </item>
-                <item row="1" column="4">
-                 <widget class="QListWidget" name="signup_list_druids">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="tank_lbl">
+                  <property name="text">
+                   <string>Tanks</string>
                   </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Zuludelta</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>161</green>
-                      <blue>78</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Razor/Chibs</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>161</green>
-                      <blue>78</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                 <item row="1" column="5">
@@ -449,136 +534,45 @@ background-color: rgb(46, 48, 62);</string>
                   <property name="defaultDropAction">
                    <enum>Qt::MoveAction</enum>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>Healisstra</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>112</green>
-                      <blue>222</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Gungars</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>112</green>
-                      <blue>222</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Anck</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>112</green>
-                      <blue>222</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Snookies</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>112</green>
-                      <blue>222</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Vaevictis</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>112</green>
-                      <blue>222</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Vooduwolf</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>112</green>
-                      <blue>222</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Havvokk</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>112</green>
-                      <blue>222</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Toochainz</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>112</green>
-                      <blue>222</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Totemtherapy</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>0</red>
-                      <green>112</green>
-                      <blue>222</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
                  </widget>
                 </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="rogue_lbl">
+                  <property name="text">
+                   <string>Rogues</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="4">
+                 <widget class="QLabel" name="druid_lbl">
+                  <property name="text">
+                   <string>Druids</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="5">
+                 <widget class="QLabel" name="shaman_lbl">
+                  <property name="text">
+                   <string>Shamans</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QGridLayout" name="gridLayout">
                 <item row="1" column="6">
-                 <widget class="QListWidget" name="signup_list_mages">
+                 <widget class="QListWidget" name="signup_list_other">
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="4">
+                 <widget class="QListWidget" name="signup_list_bench">
                   <property name="acceptDrops">
                    <bool>true</bool>
                   </property>
@@ -588,142 +582,18 @@ background-color: rgb(46, 48, 62);</string>
                   <property name="defaultDropAction">
                    <enum>Qt::MoveAction</enum>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>Durdle</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>64</red>
-                      <green>199</green>
-                      <blue>235</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>DrSarah</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>64</red>
-                      <green>199</green>
-                      <blue>235</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Rageroar</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>64</red>
-                      <green>199</green>
-                      <blue>235</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>renecarta</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>64</red>
-                      <green>199</green>
-                      <blue>235</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Kazrik</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>64</red>
-                      <green>199</green>
-                      <blue>235</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Hethan</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>64</red>
-                      <green>199</green>
-                      <blue>235</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Radeye</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>64</red>
-                      <green>199</green>
-                      <blue>235</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Dangle/Ambr</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>64</red>
-                      <green>199</green>
-                      <blue>235</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Peachs-N-Cream</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>64</red>
-                      <green>199</green>
-                      <blue>235</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
                  </widget>
                 </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QGridLayout" name="gridLayout">
-                <item row="0" column="2">
-                 <widget class="QLabel" name="late_lbl">
-                  <property name="text">
-                   <string>Late</string>
+                <item row="1" column="1">
+                 <widget class="QListWidget" name="signup_list_priests">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
                   </property>
                  </widget>
                 </item>
@@ -741,17 +611,16 @@ background-color: rgb(46, 48, 62);</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="3">
-                 <widget class="QLabel" name="tentative_lbl">
-                  <property name="text">
-                   <string>Tentative</string>
+                <item row="1" column="2">
+                 <widget class="QListWidget" name="signup_list_late">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
                   </property>
-                 </widget>
-                </item>
-                <item row="0" column="5">
-                 <widget class="QLabel" name="absent_lbl">
-                  <property name="text">
-                   <string>Absent</string>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
                   </property>
                  </widget>
                 </item>
@@ -762,209 +631,28 @@ background-color: rgb(46, 48, 62);</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="6">
-                 <widget class="QLabel" name="other_lbl">
+                <item row="1" column="5">
+                 <widget class="QListWidget" name="signup_list_absent">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="5">
+                 <widget class="QLabel" name="absent_lbl">
                   <property name="text">
-                   <string>Other</string>
+                   <string>Absent</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="0">
                  <widget class="QListWidget" name="signup_list_warlocks">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Bobjira</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>135</red>
-                      <green>135</green>
-                      <blue>237</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Pharmz</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>135</red>
-                      <green>135</green>
-                      <blue>237</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Ferk</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>135</red>
-                      <green>135</green>
-                      <blue>237</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Kahl</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>135</red>
-                      <green>135</green>
-                      <blue>237</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Voodujr/Mauliv</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>135</red>
-                      <green>135</green>
-                      <blue>237</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QListWidget" name="signup_list_priests">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Dro&lt;Antiquity&gt;</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>234</red>
-                      <green>234</green>
-                      <blue>234</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Winder/Jindo/P</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>234</red>
-                      <green>234</green>
-                      <blue>234</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Syzzurp</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>234</red>
-                      <green>234</green>
-                      <blue>234</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Twit</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>234</red>
-                      <green>234</green>
-                      <blue>234</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Epyca/Tarjah</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>234</red>
-                      <green>234</green>
-                      <blue>234</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Faustuss/Aerod</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>234</red>
-                      <green>234</green>
-                      <blue>234</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Chantale(Marth</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>234</red>
-                      <green>234</green>
-                      <blue>234</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QListWidget" name="signup_list_late">
                   <property name="acceptDrops">
                    <bool>true</bool>
                   </property>
@@ -987,115 +675,43 @@ background-color: rgb(46, 48, 62);</string>
                   <property name="defaultDropAction">
                    <enum>Qt::MoveAction</enum>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>Olykos</string>
-                   </property>
-                   <property name="background">
-                    <brush brushstyle="SolidPattern">
-                     <color alpha="255">
-                      <red>255</red>
-                      <green>125</green>
-                      <blue>10</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
                  </widget>
                 </item>
-                <item row="1" column="4">
-                 <widget class="QListWidget" name="signup_list_bench">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="late_lbl">
+                  <property name="text">
+                   <string>Late</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="5">
-                 <widget class="QListWidget" name="signup_list_absent">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
+                <item row="0" column="3">
+                 <widget class="QLabel" name="tentative_lbl">
+                  <property name="text">
+                   <string>Tentative</string>
                   </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Nighty</string>
-                   </property>
-                   <property name="foreground">
-                    <brush brushstyle="NoBrush">
-                     <color alpha="255">
-                      <red>145</red>
-                      <green>153</green>
-                      <blue>190</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Nardant</string>
-                   </property>
-                   <property name="foreground">
-                    <brush brushstyle="NoBrush">
-                     <color alpha="255">
-                      <red>145</red>
-                      <green>153</green>
-                      <blue>190</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>steel</string>
-                   </property>
-                   <property name="foreground">
-                    <brush brushstyle="NoBrush">
-                     <color alpha="255">
-                      <red>145</red>
-                      <green>153</green>
-                      <blue>190</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Torak</string>
-                   </property>
-                   <property name="foreground">
-                    <brush brushstyle="NoBrush">
-                     <color alpha="255">
-                      <red>145</red>
-                      <green>153</green>
-                      <blue>190</blue>
-                     </color>
-                    </brush>
-                   </property>
-                  </item>
                  </widget>
                 </item>
-                <item row="1" column="6">
-                 <widget class="QListWidget" name="signup_list_other">
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
+                <item row="0" column="6">
+                 <widget class="QLabel" name="other_lbl">
+                  <property name="text">
+                   <string>Other</string>
                   </property>
                  </widget>
                 </item>
                </layout>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>
@@ -1109,12 +725,57 @@ background-color: rgb(46, 48, 62);</string>
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout">
+              <property name="topMargin">
+               <number>1</number>
+              </property>
+              <property name="bottomMargin">
+               <number>1</number>
+              </property>
               <item>
                <layout class="QGridLayout" name="roster_grid">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="rosterGrp_lbl_1">
+                <item row="2" column="2">
+                 <widget class="QLabel" name="rosterGrp_lbl_7">
                   <property name="text">
-                   <string>Group 1</string>
+                   <string>Group 7</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QListWidget" name="rosterGrp_list_5">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QListWidget" name="rosterGrp_list_3">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QListWidget" name="rosterGrp_list_2">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
                   </property>
                  </widget>
                 </item>
@@ -1122,6 +783,46 @@ background-color: rgb(46, 48, 62);</string>
                  <widget class="QLabel" name="rosterGrp_lbl_3">
                   <property name="text">
                    <string>Group 3</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="rosterGrp_lbl_1">
+                  <property name="text">
+                   <string>Group 1</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="3">
+                 <widget class="QListWidget" name="rosterGrp_list_8">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="3">
+                 <widget class="QLabel" name="rosterGrp_lbl_8">
+                  <property name="text">
+                   <string>Group 8</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QListWidget" name="rosterGrp_list_4">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
                   </property>
                  </widget>
                 </item>
@@ -1139,17 +840,29 @@ background-color: rgb(46, 48, 62);</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="2">
-                 <widget class="QLabel" name="rosterGrp_lbl_7">
-                  <property name="text">
-                   <string>Group 7</string>
+                <item row="3" column="2">
+                 <widget class="QListWidget" name="rosterGrp_list_7">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="3">
-                 <widget class="QLabel" name="rosterGrp_lbl_8">
-                  <property name="text">
-                   <string>Group 8</string>
+                <item row="3" column="1">
+                 <widget class="QListWidget" name="rosterGrp_list_6">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
                   </property>
                  </widget>
                 </item>
@@ -1180,98 +893,23 @@ background-color: rgb(46, 48, 62);</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QListWidget" name="rosterGrp_list_2">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QListWidget" name="rosterGrp_list_5">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QListWidget" name="rosterGrp_list_6">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QListWidget" name="rosterGrp_list_3">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="2">
-                 <widget class="QListWidget" name="rosterGrp_list_7">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="3">
-                 <widget class="QListWidget" name="rosterGrp_list_8">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="3">
-                 <widget class="QListWidget" name="rosterGrp_list_4">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
                </layout>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Minimum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item>
                <layout class="QGridLayout" name="standby_grid">
@@ -1316,6 +954,162 @@ background-color: rgb(46, 48, 62);</string>
                  </widget>
                 </item>
                </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QFrame" name="frame_2">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <property name="leftMargin">
+               <number>9</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <widget class="QFrame" name="frame_3">
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_2">
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <widget class="QFrame" name="frame_4">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_6">
+                    <property name="spacing">
+                     <number>6</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>5</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>2</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>5</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>2</number>
+                    </property>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton">
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(145, 153, 190);
+padding: 1px;</string>
+                      </property>
+                      <property name="text">
+                       <string>Prefill with Favorites</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_2">
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(145, 153, 190);
+padding: 1px;</string>
+                      </property>
+                      <property name="text">
+                       <string>Prefill with Saved Roster</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton">
+                      <property name="styleSheet">
+                       <string notr="true">background-color: rgb(195, 206, 255);
+color: rgb(46, 48, 62);
+font: 700 10pt &quot;Segoe UI&quot;;</string>
+                      </property>
+                      <property name="text">
+                       <string>Prefill</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: rgb(255, 255, 255);
+font: 9pt &quot;Segoe UI&quot;;
+padding: 2px;
+</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::MinimumExpanding</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_3">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(195, 206, 255);
+color: rgb(46, 48, 62);
+font: 700 12pt &quot;Segoe UI&quot;;</string>
+                </property>
+                <property name="text">
+                 <string>Reset</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_4">
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(195, 206, 255);
+color: rgb(46, 48, 62);
+font: 700 12pt &quot;Segoe UI&quot;;</string>
+                </property>
+                <property name="text">
+                 <string>Save</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -1396,7 +1190,7 @@ background-color: rgb(46, 48, 62);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1174</width>
+     <width>1160</width>
      <height>22</height>
     </rect>
    </property>

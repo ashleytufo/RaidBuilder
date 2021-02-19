@@ -1,0 +1,468 @@
+:Tank: Tank (2):
+:Bear: 21 Solu
+:Bear: 38 DrSereh
+‎
+:Tank: Tank (7):
+:Bear: 2 Olykos
+:Bear: 5 Kanzabear/Kanz
+:Tank: 6 Mink
+:Tank: 15 Dartanko/Darho
+:Bear: 51 Ajjax
+:Tank: 53 torontocap
+:Bear: 56 Biggtruss
+‎
+:Tank: Tank (5):
+:Tank: 3 torontocap
+:Bear: 7 Kanzabear/Kanz
+:Bear: 12 Olykos
+:Tank: 43 Dartanko/Darho
+:Tank: 44 Mink
+
+:Tank: Tank (5):
+:Tank: 2 torontocap
+:Bear: 7 Kanzabear/Kanz
+:Bear: 12 Olykos
+:Tank: 43 Dartanko/Darho
+:Tank: 45 Mink
+
+:Tank: Tank (6):
+:Tank: 11 Farroe
+:Tank: 14 Meltan
+:Tank: 35 titanscry
+:Bear: 39 DrSereh
+:Tank: 42 Impulse
+:Bear: 57 Bulljax
+
+:Tank: Tank (4) :
+:Tank: 14 Meltan
+:Tank: 20 Impulse
+:Tank: 30 Farroe
+:Tank: 46 titanscry
+
+:Tank: Tank (5) :
+:Bear: 7 Abao
+:ProtPaladin: 24 teregor
+:Bear: 26 Dotmyroxoff
+:Tank: 30 Impulse
+:Tank: 48 Qcq
+
+:Hunter: Hunter (3):
+:Hunter: 1 ⇝𝕸𝖎𝖎𝖘𝖙𝖎𝖊
+:Hunter: 25 VexicosRex
+:Hunter: 30 Torgonudho
+‎
+:Hunter: Hunter (4):
+:Hunter: 7 ⇝𝕸𝖎𝖎𝖘𝖙𝖎𝖊
+:Hunter: 32 Pickwick
+:Hunter: 44 Pinkee/Inthewa
+:Hunter: 46 Flexor(a)/Dedd
+‎
+:Hunter: Hunter (5):
+:Hunter: 1 ⇝𝕸𝖎𝖎𝖘𝖙𝖎𝖊
+:Hunter: 23 Pickwick
+:Hunter: 25 Wraithsexual
+:Hunter: 27 Pinkee/Inthewa
+:Hunter: 46 Mo(Tom/Alpha)
+
+:Hunter: Hunter (5):
+:Hunter: 1 ⇝𝕸𝖎𝖎𝖘𝖙𝖎𝖊
+:Hunter: 23 Pickwick
+:Hunter: 25 Wraithsexual
+:Hunter: 28 Pinkee/Inthewa
+:Hunter: 41 Flexor(a)/Dedd
+
+:Hunter: Hunter (5):
+:Hunter: 5 Tom/Alpha
+:Hunter: 9 Sidèshow
+:Hunter: 13 Crowclown
+:Hunter: 25 Gibbed
+:Hunter: 30 Pinkee/Inthewa
+
+:Hunter: Hunter (4) :
+:Hunter: 6 Crowclown
+:Hunter: 41 Gibbed
+:Hunter: 48 Nugii
+:Hunter: 49 Tommaso
+
+:Hunter: Hunter (3) :
+:Hunter: 22 Yo
+:Hunter: 34 Jaras
+:Hunter: 44 Capunk
+
+:Druid: Druid (2):
+:RestoDruid: 21 Razor/Chibs
+:RestoDruid: 24 Zuludelta
+‎
+:Druid: Druid (2):
+:RestoDruid: 20 Razor/Chibs
+:RestoDruid: 21 Zuludelta‎
+
+:Druid: Druid (2):
+:RestoDruid: 20 Razor/Chibs
+:RestoDruid: 21 Zuludelta
+
+:Druid: Druid (2):
+:RestoDruid: 43 Rodya
+:RestoDruid: 52 Milrond
+
+:Druid: Druid (1) :
+:RestoDruid: 33 Rodya
+
+:Druid: Druid (7) :
+:RestoDruid: 1 Snow(UBI-LL)
+:RestoDruid: 6 Felurian
+:Balance: 9 Pamaelic/Ski
+:RestoDruid: 29 Cryptosatan
+:RestoDruid: 47 Recio
+:Feral: 53 Nale
+:RestoDruid: 58 Andarin
+
+:Warrior: Warrior (8):
+:Warrior: 3 Unkillable(UKZ
+:Warrior: 4 Konquest
+:Warrior: 10 Kraw
+:Warrior: 11 Guilt/Shogunat
+:Warrior: 14 greenner
+:Warrior: 23 Phineasgage/Si
+:Warrior: 27 teuton
+:Warrior: 37 Swanque
+‎
+:Warrior: Warrior (8):
+:Warrior: 3 Sardand
+:Warrior: 9 dpsmeharder/cr
+:Warrior: 14 Warsoldier
+:Warrior: 23 Gombos
+:Warrior: 26 Hushwho
+:Warrior: 36 Rageup
+:Warrior: 37 SleepyOdin
+:Warrior: 38 Rotallytad
+
+:Warrior: Warrior (10):
+:Warrior: 6 Gombos
+:Warrior: 13 Warsoldier
+:Warrior: 15 dpsmeharder/cr
+:Warrior: 19 beefiboi
+:Warrior: 28 Käbäl
+:Warrior: 35 Sardand
+:Warrior: 38 Alizzah
+:Warrior: 41 Rageup
+:Warrior: 47 cwarrior
+:Warrior: 51 Havvokk
+
+‎:Warrior: Warrior (8):
+:Warrior: 6 Gombos
+:Warrior: 13 Warsoldier
+:Warrior: 15 dpsmeharder/cr
+:Warrior: 19 beefiboi
+:Warrior: 29 Käbäl
+:Warrior: 35 Sardand
+:Warrior: 38 Alizzah
+:Warrior: 40 Rageup
+
+:Warrior: Warrior (8):
+:Warrior: 10 Dapqu
+:Warrior: 18 Krosseo/Ankey
+:Warrior: 19 Guilt/Shogunat
+:Warrior: 22 Slone
+:Warrior: 23 Fuggler
+:Warrior: 36 sgtboot
+:Warrior: 41 Barrock
+:Warrior: 55 Kraw
+
+:Warrior: Warrior (9) :
+:Warrior: 11 Napzilla
+:Warrior: 13 Extenzze
+:Warrior: 19 Cuponoodles
+:Warrior: 21 Fuggler
+:Warrior: 24 Guilt/Shogunat
+:Warrior: 36 Altexe
+:Warrior: 37 Warsoldier
+:Warrior: 40 Barrock
+:Warrior: 51 sgtboot
+
+:Warrior: Warrior (4) :
+:Warrior: 5 Lanzelot
+:Warrior: 11 faradore/tom
+:Warrior: 57 Graath
+:Warrior: 60 Reemz(Dhalnr
+
+:Mage: Mage (5):
+:Mage: 5 grudella
+:Mage: 9 Aryian
+:Mage: 19 Phus
+:Mage: 39 Critik
+:Mage: 40 Zeryth
+
+:Mage: Mage (7):
+:Mage: 5 Venable
+:Mage: 9 Siyanti/Reneca
+:Mage: 16 Kazrik
+:Mage: 17 Roundeye
+:Mage: 22 Durdle
+:Mage: 37 Healthledger-A
+:Mage: 49 Dangle/Ambr
+‎
+:Mage: Mage (8):
+:Mage: 17 Durdle
+:Mage: 22 Dangle/Ambr
+:Mage: 27 Healthledger-A
+:Mage: 29 Kazrik
+:Mage: 33 Roundeye
+:Mage: 34 Siyanti/Reneca
+:Mage: 45 Venable
+:Mage: 60 rize
+
+‎:Mage: Mage (7):
+:Mage: 5 Venable
+:Mage: 9 Siyanti/Reneca
+:Mage: 16 Kazrik
+:Mage: 17 Roundeye
+:Mage: 22 Durdle
+:Mage: 37 Healthledger-A
+:Mage: 47 Dangle/Ambr
+
+:Mage: Mage (3):
+:Mage: 17 Peachs-N-Cream
+:Mage: 20 Shlick
+:Mage: 26 Abiss(Iniq)
+
+:Mage: Mage (8) :
+:Mage: 2 Merllyn
+:Mage: 7 Komrad/Doograe
+:Mage: 22 FrostDeath
+:Mage: 23 Shlick
+:Mage: 45 Abiss(Iniq)
+:Mage: 47 Weepinwillow
+:Mage: 53 mufasa
+:Mage: 59 Hethan
+
+:Mage: Mage (8) :
+:Mage: 8 Joshu/Murdok
+:Mage: 10 Mightymagus
+:Mage: 25 HoesKnows
+:Mage: 35 tylerwillwin
+:Mage: 41 Smartfood
+:Mage: 46 Missbeatrix
+:Mage: 50 BubbleBlue/L
+:Mage: 51 Frozenup
+
+:Shaman: Shaman (7):
+:RestoShaman: 10 Warriorpet
+:RestoShaman: 12 Nyfy/Watersong
+:RestoShaman: 13 Snookies
+:RestoShaman: 18 Anck
+:RestoShaman: 30 Moontotemz
+:RestoShaman: 35 Gungars
+:RestoShaman: 41 Vaevictís
+‎
+:Shaman: Shaman (4):
+:RestoShaman: 2 Shockrage
+:RestoShaman: 15 Mourinho
+:RestoShaman: 32 Hotshox
+:RestoShaman: 41 fe
+
+‎:Shaman: Shaman (6):
+:RestoShaman: 4 Anck
+:RestoShaman: 33 Cozymend
+:RestoShaman: 34 Moontotemz
+:RestoShaman: 39 Snookies
+:RestoShaman: 50 Vaevictís
+:RestoShaman: 52 Reshal
+
+:Shaman: Shaman (6):
+:RestoShaman: 3 Anck
+:RestoShaman: 27 Warriorpet
+:RestoShaman: 33 Cozymend
+:RestoShaman: 34 Moontotemz
+:RestoShaman: 39 Snookies
+:RestoShaman: 48 Vaevictís
+
+:Shaman: Shaman (10) :
+:Enhancer: 9 Totezmagoats
+:RestoShaman: 18 Ashley
+:RestoShaman: 25 Njørd
+:RestoShaman: 26 Drekthall
+:RestoShaman: 35 Toochainz
+:Enhancer: 43 Gomes
+:Elemental: 44 Whipsnchains
+:RestoShaman: 50 LB
+:RestoShaman: 54 Cozymend
+:RestoShaman: 56 Porkiie
+
+:Rogue: Rogue (3):
+:Rogue: 8 Bettywight/Ath
+:Rogue: 47 Leithia
+:Rogue: 59 skown
+‎
+:Rogue: Rogue (2):
+:Rogue: 6 Bettywight/Ath
+:Rogue: 29 Antics
+
+:Rogue: Rogue (2):
+:Rogue: 2 Leithia
+:Rogue: 14 Bettywight/Ath
+‎
+:Rogue: Rogue (2):
+:Rogue: 14 Bettywight/Ath
+:Rogue: 42 Leithia
+
+:Rogue: Rogue (5):
+:Rogue: 2 Sneakcase
+:Rogue: 7 Msx
+:Rogue: 32 Alabashtaur
+:Rogue: 34 DirtyD
+:Rogue: 54 skown
+
+:Rogue: Rogue (5) :
+:Rogue: 8 Sneakcase
+:Rogue: 10 Msx
+:Rogue: 17 Bettywight
+:Rogue: 28 DirtyD
+:Rogue: 29 Nadirstabs
+
+:Rogue: Rogue (3) :
+:Rogue: 28 ReRogue
+:Rogue: 31 Thequickster
+:Rogue: 36 Hoboslayer
+
+:Warlock: Warlock (4):
+:Warlock: 4 Ferk
+:Warlock: 20 Bobjira
+:Warlock: 28 Faustuss/Aerod
+:Warlock: 43 Pharmz
+‎
+:Warlock: Warlock (7):
+:Warlock: 12 Ernieprang
+:Warlock: 13 nylithe
+:Warlock: 18 Auralocked
+:Warlock: 20 Marcissi/Lando
+:Warlock: 22 Hairybearbum
+:Warlock: 28 Durrty
+:Warlock: 34 JohnnyMAK
+
+:Warlock: Warlock (4):
+:Warlock: 8 Dunklertod
+:Warlock: 26 Pharmz
+:Warlock: 30 Bobjira
+:Warlock: 32 Shadowboxx
+‎
+:Warlock: Warlock (4):
+:Warlock: 4 Ferk
+:Warlock: 8 Dunklertod
+:Warlock: 26 Pharmz
+:Warlock: 31 Bobjira
+
+:Warlock: Warlock (3):
+:Warlock: 6 Pendraga
+:Warlock: 8 Criven
+:Warlock: 31 plotted
+
+:Warlock: Warlock (3) :
+:Warlock: 3 Pendraga
+:Warlock: 5 Ach
+:Warlock: 39 plotted
+
+:Warlock: Warlock (5) :
+:Warlock: 4 Baitlock
+:Warlock: 14 Ashley
+:Warlock: 17 Saccharine-P
+:Warlock: 20 Castör/Pollü
+:Warlock: 39 wicanos/hawt
+
+:Priest: Priest (9):
+:Priest: 1 Dro<Antiquity>
+:Priest: 16 Epyca/Tarjah
+:Priest: 25 Syzzurp
+:Shadow: 31 Winder/Jindo/P
+:Priest: 39 Chantale(Marth
+:Priest: 48 Treyen
+:Priest: 54 Maesta
+:Priest: 55 Zawmb
+:Priest: 57 Mustarrd
+‎
+:Priest: Priest (2):
+:Priest: 7 Mustarrd
+:Priest: 16 Dunklertod
+
+:Priest: Priest (8):
+:Priest: 10 Zawmb
+:Priest: 11 Epyca/Tarjah
+:Shadow: 18 Winderella/Jin
+:Priest: 24 Treyen
+:Priest: 31 Twit
+:Priest: 36 Syzzurp
+:Priest: 40 Kengy
+:Priest: 48 Faustuss/Aerod
+‎
+‎:Priest: Priest (7):
+:Priest: 10 Zawmb
+:Priest: 11 Epyca/Tarjah
+:Shadow: 18 Winderella/Jin
+:Priest: 24 Treyen
+:Priest: 32 Twit
+:Priest: 36 Syzzurp
+:Priest: 46 Faustuss/Aerod
+
+:Priest: Priest (8):
+:Priest: 3 serzreth
+:Priest: 4 Corleone/Glenc
+:Priest: 12 Kengy
+:Shadow: 16 Tridyn
+:Priest: 24 th3wood
+:Priest: 27 Coolcoco
+:Priest: 49 Maesta
+:Priest: 50 Jotuun
+
+:Priest: Priest (7) :
+:Priest: 1 Bigbobs/Leftni
+:Priest: 4 Sajuk
+:Priest: 15 Corleone/Glenc
+:Priest: 27 Coolcoco
+:Priest: 31 SamPIPriest<Me
+:Priest: 32 th3wood
+:Priest: 38 serzreth
+
+:Priest: Priest (6) :
+:Shadow: 2 Ypoussetu
+:Priest: 18 Quazar
+:Priest: 19 Kara
+:Priest: 21 Tankytano/He
+:Shadow: 23 Eoy
+:Priest: 37 RanchBukkake
+
+:Paladin: Paladin (7):
+:HolyPaladin: 15 Ashley
+:Retri: 21 Totezmagoats
+:HolyPaladin: 33 torontocap
+:Retri: 45 Whipsnchains
+:Retri: 46 Gomes
+:Retri: 48 Porkiie
+:Retri: 56 Trollershama
+
+:Paladin: Paladin (6) :
+:HolyPaladin: 12 otanky/fay
+:Retri: 38 Zantonus/Per
+:HolyPaladin: 49 Wrangell
+:HolyPaladin: 52 Bigbobs/Left
+:HolyPaladin: 56 Guin/Shaydd
+:HolyPaladin: 59 Konst
+
+:Late: Late (1) : :Tank: 57 Qcq,
+:Late: Late (2) : :Hunter: 16 Babadook/Botanist, :Hunter: 33 qip,
+:Bench: Bench (2) : :Hunter: 52 Tyde, :Warlock: 58 Shadowboxx,
+:Bench: Bench (1) : :Retri: 47 Moontotemz,
+:Bench: Bench (1) : :Hunter: 54 VeeVee/Scryugemcduk,
+
+‎:Tentative: Tentative (2) : :Hunter: 42 Flexor(a)/Dedd, :Priest: 45 Dro<Antiquity>,
+:Tentative: Tentative (2) : :Priest: 1 Bigbobs/Leftnipple, :Warrior: 28 Oscarmike,
+:Tentative: Tentative (2) : :Hunter: 12 Flexor(a)/Dedd, :Rogue: 58 Alabashtaur,
+:Tentative: Tentative (2) : :Warrior: 43 Tohroo/Medaka, :Warlock: 55 Zelgadiss,
+:Absence: Absence (6) : 11 Dapqu, 19 Skyhoof/Zuggrok, 40 Twit, 42 Dunklertod, 49 Erroody, 50 Shadysuspect,
+:Absence: Absence (8) : 8 Warriorpet, 17 icedaddy, 24 iive, 26 Mo(Tom/Alpha), 31 Goez, 33 Towbeans, 35 Jezoki, 36 Pipilu,
+:Absence: Absence (2) : 30 Karellia, 44 Mo(Tom/Alpha),
+:Absence: Absence (1) : 29 Karellia,
+:Absence: Absence (7) : 29 Snoyarc, 37 ShadowDreamS, 38 mufasa, 40 Bobjira, 44 Daboongo, 51 Zawmb, 53 Napzilla,
+:Absence: Absence (5) : 16 Jetta, 34 Boomboxie, 42 Snookies, 52 Bobjira, 55 Danzigt,
+:Absence: Absence (8) : 3 Hellohidead, 13 Quix, 15 kakau, 27 Clatrina/Wingsß, 32 Kaldastr, 40 tyrilae, 42 Decoilani, 45 pewpewboom,
+
+‎
