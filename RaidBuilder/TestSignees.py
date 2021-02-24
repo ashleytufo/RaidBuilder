@@ -63,11 +63,50 @@ def ReadFile(roles, file):
                             tempPlayer = tempPlayer.strip()
                             tempPlayer = unidecode.unidecode(tempPlayer)
                             player = tempPlayer
-                            addPlayer = Signee(3, player, wClass, role)
+                            addPlayer = Signee(5, player, wClass, role)
                             
                             addPlayer.showInfo()
-                            print("\n")
+                            # print("\n")
                             Players[player] = role
+        # print(other)
+        # for item in other:
+        #     newItem = item.replace(" : ", ", ")
+        #     newList = newItem.split(', ')
+        #     # print (newList)
+        #     for i in newList:
+        #         for icon in rolesList:
+        #             name = rolesJson[icon]["name"]
+        #             wClass = rolesJson[icon]["class"]
+        #             classSum = icon + " " + name + " ("
+                    
+        #             if classSum in i or len(i) < 1:
+        #                 pass
+        #             else:
+        #                 tempPlayer = str(i)
+        #                 role = rolesJson[icon]["name"]
+        #                 if icon in tempPlayer:
+        #                     tempPlayer = tempPlayer.replace(icon, "")
+        #                     tempPlayer = tempPlayer.replace(" ", "")
+        #                     tempPlayer = tempPlayer.lstrip(digits)
+        #                     tempPlayer = tempPlayer.replace('\t', '')\
+        #                         .replace(u"\u00A0", '')
+        #                     tempPlayer = tempPlayer.strip()
+        #                     tempPlayer = unidecode.unidecode(tempPlayer)
+        #                     player = tempPlayer
+        #                     # addPlayer = Signee(4, player, wClass, role)
+                            
+        #                     # addPlayer.showInfo()
+        #                 else: 
+        #                     tempPlayer = tempPlayer.replace(" ", "").replace(",", "")
+        #                     tempPlayer = tempPlayer.lstrip(digits)
+        #                     tempPlayer = tempPlayer.replace('\t', '')\
+        #                         .replace(u"\u00A0", '')
+        #                     tempPlayer = tempPlayer.strip()
+        #                     tempPlayer = unidecode.unidecode(tempPlayer)
+        #                     player = tempPlayer
+        #                     print(player)
+        #         Players[player] = role
+        #             # print(Players)
 
     tanks = []
     hunters = []
@@ -223,4 +262,4 @@ def ReadFile(roles, file):
     #     print("other has failed!")
     #     print(other)
 
-ReadFile("testData/Roles.json", "testData/Naxx_2-19.txt")
+ReadFile("testData/Roles.json", "testData/AQ40_2-21.txt")

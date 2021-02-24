@@ -24,18 +24,27 @@ class Query:
         self.cursor.execute(command, params)
         self.db.commit()
 
-    def setSignup(self, signup_name, signup_shortcode, raid_dateTime):
-        params = (signup_name, signup_shortcode, raid_dateTime)
+    def setSignup(self, signup_name, signup_shortcode, raid_dateTime,
+                  signup_text):
+        params = (signup_name, signup_shortcode, raid_dateTime, signup_text)
         command = """ INSERT INTO rb_signups (Signup_Name, Name_Shortcode,
-                    Raid_Date_Time) VALUES (?, ?, ?); """
+                    Raid_Date_Time, Signup_Text) VALUES (?, ?, ?, ?); """
         self.cursor.execute(command, params)
         self.db.commit()
 
     def setRoster(self, roster):
         pass
+    def getPlayers(self):
+        command = """ SELECT ID, Discord_Name, RaidLead, Guildie, Buyer, Carry, Favorite, Shitlist from rb_players"""
+        result = self.cursor.execute(command)
+        return result
 
-    def getPlayer(self, player):
-        pass
+    def getPlayer(self, name):
+        command = """ SELECT Discord_Name from rb_players
+                    WHERE Abrv = '{}'; """.format(name)
+
+        result = self.cursor.execute(command).fetchone()
+        return result
 
     def getToon(self, toon):
         pass
@@ -46,7 +55,7 @@ class Query:
             command = """ SELECT Role, Discord_Name, Status FROM rb_signees
                         WHERE Signup_ID = (SELECT ID from rb_signups
                         WHERE Signup_Name = '{}'); """.format(signupName)
-        
+
         result = self.cursor.execute(command)
         return result
 
@@ -59,16 +68,33 @@ class Query:
         elif signupName is not None and signupID is None:
             command = """ SELECT ID from rb_signups
                         WHERE Signup_Name = '{}'; """.format(signupName)
-        
+
         result = self.cursor.execute(command)
         return result
-    
+
+    def getThisSignup(self, signupName):
+        command = """ SELECT ID from rb_signups
+                    WHERE Signup_Name = '{}'; """.format(signupName)
+
+        result = self.cursor.execute(command).fetchone()
+        return result
+
     def getSignupText(self, signupName):
         command = """ SELECT Signup_Text from rb_signups
                     WHERE Signup_Name = '{}'; """.format(signupName)
-        
+
         result = self.cursor.execute(command)
         return result
 
     def getRoster(self, roster):
         pass
+
+    def getRoles(self):
+        command = "SELECT * from rb_roles; "
+        result = self.cursor.execute(command)
+        return result
+
+    def getThisRole(self, icon):
+        command = "SELECT * from rb_roles where IconName = '{}'; ".format(icon)
+        result = self.cursor.execute(command).fetchone()
+        return result
