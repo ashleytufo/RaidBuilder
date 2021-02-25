@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Raid Builder</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons/raidbuilder_icon.png</normaloff>icons/raidbuilder_icon.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(33, 38, 36);</string>
   </property>
@@ -35,13 +39,21 @@ background-color: rgb(46, 48, 62);</string>
     </item>
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="styleSheet">
        <string notr="true">QLabel{color: rgb(145, 153, 190);
 padding: 1px;}
-QGroupBox{color: rgb(145, 153, 190);}</string>
+QGroupBox{color: rgb(145, 153, 190);}
+.tank{
+background-color: rgb(199, 156, 110);}</string>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
+      </property>
+      <property name="tabBarAutoHide">
+       <bool>false</bool>
       </property>
       <widget class="QWidget" name="import_signups_tab">
        <attribute name="title">
@@ -131,6 +143,9 @@ QPlainTextEdit:disabled{;color: rgb(136, 136, 136);}</string>
               </item>
               <item>
                <widget class="QPushButton" name="update_exist_btn">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Update Existing</string>
                 </property>
@@ -139,7 +154,7 @@ QPlainTextEdit:disabled{;color: rgb(136, 136, 136);}</string>
               <item>
                <widget class="QComboBox" name="existing_combo">
                 <property name="enabled">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">background-color: rgb(255, 255, 255);
@@ -348,6 +363,19 @@ padding: 2px;
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QFrame" name="buildRoster_frame">
+          <property name="styleSheet">
+           <string notr="true">QPushButton:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
+QPushButton{background-color: rgb(195, 206, 255);
+color: rgb(46, 48, 62);
+font: 700 10pt &quot;Segoe UI&quot;;}
+QComboBox:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);
+}
+QComboBox{background-color: rgb(255, 255, 255);
+font: 9pt &quot;Segoe UI&quot;;
+padding: 2px;
+}
+QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}</string>
+          </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
@@ -375,8 +403,7 @@ padding: 2px;
                 <property name="styleSheet">
                  <string notr="true">background-color: rgb(255, 255, 255);
 font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-</string>
+padding: 2px;</string>
                 </property>
                 <item>
                  <property name="text">
@@ -999,6 +1026,9 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                  </property>
                  <item>
                   <widget class="QFrame" name="frame_4">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true"/>
                    </property>
@@ -1025,7 +1055,10 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <widget class="QRadioButton" name="radioButton">
+                     <widget class="QRadioButton" name="pre_favs_radbtn">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true">color: rgb(145, 153, 190);
 padding: 1px;</string>
@@ -1036,7 +1069,10 @@ padding: 1px;</string>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="radioButton_2">
+                     <widget class="QRadioButton" name="pre_rost_radbtn">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true">color: rgb(145, 153, 190);
 padding: 1px;</string>
@@ -1047,11 +1083,12 @@ padding: 1px;</string>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="pushButton">
+                     <widget class="QPushButton" name="prefill_roster_btn">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
                       <property name="styleSheet">
-                       <string notr="true">background-color: rgb(195, 206, 255);
-color: rgb(46, 48, 62);
-font: 700 10pt &quot;Segoe UI&quot;;</string>
+                       <string notr="true"/>
                       </property>
                       <property name="text">
                        <string>Prefill</string>
@@ -1062,7 +1099,10 @@ font: 700 10pt &quot;Segoe UI&quot;;</string>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="comboBox">
+                  <widget class="QComboBox" name="roster_combo">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true">background-color: rgb(255, 255, 255);
 font: 9pt &quot;Segoe UI&quot;;
@@ -1096,11 +1136,12 @@ padding: 2px;
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_3">
+               <widget class="QPushButton" name="reset_roster_btn">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(195, 206, 255);
-color: rgb(46, 48, 62);
-font: 700 12pt &quot;Segoe UI&quot;;</string>
+                 <string notr="true"/>
                 </property>
                 <property name="text">
                  <string>Reset</string>
@@ -1108,11 +1149,12 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_4">
+               <widget class="QPushButton" name="save_roster_btn">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(195, 206, 255);
-color: rgb(46, 48, 62);
-font: 700 12pt &quot;Segoe UI&quot;;</string>
+                 <string notr="true"/>
                 </property>
                 <property name="text">
                  <string>Save</string>
@@ -1152,6 +1194,9 @@ QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136
            <enum>QFrame::Raised</enum>
           </property>
           <widget class="QLineEdit" name="search_edit">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1165,6 +1210,9 @@ QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136
            </property>
           </widget>
           <widget class="QPushButton" name="search_btn">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>1060</x>
@@ -1210,6 +1258,9 @@ QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136
            </widget>
           </widget>
           <widget class="QTableWidget" name="players_tbl">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -1228,6 +1279,12 @@ QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136
            </property>
            <property name="frameShadow">
             <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="dragDropOverwriteMode">
+            <bool>false</bool>
            </property>
            <property name="alternatingRowColors">
             <bool>true</bool>
@@ -1342,6 +1399,9 @@ QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136
            </column>
           </widget>
           <widget class="QGroupBox" name="groupBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="geometry">
             <rect>
              <x>686</x>

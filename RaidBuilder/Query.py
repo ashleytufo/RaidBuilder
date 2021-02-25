@@ -1,8 +1,14 @@
 import sqlite3
+import sys
+from os import path
 
+
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', path.dirname(path.abspath(__file__)))
+    return path.join(base_path, relative_path)
 
 class Query:
-    db = sqlite3.connect('raidbuilder.db')
+    db = sqlite3.connect(resource_path('raidbuilder.db'))
     cursor = db.cursor()
 
     def __init__(self, player=None, signee=None, signup=None):
@@ -32,8 +38,14 @@ class Query:
         self.cursor.execute(command, params)
         self.db.commit()
 
-    def setRoster(self, roster):
-        pass
+    def setRoster(self, raid, grp1, grp2, grp3, grp4, grp5, grp6, grp7, grp8, sb1, sb2):
+        params = (raid, grp1, grp2, grp3, grp4, grp5, grp6, grp7, grp8, sb1, sb2)
+        command = """ INSERT INTO rb_rosters (Raid, Group1, Group2, Group3, Group4,
+                    Group5, Group6, Group7, Group8, Standby1, Standby2) VALUES 
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); """
+        self.cursor.execute(command, params)
+        self.db.commit()
+
     def getPlayers(self):
         command = """ SELECT ID, Discord_Name, RaidLead, Guildie, Buyer, Carry, Favorite, Shitlist from rb_players"""
         result = self.cursor.execute(command)
@@ -86,8 +98,12 @@ class Query:
         result = self.cursor.execute(command)
         return result
 
-    def getRoster(self, roster):
-        pass
+    def getRoster(self, raid):
+        command = """ SELECT Group1 from rb_rosters
+                    WHERE Raid = '{}'; """.format(raid)
+
+        result = self.cursor.execute(command).fetchone()
+        return result
 
     def getRoles(self):
         command = "SELECT * from rb_roles; "
