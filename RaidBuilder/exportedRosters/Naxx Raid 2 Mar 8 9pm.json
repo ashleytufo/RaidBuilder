@@ -1,0 +1,87 @@
+{
+    "grp1": {
+        "Darhole": "Tank",
+        "Mink": "Tank",
+        "Olykos": "BearTank",
+        "Havvokk": "RestoShaman",
+        "Dave": "Hunter"
+    },
+    "grp2": {
+        "Warsoldier": "Warrior",
+        "Gombos": "Warrior",
+        "Bettywight/Athole": "Rogue",
+        "Veara": "RestoShaman",
+        "Pinkee/Intheway/Trollme/Five": "Hunter"
+    },
+    "grp3": {
+        "Nighty": "Warrior",
+        "Rageup": "Warrior",
+        "Msx": "Rogue",
+        "Anck": "RestoShaman",
+        "Miistie": "Hunter"
+    },
+    "grp4": {
+        "DPSmeharder": "Warrior",
+        "Melchpumps": "Warrior",
+        "Kanzabear/Kanzaki": "BearTank",
+        "Shhqt": "RestoShaman",
+        "Pattiecake": "Priest"
+    },
+    "grp5": {
+        "Ise": "Mage",
+        "Opra/Sality": "Priest",
+        "Dro<Antiquity>": "Priest",
+        "Treyen": "Priest",
+        "Healisstra": "RestoShaman"
+    },
+    "grp6": {
+        "Venable/Tellah": "Mage",
+        "Kazrik": "Mage",
+        "Roundeye": "Mage",
+        "Durdle": "Mage",
+        "Dangle/Ambr": "Mage"
+    },
+    "grp7": {
+        "Winderella/Jindoramen": "ShadowPriest",
+        "Faustuss/Aerodyn": "Warlock",
+        "Ferk": "Warlock",
+        "Bobjira": "Warlock",
+        "Shadowboxx": "Warlock"
+    },
+    "grp8": {
+        "Zuludelta": "RestoDruid",
+        "Razor/Chibs": "RestoDruid",
+        "Syzzurp": "Priest",
+        "Epyca/Tarjah": "Priest",
+        "Twit": "Priest"
+    },
+    "stdby1": {
+        "Lalge": "Tank",
+        "Shogunate": "Warrior",
+        "torontocap": "Warrior",
+        "Wraithsexual": "Warrior",
+        "Sneakcase": "Rogue",
+        "Leithia": "Rogue",
+        "Flexor(a)/Dedd": "Hunter",
+        "Treezus": "RestoDruid",
+        "Gomes": "EnhShaman",
+        "Aryian": "RestoShaman",
+        "Siyanti/Renecarta": "Mage",
+        "Rageroar": "Mage",
+        "Phuzz": "Warlock",
+        "Dalight": "Priest"
+    },
+    "stdby2": {
+        "Keychainstwo": "Warrior",
+        "Krabmundus": "Warrior",
+        "L+OOk3": "Warrior",
+        "Sehdran": "Hunter",
+        "Bootyshake": "BalanceDruid",
+        "Gallos": "EnhShaman",
+        "Gungars": "RestoShaman",
+        "Sookies": "RestoShaman",
+        "Jesika": "Mage",
+        "Snoyarc": "Warlock",
+        "Hairybearbum": "Warlock"
+    }
+}

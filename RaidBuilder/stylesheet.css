@@ -1,0 +1,219 @@
+/* QMainWindow {
+    background-image: url(icons/RB_Background_test2.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(33, 38, 36);
+}
+
+QDialog {
+    background-color: rgb(46, 48, 62);
+    border-color: rgb(255, 255, 255);
+}
+
+QDialog QLineEdit {
+    background-color: rgb(255, 255, 255);
+    font: 9pt;
+    padding: 2px;
+}
+
+QDialog QLabel {
+    color: rgb(145, 153, 190);
+    background-color: rgb(46, 48, 62);
+    padding: 1px;
+}
+
+QDialog QPushButton {
+    background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.0738636 rgba(108, 114, 142, 255), stop:1 rgba(255, 255, 255, 255));
+    color: pallete(light);
+    border-style: inset;
+    border-width: 2px;
+    padding: 3px;
+    border-radius: 8px;
+    font: 12px;
+    min-width: 2em;
+    min-height: 1.5em;
+}
+
+QDialog QPushButton:hover:pressed {
+    background-color: rgb(145, 153, 190);
+    border-style: inset;
+}
+
+QDialog QPushButton:hover {
+    background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(195, 206, 255, 255), stop:0.676136 rgba(255, 255, 255, 255));
+    border-style: inset;
+} */
+
+QWidget {
+    background-color: rgb(33, 38, 36);
+    font: "Calibri";
+}
+
+QWidget QListView {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QWidget QScrollBar {
+    background-color: rgb(108, 107, 116);
+}
+
+QWidget QComboBox:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}
+
+QWidget QComboBox {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QDateEdit {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QDateEdit:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}
+
+QGroupBox {
+    color: rgb(145, 153, 190);
+}
+
+QLabel {
+    color: rgb(145, 153, 190);
+    padding: 2px;
+    font: 10pt;
+}
+
+QLineEdit {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QLineEdit:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}
+
+QWidget QListWidget {
+    background-color: rgb(33, 38, 36);
+}
+
+QListWidget#saved_rosters_list {
+    border-style: None;
+    color: rgb(195, 206, 255);
+    alternate-background-color: rgb(45, 51, 49);
+}
+
+QListWidget#saved_rosters_list:item:selected:!active {
+    background-color: rgb(92, 137, 160);
+}
+
+QListWidget:item#saved_rosters_list {
+    padding: 5px;
+}
+
+QListWidget#saved_signups_list {
+    border-style: None;
+    color: rgb(195, 206, 255);
+    alternate-background-color: rgb(45, 51, 49);
+}
+
+QListWidget#saved_signups_list:item:selected:!active {
+    background-color: rgb(92, 137, 160);
+}
+
+QListWidget:item#saved_signups_list {
+    padding: 5px;
+}
+
+QPlainTextEdit {
+    background-color: rgb(45, 51, 49);
+    color: rgb(255, 255, 255);
+    font: 9pt;
+    padding: 2px;
+}
+
+QPushButton:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}
+
+QPushButton {
+    background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.0738636 rgba(108, 114, 142, 255), stop:1 rgba(255, 255, 255, 255));
+    color: pallete(light);
+    border-style: inset;
+    border-width: 2px;
+    padding: 2px;
+    border-radius: 8px;
+    font: 12px;
+    min-width: 2em;
+    min-height: 1.5em;
+}
+
+QPushButton:hover:pressed {
+    background-color: rgb(145, 153, 190);
+    border-style: inset;
+}
+
+QPushButton:hover {
+    background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(195, 206, 255, 255), stop:0.676136 rgba(255, 255, 255, 255));
+    border-style: inset;
+}
+
+QRadioButton {
+    color: rgb(145, 153, 190);
+    padding: 1px;
+}
+
+QTabWidget {
+    background-color: rgb(33, 38, 36);
+    color: pallete(light);
+    font: 11pt;
+}
+
+QTabWidget:pane {
+    border: 1px solid lightgray;
+    top: -1px;
+}
+
+QTabBar:tab {
+    background-color: rgb(108, 107, 116);
+    border: 1px solid lightgrey;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+QTabBar:tab:selected {
+    background: rgb(245, 245, 245);
+    margin-bottom: -1px;
+}
+
+QTableWidget {
+    color: rgb(195, 206, 255);
+    alternate-background-color: rgb(45, 51, 49);
+}
+
+QTimeEdit {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QTimeEdit:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}

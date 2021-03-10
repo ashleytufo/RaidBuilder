@@ -12,7 +12,7 @@ CREATE TABLE "rb_players" (
 	"Shitlist"	INTEGER,
 	"Priority"	INTEGER,
 	PRIMARY KEY("ID" AUTOINCREMENT)
-)
+);
 
 CREATE TABLE "rb_roles" (
 	"ID"	INTEGER,
@@ -22,23 +22,16 @@ CREATE TABLE "rb_roles" (
 	"Tag"	TEXT,
 	"IconPNG"	TEXT,
 	PRIMARY KEY("ID" AUTOINCREMENT)
-)
+);
 
 CREATE TABLE "rb_rosters" (
 	"ID"	INTEGER,
+	"Name"	TEXT,
 	"Raid"	TEXT,
-	"Group1"	BLOB,
-	"Group2"	BLOB,
-	"Group3"	BLOB,
-	"Group4"	BLOB,
-	"Group5"	BLOB,
-	"Group6"	BLOB,
-	"Group7"	BLOB,
-	"Group8"	BLOB,
-	"Standby1"	BLOB,
-	"Standby2"	BLOB,
+	"Roster"	BLOB,
+	"CreatedOn"	TEXT,
 	PRIMARY KEY("ID" AUTOINCREMENT)
-)
+);
 
 CREATE TABLE "rb_signees" (
 	"ID"	INTEGER NOT NULL,
@@ -48,7 +41,7 @@ CREATE TABLE "rb_signees" (
 	"Role"	TEXT,
 	"Status"	TEXT,
 	PRIMARY KEY("ID" AUTOINCREMENT)
-)
+);
 
 CREATE TABLE "rb_signups" (
 	"ID"	INTEGER NOT NULL,
@@ -57,4 +50,4 @@ CREATE TABLE "rb_signups" (
 	"Raid_Date_Time"	TEXT NOT NULL,
 	"Signup_Text"	TEXT NOT NULL,
 	PRIMARY KEY("ID" AUTOINCREMENT)
-)
+);

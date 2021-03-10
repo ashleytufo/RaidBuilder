@@ -3,8 +3,13 @@
 """
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtGui import QPixmap
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QTableWidget
+from PyQt5.QtWidgets import (QListWidget, QListWidgetItem,
+                             QTableWidget, QTableWidgetItem, QInputDialog,
+                             QLineEdit, QFrame, QVBoxLayout,
+                             QHBoxLayout, QAbstractItemView,
+                             QFileDialog)
 from PyQt5.QtCore import *
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow
@@ -16,11 +21,13 @@ from PyQt5 import QtGui
 from Query import Query
 from Signups import Signup
 from Rosters import Roster
-# import pickle
+import json
+
 
 def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', path.dirname(path.abspath(__file__)))
     return path.join(base_path, relative_path)
+
 
 class RBWindow(QMainWindow):
 
@@ -28,57 +35,334 @@ class RBWindow(QMainWindow):
         super(RBWindow, self).__init__()
         QMainWindow.__init__(self)
         uic.loadUi(resource_path('main.ui'), self)
+
+        self.saved_rosters_list = QListWidget(self.s_roster_frame)
+        self.saved_rosters_list.setObjectName(u"saved_rosters_list")
+        self.s_roster_grid.addWidget(self.saved_rosters_list, 1, 0, 6, 1)
+        
+        # self.saved_rosters_list.setStyleSheet("QListWidget#saved_rosters_list{border-style: None;\
+        #                                         color: rgb(195, 206, 255);\
+        #                                         alternate-background-color:\
+        #                                             rgb(46, 48, 62);}\
+        #                                         QListWidget:item{\
+        #                                             padding: 5px;}")
+        self.saved_rosters_list.setAlternatingRowColors(True)
+        self.saved_rosters_list.setEditTriggers(QAbstractItemView.\
+                                                NoEditTriggers)
+        self.saved_rosters_list.setWordWrap(True)
+        self.saved_rosters_list.setVisible(False)
+
+        self.saved_signups_list = QListWidget(self.signups_frame)
+        self.saved_signups_list.setObjectName(u"saved_signups_list")
+        self.signups_grid.addWidget(self.saved_signups_list, 1, 0, 3, 1)
+        self.saved_signups_list.setAlternatingRowColors(True)
+        self.saved_signups_list.setEditTriggers(QAbstractItemView.\
+                                                NoEditTriggers)
+        self.saved_signups_list.setWordWrap(True)
+        self.saved_signups_list.setVisible(False)
+
+        self.s_roster_grid.addWidget(self.s_rosterStandby_list_1, 1, 6, 3, 1)
+        self.s_roster_grid.addWidget(self.s_rosterStandby_list_2, 1, 7, 3, 1)
+        self.players_grid.addWidget(self.players_tbl, 1, 0, 4, 2)
+        self.signups_grid.addWidget(self.signup_name_lbl, 0, 2, 1, 3)   
+        self.signups_grid.addWidget(self.signup_name_edit, 1, 2, 1, 3)
+        self.signups_grid.addWidget(self.signup_txt_edit, 2, 2, 1, 6)
+
         self.HandleButtons()
         self.FillLists()
         today = QtCore.QDate.currentDate()
         self.signup_date_edit.setDate(today)
+        self.reset_signup_btn.setVisible(False)
+        self.save_signup_btn.setVisible(False)
+        self.edit_signup_btn.setVisible(False)
+        self.update_existing_btn.setVisible(False)
+        self.roster_combo.setVisible(False)
+        self.prefill_roster_btn.setVisible(False)
+        self.pre_rost_radbtn.setVisible(False)
+        self.pre_favs_radbtn.setVisible(False)
+        self.reset_roster_btn.setVisible(False)
+        self.save_roster_btn.setVisible(False)
+        self.players_tbl.setColumnHidden(9, True)
+        self.players_tbl.setColumnHidden(10, True)
+        self.export_roster_btn.setVisible(False)
+        self.delete_roster_btn.setVisible(False)
+        self.player_info_box.setVisible(False)
+        self.save_player_btn.setVisible(False)
+        self.edit_player_btn.setVisible(False)
+        self.delete_player_btn.setVisible(False)
+        self.add_player_btn.setVisible(False)
+
+        readOnlyStyle = "[readOnly=\"true\"]{color: rgb(136, 136, 136);}"
+
+        self.signup_name_edit.setReadOnly(True)
+        self.signup_date_edit.setReadOnly(True)
+        self.signup_time_edit.setReadOnly(True)
+        self.signup_txt_edit.setReadOnly(True)
+
+        self.signup_name_edit.setStyleSheet(readOnlyStyle)
+        self.signup_date_edit.setStyleSheet(readOnlyStyle)
+        self.signup_time_edit.setStyleSheet(readOnlyStyle)
+        self.signup_txt_edit.setStyleSheet(readOnlyStyle)
+
+        stylesheet = '''
+            QMainWindow {
+                background-image: url(icons/RB_Background.png);
+                background-repeat: no-repeat;
+                background-position: center;
+                background-color: rgb(33, 38, 36);
+                    }
+            QDialog {
+                background-color: rgb(46, 48, 62);
+                border-color: rgb(255, 255, 255);
+            }
+
+            QDialog QLineEdit {
+                background-color: rgb(255, 255, 255);
+                font: 9pt;
+                padding: 2px;
+            }
+
+            QDialog QLabel {
+                color: rgb(145, 153, 190);
+                background-color: rgb(46, 48, 62);
+                padding: 1px;
+            }
+
+            QDialog QPushButton {
+                background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.0738636 rgba(108, 114, 142, 255), stop:1 rgba(255, 255, 255, 255));
+                color: pallete(light);
+                border-style: inset;
+                border-width: 2px;
+                padding: 3px;
+                border-radius: 8px;
+                font: 12px;
+                min-width: 2em;
+                min-height: 1.5em;
+            }
+
+            QDialog QPushButton:hover:pressed {
+                background-color: rgb(145, 153, 190);
+                border-style: inset;
+            }
+
+            QDialog QPushButton:hover {
+                background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(195, 206, 255, 255), stop:0.676136 rgba(255, 255, 255, 255));
+                border-style: inset;
+            }
+            '''
+        self.setStyleSheet(stylesheet)
+
+    def createIcons(self):
+        raidLeadIcon = QPixmap(resource_path(
+                    'icons/raidlead.png')).scaledToHeight(25, 1)
+        guildieIcon = QPixmap(resource_path(
+                    'icons/guildie.png')).scaledToHeight(25, 1)
+        buyerIcon = QPixmap(resource_path(
+                    'icons/buyer.png')).scaledToHeight(25, 1)
+        carryIcon = QPixmap(resource_path(
+                    'icons/carry.png')).scaledToHeight(25, 1)
+        favoriteIcon = QPixmap(resource_path(
+                    'icons/favorite.png')).scaledToHeight(25, 1)
+        shitlistIcon = QPixmap(resource_path(
+                    'icons/shitlist.png')).scaledToHeight(25, 1)
+       
+        r0 = QPixmap(resource_path(
+            "icons/no-stars.png")).scaledToHeight(25, 1)
+        r1 = QPixmap(resource_path(
+            "icons/one-star.png")).scaledToHeight(25, 1)
+        r2 = QPixmap(resource_path(
+            "icons/two-stars.png")).scaledToHeight(25, 1)
+        r3 = QPixmap(resource_path(
+            "icons/three-stars.png")).scaledToHeight(25, 1)
+        r4 = QPixmap(resource_path(
+            "icons/four-stars.png")).scaledToHeight(25, 1)
+        r5 = QPixmap(resource_path(
+            "icons/five-stars.png")).scaledToHeight(25, 1)
+        
+        categoryIcons = [raidLeadIcon, guildieIcon, buyerIcon, 
+                        carryIcon, favoriteIcon, shitlistIcon]
+        ratingIcons = [r0, r1, r2, r3, r4, r5]
+        return categoryIcons, ratingIcons
+
+    def parse_player_tbl(self, data, row_num, row_data, column_num, icons):
+        categoryIcons = icons[0]
+        ratingIcons = icons[1]
+        iconHolder = QtWidgets.QLabel()
+        tblItem = QTableWidgetItem(str(data))
+        tblItem.setTextAlignment(Qt.AlignHCenter)
+        tblItem.setTextAlignment(Qt.AlignVCenter)
+        
+        if column_num == 2:
+            tblItem.setData(Qt.EditRole, data)
+            tblItem.setForeground(QtGui.QColor('#2e303e'))
+            if data:
+                iconHolder = QtWidgets.QLabel()
+                tblItem.setTextAlignment(Qt.AlignCenter)
+                iconHolder.setAlignment(Qt.AlignCenter)
+                # tblItem.setIcon(QtGui.QIcon(
+                #     resource_path('icons/raidlead.png')))
+                iconHolder.setPixmap(categoryIcons[0])
+                self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
+            else:
+                tblItem.setText("")
+                
+        elif column_num == 3:
+            tblItem.setData(Qt.EditRole, data)
+            tblItem.setForeground(QtGui.QColor('#2e303e'))
+            # tblItem.setText("")
+            if data:
+                iconHolder = QtWidgets.QLabel()
+                tblItem.setTextAlignment(Qt.AlignCenter)
+                iconHolder.setAlignment(Qt.AlignCenter)
+                iconHolder.setPixmap(categoryIcons[1])
+                self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
+                # tblItem.setIcon(QtGui.QIcon(
+                #     resource_path('icons/guildie.png')))
+            else:
+                tblItem.setText("")
+        elif column_num == 4:
+            tblItem.setData(Qt.EditRole, data)
+            tblItem.setForeground(QtGui.QColor('#2e303e'))
+            # tblItem.setText("")
+            if data:
+                iconHolder = QtWidgets.QLabel()
+                tblItem.setTextAlignment(Qt.AlignCenter)
+                iconHolder.setAlignment(Qt.AlignCenter)
+                iconHolder.setPixmap(categoryIcons[2])
+                self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
+                # tblItem.setIcon(QtGui.QIcon(
+                #     resource_path('icons/buyer.png')))
+            else:
+                tblItem.setText("")
+        elif column_num == 5:
+            tblItem.setData(Qt.EditRole, data)
+            tblItem.setForeground(QtGui.QColor('#2e303e'))
+            # tblItem.setText("")
+            if data:
+                iconHolder = QtWidgets.QLabel()
+                tblItem.setTextAlignment(Qt.AlignCenter)
+                iconHolder.setAlignment(Qt.AlignCenter)
+                iconHolder.setPixmap(categoryIcons[3])
+                self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
+                # tblItem.setIcon(QtGui.QIcon(
+                #     resource_path('icons/carry.png')))
+            else:
+                tblItem.setText("")
+        elif column_num == 6:
+            tblItem.setData(Qt.EditRole, data)
+            tblItem.setForeground(QtGui.QColor('#2e303e'))
+            # tblItem.setText("")
+            if data:
+                iconHolder = QtWidgets.QLabel()
+                tblItem.setTextAlignment(Qt.AlignCenter)
+                iconHolder.setAlignment(Qt.AlignCenter)
+                iconHolder.setPixmap(categoryIcons[4])
+                self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
+                # tblItem.setIcon(QtGui.QIcon(
+                #     resource_path('icons/favorite.png')))
+            else:
+                tblItem.setText("")
+        elif column_num == 7:
+            tblItem.setData(Qt.EditRole, data)
+            tblItem.setForeground(QtGui.QColor('#2e303e'))
+            # tblItem.setText("")
+            if data:
+                iconHolder = QtWidgets.QLabel()
+                tblItem.setTextAlignment(Qt.AlignCenter)
+                iconHolder.setAlignment(Qt.AlignCenter)
+                iconHolder.setPixmap(categoryIcons[5])
+                self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
+                # tblItem.setIcon(QtGui.QIcon(
+                #     resource_path('icons/shitlist.png')))
+            else:
+                tblItem.setText("")
+        elif column_num == 10:
+            toon = ""
+            toonsJson = json.loads(data)
+            toonList = []
+            if bool(toonsJson):
+                for x in toonsJson:
+                    toonList.append(x)
+            if bool(toonList):
+                toon = " or ".join(toonList)
+
+            tblItem.setText(str(toon))
+
+        self.players_tbl.setItem(row_num, column_num, tblItem)
+        iconHolder.setStyleSheet("QLabel{background-color: rgba(0,0,0,0%);\
+                                padding-left: 5px;\
+                                padding-right: 5px;}")
+        if column_num == 8:
+            tblItem.setText("")
+            tblItem.setData(Qt.EditRole, data)
+            tblItem.setForeground(QtGui.QColor('#2e303e'))
+            rating = QtWidgets.QLabel()
+            rating.setText("")
+            rating.setStyleSheet("QLabel{background-color: rgba(0,0,0,0%);\
+                padding-left: 5px;\
+                padding-right: 5px;}")
+            if data < 2:
+                rating.setPixmap(ratingIcons[0])
+            elif data <= 3:
+                rating.setPixmap(ratingIcons[1])
+            elif data <= 5:
+                rating.setPixmap(ratingIcons[2])
+            elif data <= 7:
+                rating.setPixmap(ratingIcons[3])
+            elif data <= 9:
+                rating.setPixmap(ratingIcons[4])
+            elif data >= 10:
+                rating.setPixmap(ratingIcons[5])
+            self.players_tbl.setCellWidget(row_num, column_num, rating)
 
     def FillLists(self):
         self.signup_cmbo.clear()
-        self.existing_combo.clear()
+        self.saved_signups_list.clear()
+        self.roster_combo.clear()
+        self.saved_rosters_list.clear()
         newQuery = Query()
         signups = newQuery.getSignup()
         resList = []
-        signupL = []
-        existingL = []
         for row_number, row_data in enumerate(signups):
             resList.append(row_data[0])
+
+        for r in reversed(resList):
+            signupsItem = QListWidgetItem(str(r))
+            self.saved_signups_list.addItem(signupsItem)
+
         resList.append('Choose a signup list...')
         self.signup_cmbo.addItems(reversed(resList))
-        self.existing_combo.addItems(reversed(resList))
+
+        newQuery = Query()
+        rosters = newQuery.getRosters()
+        resList = []
+        for row_number, row_data in enumerate(rosters):
+            rosterName = row_data[0]
+            resList.append(rosterName)
+
+        for r in reversed(resList):
+            newQuery = Query()
+            raid = newQuery.getRosterRaid(r)
+            if raid is not None:
+                rosterItem = QListWidgetItem(raid[0])
+                rosterItem.setToolTip(r)
+                self.saved_rosters_list.addItem(rosterItem)
+
+        resList.append('Choose a saved roster...')
+        self.roster_combo.addItems(reversed(resList))
+
         newQuery = Query()
         players = newQuery.getPlayers()
         self.players_tbl.setRowCount(0)
+
+        icons = self.createIcons()
+        
         for row_num, row_data in enumerate(players):
             self.players_tbl.insertRow(row_num)
             for column_num, data in enumerate(row_data):
-                tblItem = QTableWidgetItem(str(data))
-                tblItem.setTextAlignment(Qt.AlignHCenter)
-                tblItem.setTextAlignment(Qt.AlignVCenter)
-                if column_num == 3:
-                    if str(data) == "1":
-                        tblItem.setIcon(QtGui.QIcon(resource_path('icons/guildie.png')))
-                        tblItem.setText("")
-                elif column_num == 4:
-                    if str(data) == "1":
-                        tblItem.setIcon(QtGui.QIcon(resource_path('icons/buyer.png')))
-                        tblItem.setText("")
-                elif column_num == 5:
-                    if str(data) == "1":
-                        tblItem.setIcon(QtGui.QIcon(resource_path('icons/carry.png')))
-                        tblItem.setText("")
-                elif column_num == 6:
-                    if str(data) == "3":
-                        tblItem.setIcon(QtGui.QIcon(resource_path('icons/favorite.png')))
-                        tblItem.setText("")
-                elif column_num == 7:
-                    if str(data) == "-5":
-                        tblItem.setIcon(QtGui.QIcon(resource_path('icons/shitlist.png')))
-                        tblItem.setText("")
+                self.parse_player_tbl(data, row_num, row_data, column_num, icons)
 
-                self.players_tbl.setItem(row_num, column_num, tblItem)
-        header= self.players_tbl.horizontalHeader()
-        self.search_btn.setText(u"\U0001F50D")
+        header = self.players_tbl.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
@@ -87,111 +371,102 @@ class RBWindow(QMainWindow):
         header.setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(7, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(8, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(8, QtWidgets.QHeaderView.Stretch)
+
+        header= self.toons_tbl.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
 
     def HandleButtons(self):
         self.load_btn.clicked.connect(self.GET_DATA)
+
         self.create_new_btn.clicked.connect(self.CREATE_NEW)
-        self.update_exist_btn.clicked.connect(self.UPDATE_EXISTING)
+        self.edit_signup_btn.clicked.connect(self.EDIT_SIGNUP)
+        self.update_existing_btn.clicked.connect(self.UPDATE_EXISTING)
         self.reset_signup_btn.clicked.connect(self.RESET_SIGNUP)
         self.save_signup_btn.clicked.connect(self.SAVE_SIGNUP)
-        # self.save_roster_btn.clicked.connect(self.SAVE_ROSTER)
-        # self.prefill_roster_btn.clicked.connect(self.PREFILL_ROSTER)
 
-    def CREATE_NEW(self):
-        self.create_new_btn.setDisabled(True)
-        # self.update_exist_btn.setDisabled(True)
+        self.save_roster_btn.clicked.connect(self.SAVE_ROSTER)
+        self.prefill_roster_btn.clicked.connect(self.PREFILL_ROSTER)
 
-        # self.existing_combo.setDisabled(True)
-        # self.existing_combo.setCurrentIndex(0)
+        self.search_edit.returnPressed.connect(self.SEARCH_PLAYERS)
+        self.search_btn.clicked.connect(self.SEARCH_PLAYERS)
+        self.players_tbl.itemClicked.connect(self.PLAYER_INFO)
+        self.save_player_btn.clicked.connect(self.SAVE_PLAYER)
+        self.edit_player_btn.clicked.connect(self.EDIT_PLAYER)
+        self.delete_player_btn.clicked.connect(self.DELETE_PLAYER)
 
-        self.signup_name_edit.setEnabled(True)
-        self.signup_date_edit.setEnabled(True)
-        self.signup_time_edit.setEnabled(True)
+        self.reset_roster_btn.clicked.connect(self.RESET_ROSTER)
+        self.saved_rosters_btn.clicked.connect(self.OPEN_CLOSE_R_LIST)
+        self.saved_rosters_list.itemClicked.connect(self.ROSTER_INFO)
 
-        self.signup_txt_edit.setEnabled(True)
+        self.saved_signups_btn.clicked.connect(self.OPEN_CLOSE_S_LIST)
+        self.saved_signups_list.itemClicked.connect(self.SIGNUP_INFO)
 
-        self.reset_signup_btn.setEnabled(True)
-        self.save_signup_btn.setEnabled(True)
+        self.delete_roster_btn.clicked.connect(self.DELETE_ROSTER)
+        self.export_roster_btn.clicked.connect(self.EXPORT_ROSTER)
+        self.import_roster_btn.clicked.connect(self.IMPORT_ROSTER)
 
-    def UPDATE_EXISTING(self):
-        slctSignup = self.existing_combo.currentText()
-        if slctSignup == 'Choose an existing signup...':
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Critical)
-            msg.setText("Signup not found")
-            msg.setInformativeText("Looks like you didn't select a signup name from the dropdown")
-            msg.setWindowTitle("Oops!")
-            msg.exec_()
-        else:
-            self.create_new_btn.setDisabled(True)
-            # self.update_exist_btn.setDisabled(True)
+        self.rosterGrp_list_1.clicked.connect(self.FIX_COLOR)
+        self.rosterGrp_list_2.clicked.connect(self.FIX_COLOR)
+        self.rosterGrp_list_3.clicked.connect(self.FIX_COLOR)
+        self.rosterGrp_list_4.clicked.connect(self.FIX_COLOR)
+        self.rosterGrp_list_5.clicked.connect(self.FIX_COLOR)
+        self.rosterGrp_list_6.clicked.connect(self.FIX_COLOR)
+        self.rosterGrp_list_7.clicked.connect(self.FIX_COLOR)
+        self.rosterGrp_list_8.clicked.connect(self.FIX_COLOR)
+        self.rosterStandby_list_1.clicked.connect(self.FIX_COLOR)
+        self.rosterStandby_list_2.clicked.connect(self.FIX_COLOR)
 
-            # self.existing_combo.setDisabled(True)
+    def ADD_PLAYER(self):
+        # TODO: Add ADD PLAYER functionality
+        pass
 
-            self.signup_name_edit.setDisabled(True)
-            self.signup_date_edit.setEnabled(True)
-            self.signup_time_edit.setEnabled(True)
+    def SAVE_PLAYER(self):
+        # TODO: Add SAVE PLAYER functionality
+        pass
 
-            self.signup_txt_edit.setEnabled(True)
+    def EDIT_PLAYER(self):
+        # TODO: Add EDIT PLAYER functionality
+        pass
 
-            self.reset_signup_btn.setEnabled(True)
-            self.save_signup_btn.setEnabled(True)
+    def DELETE_PLAYER(self):
+        # TODO: Add DELETE PLAYER functionality
+        pass
 
-            newQuery = Query()
-            result = newQuery.getSignupText(slctSignup)
-            if result is None:
-                pass
-            for row_number, row_data in enumerate(result):
-                row_data = str(row_data).replace("('", "").replace("',)", "")\
-                                .replace("\\u200e", "").replace("\\n", "\n")\
-                                    .replace("\\r", "")
-                rowList = row_data.split("\n")
-                for item in rowList:
-                    self.signup_txt_edit.appendPlainText(item)
+    def FIX_COLOR(self):
+        self.rosterGrp_list_1.clearSelection()
+        self.rosterGrp_list_2.clearSelection()
+        self.rosterGrp_list_3.clearSelection()
+        self.rosterGrp_list_4.clearSelection()
+        self.rosterGrp_list_5.clearSelection()
+        self.rosterGrp_list_6.clearSelection()
+        self.rosterGrp_list_7.clearSelection()
+        self.rosterGrp_list_8.clearSelection()
+        self.rosterStandby_list_1.clearSelection()
+        self.rosterStandby_list_2.clearSelection()
 
-    def RESET_SIGNUP(self):
-        self.create_new_btn.setEnabled(True)
-        # self.update_exist_btn.setEnabled(True)
+    def DELETE_ROSTER(self):
+        # TODO: Add DELETE ROSTER functionality
+        pass
 
-        # self.existing_combo.setEnabled(True)
-        # self.existing_combo.setCurrentIndex(0)
+    def EXPORT_ROSTER(self):
+        slctRoster = self.saved_rosters_list.currentItem().toolTip()
+        shortName = self.saved_rosters_list.currentItem().text()
+        exportFolder = "exportedRosters/{}".format(shortName)
+        name = resource_path(exportFolder)
+        try:
+            saveAs = QFileDialog.getSaveFileName(self, "Save Roster", name, "JSON Files (*.json)")[0]
+            if len(saveAs.strip()) > 0 and path.exists(saveAs):
+                newQuery = Query()
+                roster = newQuery.getRoster(slctRoster)
+                rosterDict = json.loads(roster[0])
+                rosterJson = json.dumps(rosterDict, indent=4)
+                with open(saveAs, 'w') as jFile:
+                    jFile.write(rosterJson)
+            else:
+                return
 
-        self.signup_name_edit.setDisabled(True)
-        self.signup_name_edit.clear()
-
-        
-        today = QtCore.QDate.currentDate()
-        self.signup_date_edit.setDate(today)
-
-        self.signup_time_edit.setDisabled(True)
-        self.signup_time_edit.setTime(QtCore.QTime(21, 00, 00))
-
-        self.signup_txt_edit.setDisabled(True)
-        self.signup_txt_edit.clear()
-
-        self.reset_signup_btn.setDisabled(True)
-        self.save_signup_btn.setDisabled(True)
-
-    def SAVE_SIGNUP(self):
-        try: 
-            name = self.signup_name_edit.text()
-            s_date = self.signup_date_edit.date()
-            s_time = self.signup_time_edit.time()
-            text = self.signup_txt_edit.toPlainText()
-            
-            if len(name) < 1:
-                raise Exception("Signup not named")
-            self.signup_name_edit.setDisabled(True)
-            self.signup_date_edit.setDisabled(True)
-            self.signup_time_edit.setDisabled(True)
-            self.signup_txt_edit.setDisabled(True)
-            self.reset_signup_btn.setDisabled(True)
-            self.save_signup_btn.setDisabled(True)
-
-            newSignup = Signup(name, s_date, s_time, text)
-            self.FillLists()
-            self.RESET_SIGNUP()
         except Exception as error:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
@@ -200,100 +475,794 @@ class RBWindow(QMainWindow):
             msg.setInformativeText(errMsg)
             msg.setWindowTitle("Oops!")
             msg.exec_()
+
+    def IMPORT_ROSTER(self):
+        saveAs = QInputDialog()
+        rosterName, ok = saveAs.getText(self, 'Input Dialog',
+                                        'Save roster as:',
+                                        QLineEdit.Normal)
+        try:
+            if ok and len(rosterName.strip()) > 0:
+                fname = QFileDialog.getOpenFileName(self, 'Import Roster', 'c:\\',"JSON Files (*.json)")[0]
+                if len(fname.strip()) > 0:
+                    with open(fname, 'r') as jFile:
+                        data = jFile.read()
+                        newRoster = Roster(rosterName, data)
+                    self.FillLists()
+                    rosterName = newRoster.getName()
+                    raidName = newRoster.getRaid()
+                    for x in range(self.saved_rosters_list.count()):
+                        raid = self.saved_rosters_list.item(x).text()
+                        name = self.saved_rosters_list.item(x).toolTip()
+                        if raid == raidName and name == rosterName:
+                            self.saved_rosters_list.setCurrentRow(x)
+                            self.ROSTER_INFO()
+            else:
+                return
+
+        except Exception as error:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            msg.setInformativeText(errMsg)
+            msg.setWindowTitle("Oops!")
+            msg.exec_()
+
+    def PLAYER_INFO(self):
+        self.player_info_box.setVisible(True)
+        self.disc_name_edit.setText("")
+        self.aliases_edit.setText("")
+        self.raid_lead_combo.setCurrentIndex(0)
+        self.guildie_combo.setCurrentIndex(0)
+        self.buyer_combo.setCurrentIndex(0)
+        self.carry_combo.setCurrentIndex(0)
+        self.fav_combo.setCurrentIndex(0)
+        self.shitlist_combo.setCurrentIndex(0)
+        self.toons_tbl.setRowCount(0)
+
+        item = self.players_tbl.currentRow()
+        p_id = self.players_tbl.item(item, 0).text()
+        newQuery = Query()
+        result = newQuery.getSelectedPlayersInfo(p_id)
+
+        p_name = self.players_tbl.item(item, 1).text()
+        p_alias = result[0]
+        p_rl = int(result[1])
+        p_gld = int(result[2])
+        p_buy = int(result[3])
+        p_carry = int(result[4])
+        p_fav = int(result[5])
+        p_shit = int(result[6])
+
+        self.disc_name_edit.setText(p_name)
+        self.aliases_edit.setText(p_alias)
+        if p_rl:
+            self.raid_lead_combo.setCurrentIndex(1)
+        if p_gld:
+            self.guildie_combo.setCurrentIndex(1)
+        if p_buy:
+            self.buyer_combo.setCurrentIndex(1)
+        if p_carry:
+            self.carry_combo.setCurrentIndex(1)
+        if p_fav:
+            self.fav_combo.setCurrentIndex(1)
+        if p_shit:
+            self.fav_combo.setCurrentIndex(0)
+            self.shitlist_combo.setCurrentIndex(1)
+
+        newQuery = Query()
+        result = newQuery.getSelectedPlayersToons(p_id)
+        if result[0] is not None:
+            toonList = json.loads(result[0])
+        else:
+            toonList = {}
+        for row, toon in enumerate(toonList):
+            self.toons_tbl.insertRow(row)
+            name = toon
+            wClass = toonList[toon]
+            tblItem_name = QTableWidgetItem(str(name))
+            tblItem_wClass = QTableWidgetItem(str(wClass))
+            self.toons_tbl.setItem(row, 0, tblItem_name)
+            self.toons_tbl.setItem(row, 1, tblItem_wClass)
+
+        header = self.toons_tbl.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+
+    def SEARCH_PLAYERS(self):
+        searchText = self.search_edit.text().strip()
+        items = self.players_tbl.findItems(searchText, Qt.MatchContains)
+        for i in range(self.players_tbl.rowCount()):
+            self.players_tbl.hideRow(i)
+        
+        for i in range(len(items)):
+            self.players_tbl.showRow(items[i].row())
+        
+        # icons = self.createIcons()
+        # if len(searchText) < 1:
+        #     newQuery = Query()
+        #     results = newQuery.getPlayers()
+        #     if results is not None:
+        #         self.players_tbl.setRowCount(0)
+        #         for row_num, row_data in enumerate(results):
+        #             self.players_tbl.insertRow(row_num)
+        #             for column_num, data in enumerate(row_data):
+        #                 self.parse_player_tbl(data, row_num, row_data,
+        #                                     column_num, icons)
+        # elif len(searchText) > 1:
+        #     newQuery = Query()
+        #     results = newQuery.getSearchedPlayers(searchText)
+
+        #     if results is not None:
+        #         self.players_tbl.setRowCount(0)
+        #         for row_num, row_data in enumerate(results):
+        #             self.players_tbl.insertRow(row_num)
+        #             for column_num, data in enumerate(row_data):
+        #                 self.parse_player_tbl(data, row_num, row_data,
+        #                                     column_num, icons)
+        # else:
+        #     pass
+        header= self.players_tbl.horizontalHeader()
+        header.setSectionResizeMode(0,
+                                    QtWidgets.QHeaderView.ResizeToContents)
+        # header.setSectionResizeMode(1,
+        #                             QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(2,
+                                    QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(3,
+                                    QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(4,
+                                    QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(5,
+                                    QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(6,
+                                    QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(7,
+                                    QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(8,
+                                    QtWidgets.QHeaderView.Stretch)
+
+    def ROSTER_INFO(self):
+        self.s_rosterGrp_list_1.clear()
+        self.s_rosterGrp_list_2.clear()
+        self.s_rosterGrp_list_3.clear()
+        self.s_rosterGrp_list_4.clear()
+        self.s_rosterGrp_list_5.clear()
+        self.s_rosterGrp_list_6.clear()
+        self.s_rosterGrp_list_7.clear()
+        self.s_rosterGrp_list_8.clear()
+        self.s_rosterStandby_list_1.clear()
+        self.s_rosterStandby_list_2.clear()
+        self.export_roster_btn.setVisible(True)
+        slctRoster = self.saved_rosters_list.currentItem().toolTip()
+        newQuery = Query()
+        roster = newQuery.getRoster(slctRoster)
+        rosterDict = json.loads(roster[0])
+        grp1 = rosterDict["grp1"]
+        for item in grp1:
+            signee = QListWidgetItem(item)
+            role = grp1[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterGrp_list_1.addItem(coloredSignee)
+
+        grp2 = rosterDict["grp2"]
+        for item in grp2:
+            signee = QListWidgetItem(item)
+            role = grp2[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterGrp_list_2.addItem(coloredSignee)
+
+        grp3 = rosterDict["grp3"]
+        for item in grp3:
+            signee = QListWidgetItem(item)
+            role = grp3[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterGrp_list_3.addItem(coloredSignee)
+
+        grp4 = rosterDict["grp4"]
+        for item in grp4:
+            signee = QListWidgetItem(item)
+            role = grp4[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterGrp_list_4.addItem(coloredSignee)
+
+        grp5 = rosterDict["grp5"]
+        for item in grp5:
+            signee = QListWidgetItem(item)
+            role = grp5[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterGrp_list_5.addItem(coloredSignee)
+
+        grp6 = rosterDict["grp6"]
+        for item in grp6:
+            signee = QListWidgetItem(item)
+            role = grp6[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterGrp_list_6.addItem(coloredSignee)
+
+        grp7 = rosterDict["grp7"]
+        for item in grp7:
+            signee = QListWidgetItem(item)
+            role = grp7[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterGrp_list_7.addItem(coloredSignee)
+
+        grp8 = rosterDict["grp8"]
+        for item in grp8:
+            signee = QListWidgetItem(item)
+            role = grp8[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterGrp_list_8.addItem(coloredSignee)
+
+        stdby1 = rosterDict["stdby1"]
+        for item in stdby1:
+            signee = QListWidgetItem(item)
+            role = stdby1[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterStandby_list_1.addItem(coloredSignee)
+
+        stdby2 = rosterDict["stdby2"]
+        for item in stdby2:
+            signee = QListWidgetItem(item)
+            role = stdby2[item]
+            coloredSignee = self.colorMe(role, signee)
+            self.s_rosterStandby_list_2.addItem(coloredSignee)
+
+    def OPEN_CLOSE_R_LIST(self):
+        if self.saved_rosters_btn.isChecked():
+            self.saved_rosters_list.setVisible(True)
+        else:
+            self.saved_rosters_list.setVisible(False)
+
+    def OPEN_CLOSE_S_LIST(self):
+        if self.saved_signups_btn.isChecked():
+            self.saved_signups_list.setVisible(True)
+        else:
+            self.saved_signups_list.setVisible(False)
+
+    def CREATE_NEW(self):
+        self.signup_name_edit.clear()
+        self.signup_txt_edit.clear()
+        today = QtCore.QDate.currentDate()
+        self.signup_date_edit.setDate(today)
+
+        notReadOnlyStyleO = "[readOnly=\"false\"]{color: rgb(0, 0, 0);}"
+        notReadOnlyStylePt = "[readOnly=\"false\"]{color: rgb(255, 255, 255);}"
+        self.signup_name_edit.setReadOnly(False)
+        self.signup_date_edit.setReadOnly(False)
+        self.signup_time_edit.setReadOnly(False)
+        self.signup_txt_edit.setReadOnly(False)
+
+        self.signup_name_edit.setStyleSheet(notReadOnlyStyleO)
+        self.signup_date_edit.setStyleSheet(notReadOnlyStyleO)
+        self.signup_time_edit.setStyleSheet(notReadOnlyStyleO)
+        self.signup_txt_edit.setStyleSheet(notReadOnlyStylePt)
+
+        self.reset_signup_btn.setVisible(True)
+        self.save_signup_btn.setVisible(True)
+        self.edit_signup_btn.setVisible(False)
+        self.update_existing_btn.setVisible(False)
+
+    def SIGNUP_INFO(self):
+        self.signup_name_edit.clear()
+        readOnlyStyle = "[readOnly=\"true\"]{color: rgb(136, 136, 136);}"
+
+        self.signup_name_edit.setReadOnly(True)
+        self.signup_date_edit.setReadOnly(True)
+        self.signup_time_edit.setReadOnly(True)
+        self.signup_txt_edit.setReadOnly(True)
+
+        self.signup_name_edit.setStyleSheet(readOnlyStyle)
+        self.signup_date_edit.setStyleSheet(readOnlyStyle)
+        self.signup_time_edit.setStyleSheet(readOnlyStyle)
+        self.signup_txt_edit.setStyleSheet(readOnlyStyle)
+
+        self.reset_signup_btn.setVisible(True)
+        self.save_signup_btn.setVisible(False)
+        self.edit_signup_btn.setVisible(True)
+        self.update_existing_btn.setVisible(False)
+
+        self.signup_txt_edit.clear()
+        today = QtCore.QDate.currentDate()
+        self.signup_date_edit.setDate(today)
+        
+        slctSignup = self.saved_signups_list.currentItem().text()
+        self.signup_name_edit.setText(slctSignup)
+        newQuery = Query()
+        result = newQuery.getSignupText(slctSignup)
+        if result is not None:
+            for row_number, row_data in enumerate(result):
+                row_data = str(row_data).replace("('", "").replace("',)", "")\
+                                .replace("\\u200e", "").replace("\\n", "\n")\
+                                .replace("\\r", "")
+                rowList = row_data.split("\n")
+                for item in rowList:
+                    self.signup_txt_edit.appendPlainText(item)
+
+    def EDIT_SIGNUP(self):
+        notReadOnlyStyleO = "[readOnly=\"false\"]{color: rgb(0, 0, 0);}"
+        notReadOnlyStylePt = "[readOnly=\"false\"]{color: rgb(255, 255, 255);}"
+        self.signup_name_edit.setReadOnly(False)
+        self.signup_date_edit.setReadOnly(False)
+        self.signup_time_edit.setReadOnly(False)
+        self.signup_txt_edit.setReadOnly(False)
+
+        self.signup_name_edit.setStyleSheet(notReadOnlyStyleO)
+        self.signup_date_edit.setStyleSheet(notReadOnlyStyleO)
+        self.signup_time_edit.setStyleSheet(notReadOnlyStyleO)
+        self.signup_txt_edit.setStyleSheet(notReadOnlyStylePt)
+
+        self.reset_signup_btn.setVisible(True)
+        self.save_signup_btn.setVisible(False)
+        self.edit_signup_btn.setVisible(False)
+        self.update_existing_btn.setVisible(True)
+
+    def UPDATE_EXISTING(self):
+        try:
+            slctSignup = self.saved_signups_list.currentItem().text()
+            newQuery = Query()
+            ex_signup_id = newQuery.getThisSignup(slctSignup)
+            if ex_signup_id is not None:
+                newName = self.signup_name_edit.text()
+                s_date = self.signup_date_edit.date()
+                s_time = self.signup_time_edit.time()
+                text = self.signup_txt_edit.toPlainText()
+
+                if len(newName) < 1:
+                    raise Exception("Signup not named.")
+                elif len(text) < 1:
+                    raise Exception("Signups are empty. Please paste the signups from discord into the text edit field.")
+
+                signupID = ex_signup_id[0]
+                deleteSignees = Query()
+                deleteSignees.deleteAllSignees(signupID)
+                updateSignup = Signup(newName, s_date, s_time, text, signupID)
+
+                self.FillLists()
+                self.RESET_SIGNUP()
+                readOnlyStyle = "[readOnly=\"true\"]{color: rgb(136, 136, 136);}"
+
+                self.signup_name_edit.setReadOnly(True)
+                self.signup_date_edit.setReadOnly(True)
+                self.signup_time_edit.setReadOnly(True)
+                self.signup_txt_edit.setReadOnly(True)
+
+                self.signup_name_edit.setStyleSheet(readOnlyStyle)
+                self.signup_date_edit.setStyleSheet(readOnlyStyle)
+                self.signup_time_edit.setStyleSheet(readOnlyStyle)
+                self.signup_txt_edit.setStyleSheet(readOnlyStyle)
+
+                self.reset_signup_btn.setVisible(False)
+                self.save_signup_btn.setVisible(False)
+                self.edit_signup_btn.setVisible(False)
+                self.update_existing_btn.setVisible(False)
+
+        except Exception as error:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            msg.setInformativeText(errMsg)
+            msg.setWindowTitle("Oops!")
+            msg.exec_()
+
+    def RESET_SIGNUP(self):
+        readOnlyStyle = "[readOnly=\"true\"]{color: rgb(136, 136, 136);}"
+        self.signup_name_edit.setReadOnly(True)
+        self.signup_date_edit.setReadOnly(True)
+        self.signup_time_edit.setReadOnly(True)
+        self.signup_txt_edit.setReadOnly(True)
+
+        self.signup_name_edit.setStyleSheet(readOnlyStyle)
+        self.signup_date_edit.setStyleSheet(readOnlyStyle)
+        self.signup_time_edit.setStyleSheet(readOnlyStyle)
+        self.signup_txt_edit.setStyleSheet(readOnlyStyle)
+
+        self.reset_signup_btn.setVisible(False)
+        self.save_signup_btn.setVisible(False)
+        self.edit_signup_btn.setVisible(False)
+        self.update_existing_btn.setVisible(False)
+
+        self.signup_name_edit.clear()
+        today = QtCore.QDate.currentDate()
+        self.signup_date_edit.setDate(today)
+        self.signup_time_edit.setTime(QtCore.QTime(21, 00, 00))
+        self.signup_txt_edit.clear()
+
+    def RESET_ROSTER(self):
+        self.roster_combo.setVisible(False)
+        self.prefill_roster_btn.setVisible(False)
+        self.roster_combo.setDisabled(True)
+        self.prefill_roster_btn.setDisabled(True)
+        # self.pre_rost_radbtn.setVisible(True)
+        # self.pre_favs_radbtn.setVisible(True)
+        self.reset_roster_btn.setVisible(False)
+        self.save_roster_btn.setVisible(False)
+
+        self.signup_list_absent.clear()
+        self.signup_list_bench.clear()
+        self.signup_list_druids.clear()
+        self.signup_list_hunters.clear()
+        self.signup_list_late.clear()
+        self.signup_list_mages.clear()
+        self.signup_list_other.clear()
+        self.signup_list_priests.clear()
+        self.signup_list_rogues.clear()
+        self.signup_list_shamans.clear()
+        self.signup_list_tanks.clear()
+        self.signup_list_tentative.clear()
+        self.signup_list_warlocks.clear()
+        self.signup_list_warriors.clear()
+        self.rosterGrp_list_1.clear()
+        self.rosterGrp_list_2.clear()
+        self.rosterGrp_list_3.clear()
+        self.rosterGrp_list_4.clear()
+        self.rosterGrp_list_5.clear()
+        self.rosterGrp_list_6.clear()
+        self.rosterGrp_list_7.clear()
+        self.rosterGrp_list_8.clear()
+        self.rosterStandby_list_1.clear()
+        self.rosterStandby_list_2.clear()
+
+    def SAVE_SIGNUP(self):
+        try:
+            name = self.signup_name_edit.text()
+            s_date = self.signup_date_edit.date()
+            s_time = self.signup_time_edit.time()
+            text = self.signup_txt_edit.toPlainText()
+
+            if len(name) < 1:
+                raise Exception("Signup not named.")
+            elif len(text) < 1:
+                raise Exception("Signups are empty. Please paste the signups from discord into the text edit field.")
+
+            newSignup = Signup(name, s_date, s_time, text)
+            self.FillLists()
+            self.RESET_SIGNUP()
+            readOnlyStyle = "[readOnly=\"true\"]{color: rgb(136, 136, 136);}"
+            self.signup_name_edit.setReadOnly(True)
+            self.signup_date_edit.setReadOnly(True)
+            self.signup_time_edit.setReadOnly(True)
+            self.signup_txt_edit.setReadOnly(True)
             
+            self.signup_name_edit.setStyleSheet(readOnlyStyle)
+            self.signup_date_edit.setStyleSheet(readOnlyStyle)
+            self.signup_time_edit.setStyleSheet(readOnlyStyle)
+            self.signup_txt_edit.setStyleSheet(readOnlyStyle)
 
-    # def convertToBinaryData(filename):
-    #     #Convert digital data to binary format
-    #     with open(filename, 'rb') as file:
-    #         blobData = file.read()
-    #     return blobData
+            self.reset_signup_btn.setVisible(False)
+            self.save_signup_btn.setVisible(False)
+            self.edit_signup_btn.setVisible(False)
+            self.update_existing_btn.setVisible(False)
+    
+        except Exception as error:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            msg.setInformativeText(errMsg)
+            msg.setWindowTitle("Oops!")
+            msg.exec_()
 
-    # def insertBLOB(empId, name, photo, resumeFile):
-    #     try:
-    #         sqliteConnection = sqlite3.connect('SQLite_Python.db')
-    #         cursor = sqliteConnection.cursor()
-    #         print("Connected to SQLite")
-    #         sqlite_insert_blob_query = """ INSERT INTO new_employee
-    #                                 (id, name, photo, resume) VALUES (?, ?, ?, ?)"""
+    def SAVE_ROSTER(self):
+        slctSignup = self.signup_cmbo.currentText()
+        saveAs = QInputDialog()
+        rosterName, ok = saveAs.getText(self, 'Input Dialog',
+                                        'Save roster as:',
+                                        QLineEdit.Normal, slctSignup)
 
-    #         empPhoto = convertToBinaryData(photo)
-    #         resume = convertToBinaryData(resumeFile)
-    #         # Convert data into tuple format
-    #         data_tuple = (empId, name, empPhoto, resume)
-    #         cursor.execute(sqlite_insert_blob_query, data_tuple)
-    #         sqliteConnection.commit()
-    #         print("Image and file inserted successfully as a BLOB into a table")
-    #         cursor.close()
+        if ok:
+            self.roster_combo.setVisible(False)
+            self.prefill_roster_btn.setVisible(False)
+            self.pre_rost_radbtn.setVisible(False)
+            self.pre_favs_radbtn.setVisible(False)
+            self.reset_roster_btn.setVisible(True)
+            self.save_roster_btn.setVisible(True)
+            grp1Dict = {}
+            grp1 = self.rosterGrp_list_1
+            for x in range(grp1.count()):
+                tagrole = grp1.item(x).data(QtCore.Qt.UserRole)
+                name = grp1.item(x).text()
+                grp1Dict[name] = str(tagrole)
 
-    #     except sqlite3.Error as error:
-    #         print("Failed to insert blob data into sqlite table", error)
-    #     finally:
-    #         if (sqliteConnection):
-    #             sqliteConnection.close()
-    #             print("the sqlite connection is closed")
+            grp2Dict = {}
+            grp2 = self.rosterGrp_list_2
+            for x in range(grp2.count()):
+                tagrole = grp2.item(x).data(QtCore.Qt.UserRole)
+                name = grp2.item(x).text()
+                grp2Dict[name] = str(tagrole)
 
-    # def SAVE_ROSTER(self):
-    #     grp1 = self.rosterGrp_list_1
-    #     for x in range(self.rosterGrp_list_1.count()-1):
-    #         # obj = pickle.dumps(self.rosterGrp_list_1.item(x))
-    #         tagrole = self.rosterGrp_list_1.item(x).background().color().name(0)
-    #         print(tagrole)
-    #         # iconrole = self.rosterGrp_list_1.item(x).icon()
-    #         new = [tagrole]
-    #         grp1.append(new)
-    #     grp2 = []
-    #     # for x in range(self.rosterGrp_list_2.count()-1):
-    #     #     grp2.append(self.rosterGrp_list_2.item(x))
-    #     grp3 = []
-    #     # for x in range(self.rosterGrp_list_3.count()-1):
-    #     #     grp3.append(self.rosterGrp_list_3.item(x))
-    #     grp4 = []
-    #     # for x in range(self.rosterGrp_list_4.count()-1):
-    #     #     grp4.append(self.rosterGrp_list_4.item(x))
-    #     grp5 = []
-    #     # for x in range(self.rosterGrp_list_5.count()-1):
-    #     #     grp5.append(self.rosterGrp_list_5.item(x))
-    #     grp6 = []
-    #     # for x in range(self.rosterGrp_list_6.count()-1):
-    #     #     grp6.append(self.rosterGrp_list_6.item(x))
-    #     grp7 = []
-    #     # for x in range(self.rosterGrp_list_7.count()-1):
-    #     #     grp7.append(self.rosterGrp_list_7.item(x))
-    #     grp8 = []
-    #     # for x in range(self.rosterGrp_list_8.count()-1):
-    #     #     grp8.append(self.rosterGrp_list_8.item(x))
-    #     sb1 = []
-    #     # for x in range(self.rosterStandby_list_1.count()-1):
-    #     #     grp8.append(self.rosterStandby_list_1.item(x))
-    #     sb2 = []
-    #     # for x in range(self.rosterStandby_list_2.count()-1):
-    #     #     grp8.append(self.rosterStandby_list_2.item(x))
-    #     newRoster = Roster("Raid Test", grp1, grp2, grp3, grp4,
-    #                        grp5, grp6, grp7, grp8, sb1, sb2)
+            grp3Dict = {}
+            grp3 = self.rosterGrp_list_3
+            for x in range(grp3.count()):
+                tagrole = grp3.item(x).data(QtCore.Qt.UserRole)
+                name = grp3.item(x).text()
+                grp3Dict[name] = str(tagrole)
 
-    #     self.FillLists()
-    #     self.RESET_SIGNUP()
+            grp4Dict = {}
+            grp4 = self.rosterGrp_list_4
+            for x in range(grp4.count()):
+                tagrole = grp4.item(x).data(QtCore.Qt.UserRole)
+                name = grp4.item(x).text()
+                grp4Dict[name] = str(tagrole)
 
-    # def PREFILL_ROSTER(self):
-    #     newQuery = Query()
-    #     g1 = newQuery.getRoster("Raid Test")
-    #     for item in g1[0]:
-    #         self.rosterGrp_list_1.addItem(item)
+            grp5Dict = {}
+            grp5 = self.rosterGrp_list_5
+            for x in range(grp5.count()):
+                tagrole = grp5.item(x).data(QtCore.Qt.UserRole)
+                name = grp5.item(x).text()
+                grp5Dict[name] = str(tagrole)
+
+            grp6Dict = {}
+            grp6 = self.rosterGrp_list_6
+            for x in range(grp6.count()):
+                tagrole = grp6.item(x).data(QtCore.Qt.UserRole)
+                name = grp6.item(x).text()
+                grp6Dict[name] = str(tagrole)
+
+            grp7Dict = {}
+            grp7 = self.rosterGrp_list_7
+            for x in range(grp7.count()):
+                tagrole = grp7.item(x).data(QtCore.Qt.UserRole)
+                name = grp7.item(x).text()
+                grp7Dict[name] = str(tagrole)
+
+            grp8Dict = {}
+            grp8 = self.rosterGrp_list_8
+            for x in range(grp8.count()):
+                tagrole = grp8.item(x).data(QtCore.Qt.UserRole)
+                name = grp8.item(x).text()
+                grp8Dict[name] = str(tagrole)
+
+            stdby1Dict = {}
+            stdby1 = self.rosterStandby_list_1
+            for x in range(stdby1.count()):
+                tagrole = stdby1.item(x).data(QtCore.Qt.UserRole)
+                name = stdby1.item(x).text()
+                stdby1Dict[name] = str(tagrole)
+
+            stdby2Dict = {}
+            stdby2 = self.rosterStandby_list_2
+            for x in range(stdby2.count()):
+                tagrole = stdby2.item(x).data(QtCore.Qt.UserRole)
+                name = stdby2.item(x).text()
+                stdby2Dict[name] = str(tagrole)
+
+            rosterDict = {"grp1": grp1Dict,
+                          "grp2": grp2Dict,
+                          "grp3": grp3Dict,
+                          "grp4": grp4Dict,
+                          "grp5": grp5Dict,
+                          "grp6": grp6Dict,
+                          "grp7": grp7Dict,
+                          "grp8": grp8Dict,
+                          "stdby1": stdby1Dict,
+                          "stdby2": stdby2Dict}
+            other = json.dumps(rosterDict)
+            newRoster = Roster(rosterName, other)
+            self.FillLists()
+
+    def checkOtherWidgs(self, coloredSignee):
+        widgs = [self.signup_list_absent,
+                 self.signup_list_bench]
+        listItem = coloredSignee.text() + " (Not found)"
+        for widg in widgs:
+            for x in range(widg.count()):
+                cRole = coloredSignee.data(QtCore.Qt.UserRole)
+                cName = coloredSignee.text()
+                iRole = widg.item(x).data(QtCore.Qt.UserRole)
+                iName = widg.item(x).text()
+                if cName == iName and cRole == iRole:
+                    if widg == self.signup_list_absent:
+                        listItem = iName + " (Absent)"
+                    elif widg == self.signup_list_bench:
+                        listItem = iName + " (Bench)"
+                    return listItem
+                if cName == iName and iRole is None:
+                    if widg == self.signup_list_absent:
+                        listItem = iName + " (Absent)"
+                    elif widg == self.signup_list_bench:
+                        listItem = iName + " (Bench)"
+                    return listItem
+        return listItem
+
+    def checkRoleWidgs(self, coloredSignee):
+        widgs = [self.signup_list_druids,
+                 self.signup_list_hunters,
+                 self.signup_list_mages,
+                 self.signup_list_other,
+                 self.signup_list_priests,
+                 self.signup_list_rogues,
+                 self.signup_list_shamans,
+                 self.signup_list_tanks,
+                 self.signup_list_tentative,
+                 self.signup_list_warlocks,
+                 self.signup_list_warriors,
+                 self.signup_list_late]
+        found = False
+        for widg in widgs:
+            for x in range(widg.count()):
+                cRole = coloredSignee.data(QtCore.Qt.UserRole)
+                cName = coloredSignee.text()
+                iRole = widg.item(x).data(QtCore.Qt.UserRole)
+                iName = widg.item(x).text()
+                if cName == iName and cRole == iRole:
+                    found = True
+                    widg.takeItem(x)
+                    return found
+        return found
+
+    def PREFILL_ROSTER(self):
+       
+        prefillOp = "favs"
+        if self.pre_rost_radbtn:
+            prefillOp = "roster"
+        notPrflld = []
+        slctRoster = self.roster_combo.currentText()
+        if slctRoster != "Choose a saved roster...":
+            self.roster_combo.setDisabled(True)
+            self.prefill_roster_btn.setDisabled(True)
+            newQuery = Query()
+            roster = newQuery.getRoster(slctRoster)
+            rosterDict = json.loads(roster[0])
+            grp1 = rosterDict["grp1"]
+            for item in grp1:
+                signee = QListWidgetItem(item)
+                role = grp1[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterGrp_list_1.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Group 1: "+listItem)
+
+            grp2 = rosterDict["grp2"]
+            for item in grp2:
+                signee = QListWidgetItem(item)
+                role = grp2[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterGrp_list_2.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Group 2: "+listItem)
+
+            grp3 = rosterDict["grp3"]
+            for item in grp3:
+                signee = QListWidgetItem(item)
+                role = grp3[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterGrp_list_3.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Group 3: "+listItem)
+
+            grp4 = rosterDict["grp4"]
+            for item in grp4:
+                signee = QListWidgetItem(item)
+                role = grp4[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterGrp_list_4.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Group 4: "+listItem)
+
+            grp5 = rosterDict["grp5"]
+            for item in grp5:
+                signee = QListWidgetItem(item)
+                role = grp5[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterGrp_list_5.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Group 5: "+listItem)
+
+            grp6 = rosterDict["grp6"]
+            for item in grp6:
+                signee = QListWidgetItem(item)
+                role = grp6[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterGrp_list_6.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Group 6: "+listItem)
+
+            grp7 = rosterDict["grp7"]
+            for item in grp7:
+                signee = QListWidgetItem(item)
+                role = grp7[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterGrp_list_7.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Group 7: "+listItem)
+
+            grp8 = rosterDict["grp8"]
+            for item in grp8:
+                signee = QListWidgetItem(item)
+                role = grp8[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterGrp_list_8.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Group 8: "+listItem)
+
+            stdby1 = rosterDict["stdby1"]
+            for item in stdby1:
+                signee = QListWidgetItem(item)
+                role = stdby1[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterStandby_list_1.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Standby 1: "+listItem)
+
+            stdby2 = rosterDict["stdby2"]
+            for item in stdby2:
+                signee = QListWidgetItem(item)
+                role = stdby2[item]
+                coloredSignee = self.colorMe(role, signee)
+                found = self.checkRoleWidgs(coloredSignee)
+                if found:
+                    self.rosterStandby_list_2.addItem(coloredSignee)
+                else:
+                    listItem = self.checkOtherWidgs(coloredSignee)
+                    notPrflld.append("Standby 2: "+listItem)
+
+            if len(notPrflld) >= 1:
+                newMsg = "\n".join(notPrflld)
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Some players could not be prefilled"
+                            " because they are either absent,"
+                            " benched, signed up as different role,"
+                            " or not signed up at all."
+                            "\n\nSee details for the list...")
+                msg.setDetailedText(newMsg)
+                msg.setWindowTitle("Players not prefilled")
+                msg.exec_()
 
     def GET_DATA(self):
         slctSignup = self.signup_cmbo.currentText()
         msg = QMessageBox()
         if slctSignup == 'Choose a signup list...':
-            
             msg.setIcon(QMessageBox.Critical)
             msg.setText("Signup not found")
-            msg.setInformativeText("Looks like you didn't select a signup name from the dropdown")
+            msg.setInformativeText("Looks like you didn't select a signup name"
+                                   " from the dropdown")
             msg.setWindowTitle("Oops!")
             msg.exec_()
         else:
+            self.roster_combo.setVisible(True)
+            self.prefill_roster_btn.setVisible(True)
+            self.roster_combo.setEnabled(True)
+            self.prefill_roster_btn.setEnabled(True)
+            # self.pre_rost_radbtn.setVisible(True)
+            # self.pre_favs_radbtn.setVisible(True)
+            self.reset_roster_btn.setVisible(True)
+            self.save_roster_btn.setVisible(True)
+            self.save_roster_btn.setEnabled(True)
+
             newQuery = Query()
             result = newQuery.getSignee(slctSignup)
-        
+
             self.signup_list_absent.clear()
             self.signup_list_bench.clear()
             self.signup_list_druids.clear()
@@ -324,8 +1293,26 @@ class RBWindow(QMainWindow):
                 player = row_data[1]
                 stat = row_data[2]
                 item = QListWidgetItem(player)
-
                 self.addToList(role, item, stat)
+        return
+
+    def setItemToolTip(self, signee, role):
+        p_name = signee.text()
+        toon = ""
+        toonsQuery = Query()
+        toons = toonsQuery.getToon(p_name)
+        if toons is not None:
+            toonsJson = json.loads(toons[0])
+            toonList = []
+            if bool(toonsJson):
+                for x in toonsJson:
+                    if toonsJson[x] == role:
+                        toonList.append(x)
+            if bool(toonList):
+                toon = " or ".join(toonList)
+        if toon != "":
+            signee.setToolTip(str(toon))
+        return signee
 
     def addAbLaTeBen(self, role, signee, stat):
         if stat == "Absent":
@@ -339,138 +1326,124 @@ class RBWindow(QMainWindow):
         else:
             self.signup_list_other.addItem(signee)
 
-    def addToList(self, role, signee, stat):
+    def colorMe(self, role, signee):
+        signee = self.setItemToolTip(signee, role)
         if role == "Tank":
             signee.setBackground(QtGui.QColor('#C79C6E'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/tank.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_tanks.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "Tank")
         elif role == "BearTank":
             signee.setBackground(QtGui.QColor('#FF7D0A'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/bear.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_tanks.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "BearTank")
         elif role == "Hunter":
             signee.setBackground(QtGui.QColor('#abd473'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/hunter.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_hunters.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "Hunter")
         elif role == "RestoDruid":
             signee.setBackground(QtGui.QColor('#ffa14e'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/restoDruid.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_druids.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "RestoDruid")
         elif role == "Warrior":
             signee.setBackground(QtGui.QColor('#e9c49d'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/warrior.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_warriors.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "Warrior")
         elif role == "Mage":
             signee.setBackground(QtGui.QColor('#40c7eb'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/mage.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_mages.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "Mage")
         elif role == "RestoShaman":
             signee.setBackground(QtGui.QColor('#0070de'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/restoSham.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_shamans.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "RestoShaman")
         elif role == "EnhShaman":
             signee.setBackground(QtGui.QColor('#338de5'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/enhSham.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_shamans.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "EnhShaman")
         elif role == "ElemShaman":
             signee.setBackground(QtGui.QColor('#66a9eb'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/eleSham.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_shamans.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "ElemShaman")
         elif role == "Rogue":
             signee.setBackground(QtGui.QColor('#fff569'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/rogue.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_rogues.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "Rogue")
         elif role == "Warlock":
             signee.setBackground(QtGui.QColor('#8787ed'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/warlock.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_warlocks.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "Warlock")
         elif role == "ShadowPriest":
             signee.setBackground(QtGui.QColor('#c8ccdf'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/shadow.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_priests.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "ShadowPriest")
         elif role == "Priest":
             signee.setBackground(QtGui.QColor('#eaeaea'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/priest.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_priests.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "Priest")
         elif role == "FeralDruid":
             signee.setBackground(QtGui.QColor('#ffb471'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/feral.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_druids.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "FeralDruid")
         elif role == "BalanceDruid":
             signee.setBackground(QtGui.QColor('#ffb471'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/balance.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_druids.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "BalanceDruid")
         elif role == "HolyPaladin":
             signee.setBackground(QtGui.QColor('#e99bbd'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/holy.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_other.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "HolyPaladin")
         elif role == "RetribPaladin":
             signee.setBackground(QtGui.QColor('#eeb4ce'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/retrib.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_other.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "RetribPaladin")
         elif role == "ProtPaladin":
             signee.setBackground(QtGui.QColor('#E382AD'))
             signee.setIcon(QtGui.QIcon(resource_path('icons/prot.png')))
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_tanks.addItem(signee)
+            signee.setData(QtCore.Qt.UserRole, "ProtPaladin")
         else:
             signee.setForeground(QtGui.QColor('#9199BE'))
+        return signee
 
-            if stat in ("Absent", "Late", "Tentative", "Bench"):
-                self.addAbLaTeBen(role, signee, stat)
-            else:
-                self.signup_list_other.addItem(signee)
+    def addToList(self, role, listItem, stat):
+        signee = self.colorMe(role, listItem)
+        if stat in ("Absent", "Late", "Tentative", "Bench"):
+            self.addAbLaTeBen(role, signee, stat)
+        elif role == "Tank":
+            self.signup_list_tanks.addItem(signee)
+        elif role == "BearTank":
+            self.signup_list_tanks.addItem(signee)
+        elif role == "Hunter":
+            self.signup_list_hunters.addItem(signee)
+        elif role == "RestoDruid":
+            self.signup_list_druids.addItem(signee)
+        elif role == "Warrior":
+            self.signup_list_warriors.addItem(signee)
+        elif role == "Mage":
+            self.signup_list_mages.addItem(signee)
+        elif role == "RestoShaman":
+            self.signup_list_shamans.addItem(signee)
+        elif role == "EnhShaman":
+            self.signup_list_shamans.addItem(signee)
+        elif role == "ElemShaman":
+            self.signup_list_shamans.addItem(signee)
+        elif role == "Rogue":
+            self.signup_list_rogues.addItem(signee)
+        elif role == "Warlock":
+            self.signup_list_warlocks.addItem(signee)
+        elif role == "ShadowPriest":
+            self.signup_list_priests.addItem(signee)
+        elif role == "Priest":
+            self.signup_list_priests.addItem(signee)
+        elif role == "FeralDruid":
+            self.signup_list_druids.addItem(signee)
+        elif role == "BalanceDruid":
+            self.signup_list_druids.addItem(signee)
+        elif role == "HolyPaladin":
+            self.signup_list_other.addItem(signee)
+        elif role == "RetribPaladin":
+            self.signup_list_other.addItem(signee)
+        elif role == "ProtPaladin":
+            self.signup_list_tanks.addItem(signee)
+        else:
+            self.signup_list_other.addItem(signee)
         return

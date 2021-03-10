@@ -7,22 +7,35 @@ import re
 
 class Signup:
 
-    def __init__(self, signup_name, raid_date, raid_time, signup_text):
+    def __init__(self, signup_name, raid_date, raid_time, signup_text, signup_id=None):
         self.name = signup_name
         self.shortcode = self.name.lower().replace(" ", "_")
         self.date = raid_date
         self.time = raid_time
         self.dateTime = QDateTime(self.date, self.time).toPyDateTime()
         self.signupText = signup_text
+        self.signupID = signup_id
 
-        newQuery = Query()
-        newQuery.setSignup(self.name, self.shortcode, self.dateTime,
-                           self.signupText)
+        if signup_id is None:
+            newQuery = Query()
+            newQuery.setSignup(self.name, self.shortcode, self.dateTime,
+                               self.signupText)
+            idQuery = Query()
+            result = newQuery.getThisSignup(self.name)
+            newId = result[0]
+            self.signupID = newId
+        else:
+            signupNameQ = Query()
+            result = signupNameQ.getThisSignupName(self.signupID)
+            if result is not None:
+                if result[0] != self.name:
+                    newQuery = Query()
+                    newQuery.updateSignup(self.name, self.shortcode, self.dateTime,
+                                        self.signupText, self.signupID)
+                else:
+                    newQuery = Query()
+                    newQuery.updateLimSignup(self.dateTime, self.signupText, self.signupID)
 
-        newQuery = Query()
-        result = newQuery.getThisSignup(self.name)
-        signupid = result[0]
-        self.signupID = signupid
         self._parse_signees()
 
     def setName(self):

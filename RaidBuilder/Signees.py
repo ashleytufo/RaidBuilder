@@ -11,7 +11,7 @@ class Signee:
         self.status = status
 
         newQuery = Query()
-        abrvName = newQuery.getPlayer(str(self.name))
+        abrvName = newQuery.getThisPlayer(str(self.name))
         if abrvName is not None:
             self.name = abrvName[0]
         newQuery = Query()

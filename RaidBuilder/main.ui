@@ -2,32 +2,70 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1160</width>
-    <height>937</height>
+    <width>1200</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Raid Builder</string>
+   <string>RaidBuilder</string>
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icons/raidbuilder_icon.png</normaloff>icons/raidbuilder_icon.png</iconset>
+    <normaloff>../../../../.designer/backup/icons/raidbuilder_icon.png</normaloff>../../../../.designer/backup/icons/raidbuilder_icon.png</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>5.000000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(33, 38, 36);</string>
+   <string notr="true"/>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <property name="dockNestingEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>3</number>
+    </property>
+    <property name="leftMargin">
+     <number>5</number>
+    </property>
+    <property name="topMargin">
+     <number>5</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
+     <number>5</number>
+    </property>
     <item>
      <widget class="QLabel" name="label">
       <property name="styleSheet">
        <string notr="true">font: 700 28pt &quot;Calibri&quot;;
-color: rgb(145, 153, 190);
-background-color: rgb(46, 48, 62);</string>
+background-color: rgba(45, 51, 49, 175);
+
+color: rgb(223, 229, 255);
+</string>
       </property>
       <property name="text">
        <string>RaidBuilder</string>
@@ -43,58 +81,204 @@ background-color: rgb(46, 48, 62);</string>
        <bool>true</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true">QLabel{color: rgb(145, 153, 190);
-padding: 1px;}
-QGroupBox{color: rgb(145, 153, 190);}
-.tank{
-background-color: rgb(199, 156, 110);}</string>
+       <string notr="true">QWidget {
+    background-color: rgb(33, 38, 36);
+    font: &quot;Calibri&quot;;
+}
+
+QWidget QListView {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QWidget QScrollBar {
+    background-color: rgb(108, 107, 116);
+}
+
+QWidget QComboBox:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}
+
+QWidget QComboBox {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QDateEdit {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QDateEdit:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}
+
+QGroupBox {
+    color: rgb(145, 153, 190);
+}
+
+QLabel {
+    color: rgb(145, 153, 190);
+    padding: 2px;
+    font: 10pt;
+}
+
+QLineEdit {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QLineEdit:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}
+
+QWidget QListWidget {
+    background-color: rgb(33, 38, 36);
+}
+
+QListWidget#saved_rosters_list {
+    border-style: None;
+    color: rgb(195, 206, 255);
+    alternate-background-color: rgb(45, 51, 49);
+}
+
+QListWidget#saved_rosters_list:item:selected:!active {
+    background-color: rgb(92, 137, 160);
+}
+
+QListWidget:item#saved_rosters_list {
+    padding: 5px;
+}
+
+QListWidget#saved_signups_list {
+    border-style: None;
+    color: rgb(195, 206, 255);
+    alternate-background-color: rgb(45, 51, 49);
+}
+
+QListWidget#saved_signups_list:item:selected:!active {
+    background-color: rgb(92, 137, 160);
+}
+
+QListWidget:item#saved_signups_list {
+    padding: 5px;
+}
+
+QPlainTextEdit {
+    background-color: rgb(45, 51, 49);
+    color: rgb(255, 255, 255);
+    font: 9pt;
+    padding: 2px;
+}
+
+QPushButton:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}
+
+QPushButton {
+    background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.0738636 rgba(108, 114, 142, 255), stop:1 rgba(255, 255, 255, 255));
+    color: pallete(light);
+    border-style: inset;
+    border-width: 2px;
+    padding: 2px;
+    border-radius: 8px;
+    font: 12px;
+    min-width: 2em;
+    min-height: 1.5em;
+}
+
+QPushButton:hover:pressed {
+    background-color: rgb(145, 153, 190);
+    border-style: inset;
+}
+
+QPushButton:hover {
+    background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(195, 206, 255, 255), stop:0.676136 rgba(255, 255, 255, 255));
+    border-style: inset;
+}
+
+QRadioButton {
+    color: rgb(145, 153, 190);
+    padding: 1px;
+}
+
+QTabWidget {
+    background-color: rgb(33, 38, 36);
+    color: pallete(light);
+    font: 11pt;
+}
+
+QTabWidget:pane {
+    border: 1px solid lightgray;
+    top: -1px;
+}
+
+QTabBar:tab {
+    background-color: rgb(108, 107, 116);
+    border: 1px solid lightgrey;
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+QTabBar:tab:selected {
+    background: rgb(245, 245, 245);
+    margin-bottom: -1px;
+}
+
+QTableWidget {
+    color: rgb(195, 206, 255);
+    alternate-background-color: rgb(45, 51, 49);
+}
+
+QTimeEdit {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font: 9pt;
+    padding: 2px;
+}
+
+QTimeEdit:disabled {
+    background-color: rgb(189, 189, 189);
+    color: rgb(136, 136, 136);
+}</string>
+      </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
+      </property>
+      <property name="elideMode">
+       <enum>Qt::ElideNone</enum>
       </property>
       <property name="tabBarAutoHide">
        <bool>false</bool>
       </property>
       <widget class="QWidget" name="import_signups_tab">
        <attribute name="title">
-        <string>Import Signups</string>
+        <string>Signups</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
          <widget class="QFrame" name="import_signups_frame">
           <property name="styleSheet">
-           <string notr="true">QPushButton{background-color: rgb(195, 206, 255);
-color: rgb(46, 48, 62);
-font: 700 12pt &quot;Segoe UI&quot;;}
-QPushButton:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
-QComboBox{background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-}
-QComboBox:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);
-}
-QLineEdit{background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-}
-QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
-QDateEdit{background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-}
-QDateEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
-QTimeEdit{background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-}
-QTimeEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
-QPlainTextEdit{
-	background-color: rgb(46, 48, 62);
-	color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-}
-QPlainTextEdit:disabled{;color: rgb(136, 136, 136);}</string>
+           <string notr="true"/>
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -107,25 +291,194 @@ QPlainTextEdit:disabled{;color: rgb(136, 136, 136);}</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
-            <widget class="QFrame" name="create_update_frame">
+            <widget class="QFrame" name="signups_frame">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <widget class="QPushButton" name="create_new_btn">
-                <property name="styleSheet">
-                 <string notr="true"/>
+             <layout class="QGridLayout" name="signups_grid" rowstretch="0,0,0,0" rowminimumheight="0,0,0,0">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <item row="1" column="1">
+               <spacer name="horizontalSpacer_8">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
                 </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Maximum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="6">
+               <widget class="QLabel" name="signup_date_lbl">
                 <property name="text">
-                 <string>Create New</string>
+                 <string>Date</string>
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="saved_signups_btn">
+                <property name="toolTip">
+                 <string>Saved Signups (Shortcut: Ctrl + M)</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>icons/iconfinder_menu-lines-list_2931181.svg</normaloff>icons/iconfinder_menu-lines-list_2931181.svg</iconset>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+M</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="7">
+               <widget class="QTimeEdit" name="signup_time_edit">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="dateTime">
+                 <datetime>
+                  <hour>21</hour>
+                  <minute>0</minute>
+                  <second>0</second>
+                  <year>2021</year>
+                  <month>1</month>
+                  <day>1</day>
+                 </datetime>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="7">
+               <widget class="QFrame" name="frame_6">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_8">
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QPushButton" name="reset_signup_btn">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="toolTip">
+                    <string>Reset Form (Shortcut: Ctrl + Shift + Z)</string>
+                   </property>
+                   <property name="statusTip">
+                    <string/>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icons/iconfinder_reload-refresh-repeat-arrow_2937372.svg</normaloff>icons/iconfinder_reload-refresh-repeat-arrow_2937372.svg</iconset>
+                   </property>
+                   <property name="shortcut">
+                    <string>Ctrl+Shift+Z</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="edit_signup_btn">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icons/iconfinder_edit-change-pencil_2931178.svg</normaloff>icons/iconfinder_edit-change-pencil_2931178.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="update_existing_btn">
+                   <property name="toolTip">
+                    <string>Save Signup (Shortcut: Ctrl + S)</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</iconset>
+                   </property>
+                   <property name="shortcut">
+                    <string>Ctrl+S</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="save_signup_btn">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="toolTip">
+                    <string>Save Signup (Shortcut: Ctrl + S)</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</iconset>
+                   </property>
+                   <property name="shortcut">
+                    <string>Ctrl+S</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="1" column="8">
                <spacer name="horizontalSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -141,210 +494,147 @@ QPlainTextEdit:disabled{;color: rgb(136, 136, 136);}</string>
                 </property>
                </spacer>
               </item>
-              <item>
-               <widget class="QPushButton" name="update_exist_btn">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="text">
-                 <string>Update Existing</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="existing_combo">
-                <property name="enabled">
-                 <bool>false</bool>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="create_new_btn">
+                <property name="toolTip">
+                 <string>Add New Signup (Shortcut: Ctrl + N)</string>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-</string>
+                 <string notr="true"/>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>Choose a signup list...</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <spacer name="create_update_spacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                <property name="text">
+                 <string/>
                 </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Expanding</enum>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>icons/iconfinder_plus-add-new-create-attach-maximize_2931155.svg</normaloff>icons/iconfinder_plus-add-new-create-attach-maximize_2931155.svg</iconset>
                 </property>
-                <property name="sizeHint" stdset="0">
+                <property name="iconSize">
                  <size>
-                  <width>40</width>
-                  <height>20</height>
+                  <width>16</width>
+                  <height>16</height>
                  </size>
                 </property>
-               </spacer>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QFrame" name="signup_info_frame">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_2">
-              <item row="1" column="2">
-               <widget class="QDateEdit" name="signup_date_edit">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="dateTime">
-                 <datetime>
-                  <hour>21</hour>
-                  <minute>0</minute>
-                  <second>0</second>
-                  <year>2021</year>
-                  <month>1</month>
-                  <day>1</day>
-                 </datetime>
+                <property name="shortcut">
+                 <string>Ctrl+N</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="signup_name_edit">
+              <item row="2" column="2">
+               <widget class="QPlainTextEdit" name="signup_txt_edit">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
+                </property>
+                <property name="cursor" stdset="0">
+                 <cursorShape>ArrowCursor</cursorShape>
+                </property>
+                <property name="whatsThis">
+                 <string/>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::Box</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <property name="verticalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAsNeeded</enum>
+                </property>
+                <property name="horizontalScrollBarPolicy">
+                 <enum>Qt::ScrollBarAsNeeded</enum>
+                </property>
+                <property name="readOnly">
+                 <bool>true</bool>
                 </property>
                 <property name="placeholderText">
-                 <string>Name the signup</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="3">
-               <widget class="QTimeEdit" name="signup_time_edit">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="dateTime">
-                 <datetime>
-                  <hour>21</hour>
-                  <minute>0</minute>
-                  <second>0</second>
-                  <year>2021</year>
-                  <month>1</month>
-                  <day>1</day>
-                 </datetime>
+                 <string>Paste the signup from discord...</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="2">
-               <widget class="QLabel" name="signup_date_lbl">
-                <property name="text">
-                 <string>Date</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="3">
-               <widget class="QLabel" name="signup_time_lbl">
-                <property name="text">
-                 <string>Time</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
                <widget class="QLabel" name="signup_name_lbl">
                 <property name="text">
                  <string>Signup Name</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="4">
-               <spacer name="signup_info_spacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPlainTextEdit" name="signup_txt_edit">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="cursor" stdset="0">
-              <cursorShape>ArrowCursor</cursorShape>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Box</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <property name="verticalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOn</enum>
-             </property>
-             <property name="horizontalScrollBarPolicy">
-              <enum>Qt::ScrollBarAsNeeded</enum>
-             </property>
-             <property name="placeholderText">
-              <string>Paste the signup from discord...</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QFrame" name="save_reset_frame">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_5">
-              <item>
-               <spacer name="save_reset_spacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="reset_signup_btn">
+              <item row="1" column="6">
+               <widget class="QDateEdit" name="signup_date_edit">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
-                <property name="text">
-                 <string>Reset</string>
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="dateTime">
+                 <datetime>
+                  <hour>21</hour>
+                  <minute>0</minute>
+                  <second>0</second>
+                  <year>2021</year>
+                  <month>1</month>
+                  <day>1</day>
+                 </datetime>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QPushButton" name="save_signup_btn">
-                <property name="enabled">
-                 <bool>false</bool>
+              <item row="1" column="0">
+               <widget class="QFrame" name="saved_signups_list_frame">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
                 </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_10"/>
+               </widget>
+              </item>
+              <item row="2" column="4">
+               <spacer name="signup_grid_spacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Ignored</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="3" column="2">
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLineEdit" name="signup_name_edit">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="placeholderText">
+                 <string>Name the signup</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="7">
+               <widget class="QLabel" name="signup_time_lbl">
                 <property name="text">
-                 <string>Save</string>
+                 <string>Time</string>
                 </property>
                </widget>
               </item>
@@ -356,7 +646,7 @@ padding: 2px;
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="build_roster_tab">
        <attribute name="title">
         <string>Build Roster</string>
        </attribute>
@@ -364,17 +654,7 @@ padding: 2px;
         <item>
          <widget class="QFrame" name="buildRoster_frame">
           <property name="styleSheet">
-           <string notr="true">QPushButton:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
-QPushButton{background-color: rgb(195, 206, 255);
-color: rgb(46, 48, 62);
-font: 700 10pt &quot;Segoe UI&quot;;}
-QComboBox:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);
-}
-QComboBox{background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-}
-QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}</string>
+           <string notr="true"/>
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -385,6 +665,9 @@ QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
             <widget class="QFrame" name="load_btn_frame">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -401,9 +684,7 @@ QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136
               <item>
                <widget class="QComboBox" name="signup_cmbo">
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;</string>
+                 <string notr="true"/>
                 </property>
                 <item>
                  <property name="text">
@@ -415,14 +696,28 @@ padding: 2px;</string>
               <item>
                <widget class="QPushButton" name="load_btn">
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(195, 206, 255);
-color: rgb(46, 48, 62);
-font: 700 12pt &quot;Segoe UI&quot;;</string>
+                 <string notr="true"/>
                 </property>
                 <property name="text">
                  <string>Load Signups</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Minimum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>600</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
             </widget>
@@ -447,39 +742,6 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
               </property>
               <item>
                <layout class="QGridLayout" name="signup_grid">
-                <item row="1" column="4">
-                 <widget class="QListWidget" name="signup_list_druids">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QListWidget" name="signup_list_warriors">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QLabel" name="warrior_lbl">
-                  <property name="text">
-                   <string>Warriors</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="6">
                  <widget class="QListWidget" name="signup_list_mages">
                   <property name="acceptDrops">
@@ -490,46 +752,6 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                   </property>
                   <property name="defaultDropAction">
                    <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QListWidget" name="signup_list_tanks">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="6">
-                 <widget class="QLabel" name="mage_lbl">
-                  <property name="text">
-                   <string>Mages</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QListWidget" name="signup_list_rogues">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="3">
-                 <widget class="QLabel" name="hunter_lbl">
-                  <property name="text">
-                   <string>Hunters</string>
                   </property>
                  </widget>
                 </item>
@@ -546,13 +768,6 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="tank_lbl">
-                  <property name="text">
-                   <string>Tanks</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="5">
                  <widget class="QListWidget" name="signup_list_shamans">
                   <property name="acceptDrops">
@@ -563,13 +778,6 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                   </property>
                   <property name="defaultDropAction">
                    <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QLabel" name="rogue_lbl">
-                  <property name="text">
-                   <string>Rogues</string>
                   </property>
                  </widget>
                 </item>
@@ -584,6 +792,102 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                  <widget class="QLabel" name="shaman_lbl">
                   <property name="text">
                    <string>Shamans</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="tank_lbl">
+                  <property name="text">
+                   <string>Tanks</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QListWidget" name="signup_list_warriors">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLabel" name="warrior_lbl">
+                  <property name="text">
+                   <string>Warriors</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="rogue_lbl">
+                  <property name="text">
+                   <string>Rogues</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="6">
+                 <widget class="QLabel" name="mage_lbl">
+                  <property name="text">
+                   <string>Mages</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="4">
+                 <widget class="QListWidget" name="signup_list_druids">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QListWidget" name="signup_list_rogues">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QListWidget" name="signup_list_tanks">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QLabel" name="hunter_lbl">
+                  <property name="text">
+                   <string>Hunters</string>
                   </property>
                  </widget>
                 </item>
@@ -731,7 +1035,7 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                </layout>
               </item>
               <item>
-               <spacer name="verticalSpacer">
+               <spacer name="signup_roster_spacer">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
@@ -926,7 +1230,7 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                </layout>
               </item>
               <item>
-               <spacer name="horizontalSpacer_3">
+               <spacer name="prefill_save_spacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -989,7 +1293,7 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
             </widget>
            </item>
            <item>
-            <widget class="QFrame" name="frame_2">
+            <widget class="QFrame" name="prefill_save_frame">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -1007,7 +1311,7 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                <number>2</number>
               </property>
               <item>
-               <widget class="QFrame" name="frame_3">
+               <widget class="QFrame" name="prefill_frame">
                 <property name="styleSheet">
                  <string notr="true"/>
                 </property>
@@ -1025,7 +1329,7 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                   <number>2</number>
                  </property>
                  <item>
-                  <widget class="QFrame" name="frame_4">
+                  <widget class="QFrame" name="prefill_btn_frame">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
@@ -1055,13 +1359,53 @@ font: 700 12pt &quot;Segoe UI&quot;;</string>
                      <number>2</number>
                     </property>
                     <item>
+                     <widget class="QComboBox" name="roster_combo">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>Choose a saved roster...</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="prefill_roster_btn">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="toolTip">
+                       <string>Fill groups with saved roster</string>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset>
+                        <normaloff>icons/iconfinder_tile-sorting_623069.svg</normaloff>icons/iconfinder_tile-sorting_623069.svg</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>20</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
                      <widget class="QRadioButton" name="pre_favs_radbtn">
                       <property name="enabled">
                        <bool>false</bool>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">color: rgb(145, 153, 190);
-padding: 1px;</string>
+                       <string notr="true"/>
                       </property>
                       <property name="text">
                        <string>Prefill with Favorites</string>
@@ -1074,46 +1418,14 @@ padding: 1px;</string>
                        <bool>false</bool>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">color: rgb(145, 153, 190);
-padding: 1px;</string>
+                       <string notr="true"/>
                       </property>
                       <property name="text">
                        <string>Prefill with Saved Roster</string>
                       </property>
                      </widget>
                     </item>
-                    <item>
-                     <widget class="QPushButton" name="prefill_roster_btn">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true"/>
-                      </property>
-                      <property name="text">
-                       <string>Prefill</string>
-                      </property>
-                     </widget>
-                    </item>
                    </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QComboBox" name="roster_combo">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-</string>
-                   </property>
-                   <item>
-                    <property name="text">
-                     <string>Choose a saved roster...</string>
-                    </property>
-                   </item>
                   </widget>
                  </item>
                 </layout>
@@ -1125,7 +1437,7 @@ padding: 2px;
                  <enum>Qt::Horizontal</enum>
                 </property>
                 <property name="sizeType">
-                 <enum>QSizePolicy::MinimumExpanding</enum>
+                 <enum>QSizePolicy::Expanding</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -1138,26 +1450,52 @@ padding: 2px;
               <item>
                <widget class="QPushButton" name="reset_roster_btn">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
+                </property>
+                <property name="toolTip">
+                 <string>Reset Signups and Roster (Shortcut: Ctrl + Shift + Z)</string>
                 </property>
                 <property name="styleSheet">
                  <string notr="true"/>
                 </property>
                 <property name="text">
-                 <string>Reset</string>
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>icons/iconfinder_reload-refresh-repeat-arrow_2937372.svg</normaloff>icons/iconfinder_reload-refresh-repeat-arrow_2937372.svg</iconset>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+Shift+Z</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="save_roster_btn">
                 <property name="enabled">
-                 <bool>false</bool>
+                 <bool>true</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>40</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>Save Roster (Shortcut: Ctrl + S)</string>
                 </property>
                 <property name="styleSheet">
                  <string notr="true"/>
                 </property>
                 <property name="text">
-                 <string>Save</string>
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</iconset>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+S</string>
                 </property>
                </widget>
               </item>
@@ -1175,405 +1513,1133 @@ padding: 2px;
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <item>
-         <widget class="QFrame" name="search_frame">
-          <property name="styleSheet">
-           <string notr="true">QPushButton{background-color: rgb(195, 206, 255);
-color: rgb(46, 48, 62);
-font: 10pt &quot;Segoe UI&quot;;}
-QPushButton:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
-QLineEdit{background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-}
-QLineEdit:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}</string>
-          </property>
+         <widget class="QFrame" name="frame">
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <widget class="QLineEdit" name="search_edit">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>30</y>
-             <width>1041</width>
-             <height>24</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="search_btn">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="geometry">
-            <rect>
-             <x>1060</x>
-             <y>30</y>
-             <width>40</width>
-             <height>26</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-          <widget class="QFrame" name="frame">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>73</y>
-             <width>1116</width>
-             <height>441</height>
-            </rect>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <widget class="QFrame" name="frame_5">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>1096</width>
-              <height>671</height>
-             </rect>
-            </property>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <widget class="QFrame" name="search_frame">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="players_grid">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+              <property name="horizontalSpacing">
+               <number>6</number>
+              </property>
+              <item row="3" column="0">
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="2" column="0">
+               <spacer name="horizontalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="4" column="0">
+               <spacer name="horizontalSpacer_10">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="1" column="3">
+               <widget class="QGroupBox" name="player_info_box">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="title">
+                 <string>Player Info</string>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_6" columnstretch="0">
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetFixedSize</enum>
+                 </property>
+                 <property name="leftMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>5</number>
+                 </property>
+                 <item row="1" column="0">
+                  <widget class="QFrame" name="frame_2">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_5">
+                    <item row="3" column="2">
+                     <widget class="QComboBox" name="shitlist_combo">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>No</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Yes</string>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>../../b2_search/RaidBuilder/icons/shitlist.png</normaloff>
+                         <disabledoff>../../b2_search/RaidBuilder/icons/shitlist.png</disabledoff>
+                         <selectedoff>../../b2_search/RaidBuilder/icons/shitlist.png</selectedoff>../../b2_search/RaidBuilder/icons/shitlist.png</iconset>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="raid_lead_lbl">
+                      <property name="text">
+                       <string>Raid Lead</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="0">
+                     <spacer name="verticalSpacer">
+                      <property name="orientation">
+                       <enum>Qt::Vertical</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Ignored</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>20</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QComboBox" name="buyer_combo">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>No</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Yes</string>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>../../b2_search/RaidBuilder/icons/buyer.png</normaloff>
+                         <disabledoff>../../b2_search/RaidBuilder/icons/buyer.png</disabledoff>
+                         <selectedoff>../../b2_search/RaidBuilder/icons/buyer.png</selectedoff>../../b2_search/RaidBuilder/icons/buyer.png</iconset>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="2">
+                     <widget class="QLabel" name="fav_lbl">
+                      <property name="text">
+                       <string>Favorite</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="2">
+                     <widget class="QComboBox" name="fav_combo">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>No</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Yes</string>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>../../b2_search/RaidBuilder/icons/favorite.png</normaloff>
+                         <disabledoff>../../b2_search/RaidBuilder/icons/favorite.png</disabledoff>
+                         <selectedoff>../../b2_search/RaidBuilder/icons/favorite.png</selectedoff>../../b2_search/RaidBuilder/icons/favorite.png</iconset>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="2" column="2">
+                     <widget class="QLabel" name="shitlist_lbl">
+                      <property name="text">
+                       <string>Shitlist</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="buyer_lbl">
+                      <property name="text">
+                       <string>Buyer</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QComboBox" name="guildie_combo">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>No</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Yes</string>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>../../b2_search/RaidBuilder/icons/guildie.png</normaloff>
+                         <disabledoff>../../b2_search/RaidBuilder/icons/guildie.png</disabledoff>
+                         <selectedoff>../../b2_search/RaidBuilder/icons/guildie.png</selectedoff>../../b2_search/RaidBuilder/icons/guildie.png</iconset>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QComboBox" name="raid_lead_combo">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>No</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Yes</string>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>../../b2_search/RaidBuilder/icons/raidlead.png</normaloff>
+                         <disabledoff>../../b2_search/RaidBuilder/icons/raidlead.png</disabledoff>
+                         <selectedoff>../../b2_search/RaidBuilder/icons/raidlead.png</selectedoff>../../b2_search/RaidBuilder/icons/raidlead.png</iconset>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QLabel" name="guildie_lbl">
+                      <property name="text">
+                       <string>Guildie</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QComboBox" name="carry_combo">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>No</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>Yes</string>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>../../b2_search/RaidBuilder/icons/carry.png</normaloff>
+                         <disabledoff>../../b2_search/RaidBuilder/icons/carry.png</disabledoff>
+                         <selectedoff>../../b2_search/RaidBuilder/icons/carry.png</selectedoff>../../b2_search/RaidBuilder/icons/carry.png</iconset>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QLabel" name="carry_lbl">
+                      <property name="text">
+                       <string>Carry</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="2">
+                     <widget class="QFrame" name="frame_4">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_9">
+                       <property name="spacing">
+                        <number>0</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QPushButton" name="edit_player_btn">
+                         <property name="toolTip">
+                          <string>Edit Player Info (Shortcut: Delete)</string>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true"/>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset>
+                           <normaloff>../../b2_search/RaidBuilder/icons/iconfinder_edit-change-pencil_2931178.svg</normaloff>../../b2_search/RaidBuilder/icons/iconfinder_edit-change-pencil_2931178.svg</iconset>
+                         </property>
+                         <property name="shortcut">
+                          <string>Del</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="save_player_btn">
+                         <property name="toolTip">
+                          <string>Save Player Info (Shortcut: Ctrl + S)</string>
+                         </property>
+                         <property name="styleSheet">
+                          <string notr="true"/>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset>
+                           <normaloff>../../b2_search/RaidBuilder/icons/iconfinder_save-guardar-diskette_2931176.svg</normaloff>../../b2_search/RaidBuilder/icons/iconfinder_save-guardar-diskette_2931176.svg</iconset>
+                         </property>
+                         <property name="shortcut">
+                          <string>Ctrl+S</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item row="5" column="0">
+                     <widget class="QPushButton" name="delete_player_btn">
+                      <property name="toolTip">
+                       <string>Delete Player (Shortcut: Delete)</string>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset>
+                        <normaloff>../../b2_search/RaidBuilder/icons/iconfinder_trash-delete-remove_2931168.svg</normaloff>../../b2_search/RaidBuilder/icons/iconfinder_trash-delete-remove_2931168.svg</iconset>
+                      </property>
+                      <property name="shortcut">
+                       <string>Del</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QFrame" name="frame_3">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_4">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="disc_name_lbl">
+                      <property name="text">
+                       <string>Discord Name</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QLineEdit" name="disc_name_edit">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="readOnly">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLabel" name="toons_lbl">
+                      <property name="text">
+                       <string>Toons</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLineEdit" name="aliases_edit">
+                      <property name="readOnly">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QTableWidget" name="toons_tbl">
+                      <property name="styleSheet">
+                       <string notr="true"/>
+                      </property>
+                      <property name="editTriggers">
+                       <set>QAbstractItemView::NoEditTriggers</set>
+                      </property>
+                      <attribute name="horizontalHeaderMinimumSectionSize">
+                       <number>20</number>
+                      </attribute>
+                      <attribute name="horizontalHeaderDefaultSectionSize">
+                       <number>149</number>
+                      </attribute>
+                      <attribute name="verticalHeaderVisible">
+                       <bool>false</bool>
+                      </attribute>
+                      <column>
+                       <property name="text">
+                        <string>Name</string>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Class/Role</string>
+                       </property>
+                      </column>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="aliases_lbl">
+                      <property name="text">
+                       <string>Aliases</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="search_btn">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="toolTip">
+                 <string>Search</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>icons/iconfinder_zoom-normal-regular_2931184.svg</normaloff>icons/iconfinder_zoom-normal-regular_2931184.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>16</width>
+                  <height>16</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLineEdit" name="search_edit">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="toolTip">
+                 <string/>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="placeholderText">
+                 <string>Search</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QTableWidget" name="players_tbl">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Sunken</enum>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="dragDropOverwriteMode">
+                 <bool>false</bool>
+                </property>
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>25</width>
+                  <height>25</height>
+                 </size>
+                </property>
+                <property name="textElideMode">
+                 <enum>Qt::ElideRight</enum>
+                </property>
+                <property name="sortingEnabled">
+                 <bool>true</bool>
+                </property>
+                <attribute name="horizontalHeaderCascadingSectionResizes">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>127</number>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderMinimumSectionSize">
+                 <number>30</number>
+                </attribute>
+                <attribute name="verticalHeaderDefaultSectionSize">
+                 <number>36</number>
+                </attribute>
+                <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="verticalHeaderStretchLastSection">
+                 <bool>false</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>ID</string>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Discord Name</string>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>RaidLead</string>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Guildie</string>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Buyer</string>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Carry</string>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Favorite</string>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Shitlist</string>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Rating</string>
+                 </property>
+                 <property name="textAlignment">
+                  <set>AlignCenter</set>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Aliases</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Toons</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Maximum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="add_player_btn">
+                <property name="toolTip">
+                 <string>Create New Player (Shortcut: Ctrl + N)</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>icons/iconfinder_plus-add-new-create-attach-maximize_2931155.svg</normaloff>icons/iconfinder_plus-add-new-create-attach-maximize_2931155.svg</iconset>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+N</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="saved_rosters_tab">
+       <attribute name="title">
+        <string>Saved Rosters</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_15">
+        <item>
+         <layout class="QHBoxLayout" name="saved_rosters_frame">
+          <item>
+           <widget class="QFrame" name="roster_load_area_frame">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_13">
+             <property name="leftMargin">
+              <number>1</number>
+             </property>
+             <property name="topMargin">
+              <number>1</number>
+             </property>
+             <property name="rightMargin">
+              <number>1</number>
+             </property>
+             <property name="bottomMargin">
+              <number>1</number>
+             </property>
+             <item>
+              <widget class="QFrame" name="s_roster_frame">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_12">
+                <property name="leftMargin">
+                 <number>1</number>
+                </property>
+                <property name="topMargin">
+                 <number>1</number>
+                </property>
+                <property name="rightMargin">
+                 <number>1</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>1</number>
+                </property>
+                <item>
+                 <layout class="QGridLayout" name="s_roster_grid" columnstretch="0,0,0,0,0,0,0,0">
+                  <property name="spacing">
+                   <number>10</number>
+                  </property>
+                  <item row="3" column="5">
+                   <widget class="QListWidget" name="s_rosterGrp_list_8">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="5">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_4">
+                    <property name="text">
+                     <string>Group 4</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <spacer name="horizontalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Ignored</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="1" column="5">
+                   <widget class="QListWidget" name="s_rosterGrp_list_4">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QPushButton" name="saved_rosters_btn">
+                    <property name="toolTip">
+                     <string>Saved Rosters (Shortcut: Ctrl + M)</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/iconfinder_menu-lines-list_2931181.svg</normaloff>icons/iconfinder_menu-lines-list_2931181.svg</iconset>
+                    </property>
+                    <property name="shortcut">
+                     <string>Ctrl+M</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="4">
+                   <widget class="QListWidget" name="s_rosterGrp_list_7">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="2">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_5">
+                    <property name="text">
+                     <string>Group 5</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QListWidget" name="s_rosterGrp_list_5">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="3">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_6">
+                    <property name="text">
+                     <string>Group 6</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="7">
+                   <widget class="QLabel" name="s_standby_lbl_2">
+                    <property name="text">
+                     <string>Standby 2</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="7">
+                   <widget class="QListWidget" name="s_rosterStandby_list_2">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="3">
+                   <widget class="QListWidget" name="s_rosterGrp_list_6">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="4">
+                   <widget class="QListWidget" name="s_rosterGrp_list_3">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="3">
+                   <widget class="QListWidget" name="s_rosterGrp_list_2">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="4">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_3">
+                    <property name="text">
+                     <string>Group 3</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="2">
+                   <spacer name="verticalSpacer_4">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>300</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QPushButton" name="import_roster_btn">
+                    <property name="toolTip">
+                     <string>Import Roster</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/iconfinder_import-download-save_2931171.svg</normaloff>icons/iconfinder_import-download-save_2931171.svg</iconset>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="4">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_7">
+                    <property name="text">
+                     <string>Group 7</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="2">
+                   <widget class="QListWidget" name="s_rosterGrp_list_1">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="5">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_8">
+                    <property name="text">
+                     <string>Group 8</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="3">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_2">
+                    <property name="text">
+                     <string>Group 2</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_1">
+                    <property name="text">
+                     <string>Group 1</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="6">
+                   <widget class="QListWidget" name="s_rosterStandby_list_1">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="6">
+                   <widget class="QLabel" name="s_standby_lbl_1">
+                    <property name="text">
+                     <string>Standby 1</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="7">
+                   <widget class="QFrame" name="export_roster_frame">
+                    <property name="frameShape">
+                     <enum>QFrame::StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Raised</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                     <property name="spacing">
+                      <number>1</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>1</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>1</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>1</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>1</number>
+                     </property>
+                     <item>
+                      <spacer name="export_roster_spacer">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="delete_roster_btn">
+                       <property name="toolTip">
+                        <string>Delete Roster (Shortcut: Delete)</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>icons/iconfinder_trash-delete-remove_2931168.svg</normaloff>icons/iconfinder_trash-delete-remove_2931168.svg</iconset>
+                       </property>
+                       <property name="shortcut">
+                        <string>Del</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="export_roster_btn">
+                       <property name="toolTip">
+                        <string>Export Roster</string>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="icon">
+                        <iconset>
+                         <normaloff>icons/iconfinder_export-share-upload_2931143 (1).svg</normaloff>icons/iconfinder_export-share-upload_2931143 (1).svg</iconset>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
            </widget>
-          </widget>
-          <widget class="QTableWidget" name="players_tbl">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>70</y>
-             <width>651</width>
-             <height>701</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QTableWidget{color: rgb(195, 206, 255);alternate-background-color: rgb(46, 48, 62);}
-
-</string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
-           </property>
-           <property name="editTriggers">
-            <set>QAbstractItemView::NoEditTriggers</set>
-           </property>
-           <property name="dragDropOverwriteMode">
-            <bool>false</bool>
-           </property>
-           <property name="alternatingRowColors">
-            <bool>true</bool>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="textElideMode">
-            <enum>Qt::ElideRight</enum>
-           </property>
-           <property name="sortingEnabled">
-            <bool>true</bool>
-           </property>
-           <attribute name="horizontalHeaderCascadingSectionResizes">
-            <bool>true</bool>
-           </attribute>
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>127</number>
-           </attribute>
-           <attribute name="horizontalHeaderStretchLastSection">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderVisible">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderMinimumSectionSize">
-            <number>30</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>36</number>
-           </attribute>
-           <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-            <bool>true</bool>
-           </attribute>
-           <attribute name="verticalHeaderStretchLastSection">
-            <bool>true</bool>
-           </attribute>
-           <column>
-            <property name="text">
-             <string>ID</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignCenter</set>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Discord Name</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignCenter</set>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>RaidLead</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignCenter</set>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Guildie</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignCenter</set>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Buyer</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignCenter</set>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Carry</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignCenter</set>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Favorite</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignCenter</set>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Shitlist</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignCenter</set>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Rating</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignCenter</set>
-            </property>
-           </column>
-          </widget>
-          <widget class="QGroupBox" name="groupBox">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="geometry">
-            <rect>
-             <x>686</x>
-             <y>70</y>
-             <width>411</width>
-             <height>701</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton{background-color: rgb(195, 206, 255);
-color: rgb(46, 48, 62);
-font: 10pt &quot;Segoe UI&quot;;}
-QPushButton:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);}
-QLineEdit{background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-}
-QComboBox{background-color: rgb(255, 255, 255);
-font: 9pt &quot;Segoe UI&quot;;
-padding: 2px;
-}
-QComboBox:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136);
-}</string>
-           </property>
-           <property name="title">
-            <string>Player Info</string>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_10">
-            <item>
-             <layout class="QFormLayout" name="formLayout">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_2">
-                <property name="text">
-                 <string>Discord Name</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="lineEdit">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>Toons</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QTableWidget" name="tableWidget">
-                <property name="styleSheet">
-                 <string notr="true">QTableWidget{color: rgb(195, 206, 255);alternate-background-color: rgb(46, 48, 62);}
-
-</string>
-                </property>
-                <attribute name="horizontalHeaderMinimumSectionSize">
-                 <number>20</number>
-                </attribute>
-                <attribute name="horizontalHeaderDefaultSectionSize">
-                 <number>149</number>
-                </attribute>
-                <column>
-                 <property name="text">
-                  <string>Name</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Class</string>
-                 </property>
-                </column>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_4">
-                <property name="text">
-                 <string>Raid Lead</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QComboBox" name="comboBox_2">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Guildie</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QComboBox" name="comboBox_3">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Buyer</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="QComboBox" name="comboBox_4">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="0">
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>Carry</string>
-                </property>
-               </widget>
-              </item>
-              <item row="5" column="1">
-               <widget class="QComboBox" name="comboBox_5">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="0">
-               <widget class="QLabel" name="label_8">
-                <property name="text">
-                 <string>Favorite</string>
-                </property>
-               </widget>
-              </item>
-              <item row="6" column="1">
-               <widget class="QComboBox" name="comboBox_6">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="0">
-               <widget class="QLabel" name="label_9">
-                <property name="text">
-                 <string>Shitlist</string>
-                </property>
-               </widget>
-              </item>
-              <item row="7" column="1">
-               <widget class="QComboBox" name="comboBox_7">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </widget>
+          </item>
+         </layout>
         </item>
        </layout>
-      </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>Saved Rosters</string>
-       </attribute>
       </widget>
      </widget>
     </item>
@@ -1584,7 +2650,7 @@ QComboBox:disabled{background-color: rgb(189, 189, 189);color: rgb(136, 136, 136
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1160</width>
+     <width>1200</width>
      <height>22</height>
     </rect>
    </property>

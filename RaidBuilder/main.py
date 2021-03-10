@@ -12,8 +12,10 @@ if __name__ == '__main__':
         window.show()
         sys.exit(app.exec_())
     except Exception as error:
-        newMsg = "Something went wrong and I wasn't built to expect this. You can probably just restart and try not to do the same exact thing as before :P\nError: "+str(error)
-        msg = QMessageBox()        
+        newMsg = "Something went wrong and I wasn't built to expect this."\
+                 " You can probably just restart and try not to do the same"\
+                 " exact thing as before :P\nError: "+str(error)
+        msg = QMessageBox()
         msg.setIcon(QMessageBox.Critical)
         msg.setText("You done messed up Ay-Ay-Ron!")
         msg.setInformativeText(newMsg)
