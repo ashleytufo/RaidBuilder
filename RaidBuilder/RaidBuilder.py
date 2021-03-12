@@ -457,7 +457,7 @@ class RBWindow(QMainWindow):
         name = resource_path(exportFolder)
         try:
             saveAs = QFileDialog.getSaveFileName(self, "Save Roster", name, "JSON Files (*.json)")[0]
-            if len(saveAs.strip()) > 0 and path.exists(saveAs):
+            if len(saveAs.strip()) > 0:
                 newQuery = Query()
                 roster = newQuery.getRoster(slctRoster)
                 rosterDict = json.loads(roster[0])
@@ -483,7 +483,7 @@ class RBWindow(QMainWindow):
                                         QLineEdit.Normal)
         try:
             if ok and len(rosterName.strip()) > 0:
-                fname = QFileDialog.getOpenFileName(self, 'Import Roster', 'c:\\',"JSON Files (*.json)")[0]
+                fname = QFileDialog.getOpenFileName(self, 'Import Roster', './',"JSON Files (*.json)")[0]
                 if len(fname.strip()) > 0:
                     with open(fname, 'r') as jFile:
                         data = jFile.read()

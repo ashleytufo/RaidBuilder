@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../../.designer/backup/icons/raidbuilder_icon.png</normaloff>../../../../.designer/backup/icons/raidbuilder_icon.png</iconset>
+    <normaloff>icons/raidbuilder_icon.png</normaloff>icons/raidbuilder_icon.png</iconset>
   </property>
   <property name="windowOpacity">
    <double>5.000000000000000</double>
@@ -1477,8 +1477,8 @@ QTimeEdit:disabled {
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>40</width>
-                  <height>32</height>
+                  <width>36</width>
+                  <height>29</height>
                  </size>
                 </property>
                 <property name="toolTip">
@@ -2651,7 +2651,7 @@ QTimeEdit:disabled {
      <x>0</x>
      <y>0</y>
      <width>1200</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
