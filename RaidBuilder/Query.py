@@ -1,6 +1,7 @@
 import sqlite3
 import sys
 from os import path
+import logging
 
 
 def resource_path(relative_path):
@@ -9,6 +10,7 @@ def resource_path(relative_path):
 
 
 class Query:
+    pyClassLog = logging.getLogger(__name__)
     db = sqlite3.connect(resource_path('raidbuilder.db'))
     # cursor = db.cursor()
 
@@ -17,10 +19,19 @@ class Query:
         self.signee = signee
         self.signup = signup
 
-    def setPlayer(self, player):
-        pass
+    def setPlayer(self, discName, rl, guildie, buyer, carry, favorite, sl,
+                  prio, aliases, toons):
+        cursor = self.db.cursor()
+        params = (discName, rl, guildie, buyer, carry, favorite, sl, prio,
+                  aliases, toons)
+        command = """ INSERT INTO rb_players (Discord_Name, RaidLead, Guildie,
+                    Buyer, Carry, Favorite, Shitlist, Priority, Aliases, Toons)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?); """
+        cursor.execute(command, params)
+        self.db.commit()
+        self.pyClassLog.debug("Player %s created in db", discName)
 
-    def setToon(self, toon):
+    def setToons(self, toon):
         pass
 
     def setSignee(self, signup_id, name, wClass, role, status):
@@ -31,6 +42,7 @@ class Query:
                     ?, ?); """
         cursor.execute(command, params)
         self.db.commit()
+        self.pyClassLog.debug("%s added to signup %d", name, signup_id)
 
     def setSignup(self, signup_name, signup_shortcode, raid_dateTime,
                   signup_text):
@@ -40,6 +52,7 @@ class Query:
                     Raid_Date_Time, Signup_Text) VALUES (?, ?, ?, ?); """
         cursor.execute(command, params)
         self.db.commit()
+        self.pyClassLog.info("Signup %s created in db", (signup_name))
 
     def setRoster(self, name, raid, roster, created):
         cursor = self.db.cursor()
@@ -48,6 +61,7 @@ class Query:
                     (?, ?, ?, ?); """
         cursor.execute(command, params)
         self.db.commit()
+        self.pyClassLog.info("Roster %s created in db", (name))
     
     def deleteSignup(self, signup_id):
         cursor = self.db.cursor()
@@ -55,6 +69,7 @@ class Query:
         command = "DELETE FROM rb_signees WHERE Signup_ID = ?;DELETE FROM rb_signups WHERE ID = ?;"
         cursor.execute(command, params)
         self.db.commit()
+        self.pyClassLog.info("Signup %d and all signees deleted from db", (signup_id))
 
     def deleteAllSignees(self, signup_id):
         cursor = self.db.cursor()
@@ -70,6 +85,28 @@ class Query:
         cursor.execute(command, params)
         self.db.commit()
 
+    def updatePlayer(self, discName, rl, guildie, buyer, carry, favorite, sl,
+                     prio, aliases, toons, p_id):
+        cursor = self.db.cursor()
+        params = (discName, rl, guildie, buyer, carry, favorite, sl, prio,
+                  aliases, toons, p_id)
+        command = """ UPDATE rb_players Discord_Name=?, RaidLead=?, Guildie=?, Buyer=?, Carry=?,
+                    Favorite=?, Shitlist=?, Priority=?, Aliases=?, Toons=? WHERE ID = ?; """
+        cursor.execute(command, params)
+        self.db.commit()
+        self.pyClassLog.debug("Player %s updated in db", discName)
+
+    def updateLimPlayer(self, rl, guildie, buyer, carry, favorite, sl,
+                        prio, aliases, toons, p_id):
+        cursor = self.db.cursor()
+        params = (rl, guildie, buyer, carry, favorite, sl, prio,
+                  aliases, toons, p_id)
+        command = """ UPDATE rb_players RaidLead=?, Guildie=?, Buyer=?, Carry=?,
+                    Favorite=?, Shitlist=?, Priority=?, Aliases=?, Toons=? WHERE ID = ?; """
+        cursor.execute(command, params)
+        self.db.commit()
+        self.pyClassLog.debug("Player with ID %s updated in db", p_id)
+
     def updateSignup(self, signup_name, signup_shortcode, raid_dateTime,
                      signup_text, signupID):
         cursor = self.db.cursor()
@@ -78,6 +115,7 @@ class Query:
                     Raid_Date_Time=?, Signup_Text=? WHERE ID = ?; """
         cursor.execute(command, params)
         self.db.commit()
+        self.pyClassLog.debug("Signup %s(%d) updated in db", signup_name, signupID)
     
     def updateLimSignup(self, raid_dateTime, signup_text, signupID):
         cursor = self.db.cursor()
@@ -85,12 +123,14 @@ class Query:
         command = """ UPDATE rb_signups SET Raid_Date_Time=?, Signup_Text=? WHERE ID = ?; """
         cursor.execute(command, params)
         self.db.commit()
+        self.pyClassLog.info("Signup %d updated in db", (signupID))
 
     def getPlayers(self):
         cursor = self.db.cursor()
         command = """ SELECT ID, Discord_Name, RaidLead, Guildie, Buyer, Carry,
                     Favorite, Shitlist, Priority, Aliases, Toons FROM rb_players"""
         result = cursor.execute(command)
+        self.pyClassLog.debug("All players retrieved from db")
         return result
 
     def getSearchedPlayers(self, searchText):
@@ -100,6 +140,7 @@ class Query:
                     '%{}%' OR Aliases LIKE
                     '%{}%';""".format(searchText, searchText)
         result = cursor.execute(command)
+        self.pyClassLog.debug("%s retrieved from db", (searchText))
         return result
 
     def getSelectedPlayersInfo(self, p_id):
@@ -108,6 +149,7 @@ class Query:
                     Favorite, Shitlist FROM rb_players
                     WHERE ID = {};""".format(p_id)
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Player ID %d info retrieved from db", (p_id))
         return result
 
     def getSelectedPlayersToons(self, p_id):
@@ -115,6 +157,7 @@ class Query:
         command = """ SELECT Toons FROM rb_players
                     WHERE ID = {};""".format(p_id)
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Player ID %d toons retrieved from db", (p_id))
         return result
 
     def getSelectedPlayersID(self, p_name):
@@ -122,6 +165,7 @@ class Query:
         command = """ SELECT ID FROM rb_players
                     WHERE Discord_Name = '{}';""".format(p_name)
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Player %s ID retrieved from db", (p_name))
         return result
 
     def getThisPlayer(self, name):
@@ -130,6 +174,7 @@ class Query:
                     WHERE Abrv = '{}'; """.format(name)
 
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Player %s abbreviation retrieved from db", (name))
         return result
 
     def getToon(self, p_name):
@@ -138,6 +183,7 @@ class Query:
                     WHERE Discord_Name = '{}'; """.format(p_name)
 
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Player %s toons retrieved from db", (p_name))
         return result
 
     def getSignee(self, signupName=None, name=None, wClass=None, role=None,
@@ -149,6 +195,7 @@ class Query:
                         WHERE Signup_Name = '{}'); """.format(signupName)
 
         result = cursor.execute(command)
+        self.pyClassLog.debug("Signees for signup %s retrieved from db", str(signupName))
         return result
 
     def getSignup(self, signupName=None, signupID=None):
@@ -161,7 +208,6 @@ class Query:
         elif signupName is not None and signupID is None:
             command = """ SELECT ID from rb_signups
                         WHERE Signup_Name = '{}'; """.format(signupName)
-
         result = cursor.execute(command)
         return result
 
@@ -171,6 +217,7 @@ class Query:
                     WHERE Signup_Name = '{}'; """.format(signupName)
 
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Signup %s retrieved from db", (signupName))
         return result
 
     def getThisSignupName(self, signupID):
@@ -179,6 +226,7 @@ class Query:
                     WHERE ID = {}; """.format(signupID)
 
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Signup with ID of %d retrieved from db", (signupID))
         return result
 
     def getSignupText(self, signupName):
@@ -187,6 +235,16 @@ class Query:
                     WHERE Signup_Name = '{}'; """.format(signupName)
 
         result = cursor.execute(command)
+        self.pyClassLog.debug("Signup %s retrieved from db", (signupName))
+        return result
+    
+    def getSignupDateTime(self, signupName):
+        cursor = self.db.cursor()
+        command = """ SELECT Raid_Date_Time from rb_signups
+                    WHERE Signup_Name = '{}'; """.format(signupName)
+
+        result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Signup %s retrieved from db", (signupName))
         return result
 
     def getRoster(self, name):
@@ -195,6 +253,7 @@ class Query:
                     WHERE Name = '{}'; """.format(name)
 
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Roster %s retrieved from db", (name))
         return result
 
     def getRosterRaid(self, name):
@@ -203,6 +262,7 @@ class Query:
                     WHERE Name = '{}'; """.format(name)
 
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Roster %s retrieved from db", (name))
         return result
 
     def getRosters(self):
@@ -210,17 +270,20 @@ class Query:
         command = """ SELECT Name FROM rb_rosters ORDER BY CreatedOn; """
 
         result = cursor.execute(command)
+        self.pyClassLog.debug("All rosters retrieved from db")
         return result
 
     def getRoles(self):
         cursor = self.db.cursor()
         command = "SELECT * from rb_roles; "
         result = cursor.execute(command)
+        self.pyClassLog.debug("All roles retrieved from db")
         return result
 
     def getThisRole(self, icon):
         cursor = self.db.cursor()
         command = "SELECT * from rb_roles where IconName = '{}'; ".format(icon)
         result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("%s role retrieved from db", (icon))
         return result
 

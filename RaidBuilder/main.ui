@@ -137,6 +137,8 @@ QLineEdit {
     font: 9pt;
     padding: 2px;
 }
+QWidget QMessageBox {background-color: rgb(0, 0, 0);
+                border-color: rgb(255, 255, 255);}
 
 QLineEdit:disabled {
     background-color: rgb(189, 189, 189);
@@ -152,7 +154,23 @@ QListWidget#saved_rosters_list {
     color: rgb(195, 206, 255);
     alternate-background-color: rgb(45, 51, 49);
 }
+QListWidget#rosterStandby_list_1{border-left: 1px solid rgb(130, 135, 144);
+border-right: None;
+border-top: 1px solid rgb(130, 135, 144);
+border-bottom: 1px solid rgb(130, 135, 144);}
+QListWidget#rosterStandby_list_2{border-left: None;
+border-right: 1px solid rgb(130, 135, 144);
+border-top: 1px solid rgb(130, 135, 144);
+border-bottom: 1px solid rgb(130, 135, 144);}
 
+QListWidget#s_rosterStandby_list_1{border-left: 1px solid rgb(130, 135, 144);
+border-right: None;
+border-top: 1px solid rgb(130, 135, 144);
+border-bottom: 1px solid rgb(130, 135, 144);}
+QListWidget#s_rosterStandby_list_2{border-left: None;
+border-right: 1px solid rgb(130, 135, 144);
+border-top: 1px solid rgb(130, 135, 144);
+border-bottom: 1px solid rgb(130, 135, 144);}
 QListWidget#saved_rosters_list:item:selected:!active {
     background-color: rgb(92, 137, 160);
 }
@@ -346,13 +364,16 @@ QTimeEdit:disabled {
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset>
-                  <normaloff>icons/iconfinder_menu-lines-list_2931181.svg</normaloff>icons/iconfinder_menu-lines-list_2931181.svg</iconset>
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/icons/menu.svg</normaloff>:/icons/menu.svg</iconset>
                 </property>
                 <property name="shortcut">
                  <string>Ctrl+M</string>
                 </property>
                 <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="default">
                  <bool>true</bool>
                 </property>
                </widget>
@@ -416,8 +437,8 @@ QTimeEdit:disabled {
                     <string/>
                    </property>
                    <property name="icon">
-                    <iconset>
-                     <normaloff>icons/iconfinder_reload-refresh-repeat-arrow_2937372.svg</normaloff>icons/iconfinder_reload-refresh-repeat-arrow_2937372.svg</iconset>
+                    <iconset resource="resources.qrc">
+                     <normaloff>:/icons/reset.svg</normaloff>:/icons/reset.svg</iconset>
                    </property>
                    <property name="shortcut">
                     <string>Ctrl+Shift+Z</string>
@@ -433,8 +454,8 @@ QTimeEdit:disabled {
                     <string/>
                    </property>
                    <property name="icon">
-                    <iconset>
-                     <normaloff>icons/iconfinder_edit-change-pencil_2931178.svg</normaloff>icons/iconfinder_edit-change-pencil_2931178.svg</iconset>
+                    <iconset resource="resources.qrc">
+                     <normaloff>:/icons/edit.svg</normaloff>:/icons/edit.svg</iconset>
                    </property>
                   </widget>
                  </item>
@@ -447,8 +468,8 @@ QTimeEdit:disabled {
                     <string/>
                    </property>
                    <property name="icon">
-                    <iconset>
-                     <normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</iconset>
+                    <iconset resource="resources.qrc">
+                     <normaloff>:/icons/save.svg</normaloff>:/icons/save.svg</iconset>
                    </property>
                    <property name="shortcut">
                     <string>Ctrl+S</string>
@@ -467,8 +488,8 @@ QTimeEdit:disabled {
                     <string/>
                    </property>
                    <property name="icon">
-                    <iconset>
-                     <normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</iconset>
+                    <iconset resource="resources.qrc">
+                     <normaloff>:/icons/save.svg</normaloff>:/icons/save.svg</iconset>
                    </property>
                    <property name="shortcut">
                     <string>Ctrl+S</string>
@@ -506,8 +527,8 @@ QTimeEdit:disabled {
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset>
-                  <normaloff>icons/iconfinder_plus-add-new-create-attach-maximize_2931155.svg</normaloff>icons/iconfinder_plus-add-new-create-attach-maximize_2931155.svg</iconset>
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/icons/add.svg</normaloff>:/icons/add.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -517,6 +538,9 @@ QTimeEdit:disabled {
                 </property>
                 <property name="shortcut">
                  <string>Ctrl+N</string>
+                </property>
+                <property name="default">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -700,6 +724,9 @@ QTimeEdit:disabled {
                 </property>
                 <property name="text">
                  <string>Load Signups</string>
+                </property>
+                <property name="default">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -1247,17 +1274,13 @@ QTimeEdit:disabled {
               </item>
               <item>
                <layout class="QGridLayout" name="standby_grid">
-                <item row="0" column="1">
-                 <widget class="QLabel" name="standby_lbl_2">
-                  <property name="text">
-                   <string>Standby 2</string>
-                  </property>
-                 </widget>
-                </item>
+                <property name="horizontalSpacing">
+                 <number>0</number>
+                </property>
                 <item row="0" column="0">
                  <widget class="QLabel" name="standby_lbl_1">
                   <property name="text">
-                   <string>Standby 1</string>
+                   <string>Standby</string>
                   </property>
                  </widget>
                 </item>
@@ -1388,8 +1411,8 @@ QTimeEdit:disabled {
                        <string/>
                       </property>
                       <property name="icon">
-                       <iconset>
-                        <normaloff>icons/iconfinder_tile-sorting_623069.svg</normaloff>icons/iconfinder_tile-sorting_623069.svg</iconset>
+                       <iconset resource="resources.qrc">
+                        <normaloff>:/icons/tiles.svg</normaloff>:/icons/tiles.svg</iconset>
                       </property>
                       <property name="iconSize">
                        <size>
@@ -1462,8 +1485,8 @@ QTimeEdit:disabled {
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset>
-                  <normaloff>icons/iconfinder_reload-refresh-repeat-arrow_2937372.svg</normaloff>icons/iconfinder_reload-refresh-repeat-arrow_2937372.svg</iconset>
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/icons/reset.svg</normaloff>:/icons/reset.svg</iconset>
                 </property>
                 <property name="shortcut">
                  <string>Ctrl+Shift+Z</string>
@@ -1477,8 +1500,8 @@ QTimeEdit:disabled {
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>36</width>
-                  <height>29</height>
+                  <width>40</width>
+                  <height>32</height>
                  </size>
                 </property>
                 <property name="toolTip">
@@ -1491,8 +1514,8 @@ QTimeEdit:disabled {
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset>
-                  <normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</normaloff>icons/iconfinder_save-guardar-diskette_2931176.svg</iconset>
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/icons/save.svg</normaloff>:/icons/save.svg</iconset>
                 </property>
                 <property name="shortcut">
                  <string>Ctrl+S</string>
@@ -1629,10 +1652,9 @@ QTimeEdit:disabled {
                         <string>Yes</string>
                        </property>
                        <property name="icon">
-                        <iconset>
-                         <normaloff>../../b2_search/RaidBuilder/icons/shitlist.png</normaloff>
-                         <disabledoff>../../b2_search/RaidBuilder/icons/shitlist.png</disabledoff>
-                         <selectedoff>../../b2_search/RaidBuilder/icons/shitlist.png</selectedoff>../../b2_search/RaidBuilder/icons/shitlist.png</iconset>
+                        <iconset resource="resources.qrc">
+                         <normaloff>:/icons/shitlist.png</normaloff>
+                         <disabledoff>:/icons/shitlist.png</disabledoff>:/icons/shitlist.png</iconset>
                        </property>
                       </item>
                      </widget>
@@ -1675,10 +1697,9 @@ QTimeEdit:disabled {
                         <string>Yes</string>
                        </property>
                        <property name="icon">
-                        <iconset>
-                         <normaloff>../../b2_search/RaidBuilder/icons/buyer.png</normaloff>
-                         <disabledoff>../../b2_search/RaidBuilder/icons/buyer.png</disabledoff>
-                         <selectedoff>../../b2_search/RaidBuilder/icons/buyer.png</selectedoff>../../b2_search/RaidBuilder/icons/buyer.png</iconset>
+                        <iconset resource="resources.qrc">
+                         <normaloff>:/icons/buyer</normaloff>
+                         <disabledoff>:/icons/buyer</disabledoff>:/icons/buyer</iconset>
                        </property>
                       </item>
                      </widget>
@@ -1705,10 +1726,9 @@ QTimeEdit:disabled {
                         <string>Yes</string>
                        </property>
                        <property name="icon">
-                        <iconset>
-                         <normaloff>../../b2_search/RaidBuilder/icons/favorite.png</normaloff>
-                         <disabledoff>../../b2_search/RaidBuilder/icons/favorite.png</disabledoff>
-                         <selectedoff>../../b2_search/RaidBuilder/icons/favorite.png</selectedoff>../../b2_search/RaidBuilder/icons/favorite.png</iconset>
+                        <iconset resource="resources.qrc">
+                         <normaloff>:/icons/favorite.png</normaloff>
+                         <disabledoff>:/icons/favorite.png</disabledoff>:/icons/favorite.png</iconset>
                        </property>
                       </item>
                      </widget>
@@ -1742,10 +1762,9 @@ QTimeEdit:disabled {
                         <string>Yes</string>
                        </property>
                        <property name="icon">
-                        <iconset>
-                         <normaloff>../../b2_search/RaidBuilder/icons/guildie.png</normaloff>
-                         <disabledoff>../../b2_search/RaidBuilder/icons/guildie.png</disabledoff>
-                         <selectedoff>../../b2_search/RaidBuilder/icons/guildie.png</selectedoff>../../b2_search/RaidBuilder/icons/guildie.png</iconset>
+                        <iconset resource="resources.qrc">
+                         <normaloff>:/icons/guildie.png</normaloff>
+                         <disabledoff>:/icons/guildie.png</disabledoff>:/icons/guildie.png</iconset>
                        </property>
                       </item>
                      </widget>
@@ -1768,10 +1787,10 @@ QTimeEdit:disabled {
                         <string>Yes</string>
                        </property>
                        <property name="icon">
-                        <iconset>
-                         <normaloff>../../b2_search/RaidBuilder/icons/raidlead.png</normaloff>
-                         <disabledoff>../../b2_search/RaidBuilder/icons/raidlead.png</disabledoff>
-                         <selectedoff>../../b2_search/RaidBuilder/icons/raidlead.png</selectedoff>../../b2_search/RaidBuilder/icons/raidlead.png</iconset>
+                        <iconset resource="resources.qrc">
+                         <normaloff>:/icons/raidlead.png</normaloff>
+                         <disabledoff>:/icons/raidlead.png</disabledoff>
+                         <disabledon>:/icons/raidlead.png</disabledon>:/icons/raidlead.png</iconset>
                        </property>
                       </item>
                      </widget>
@@ -1798,10 +1817,9 @@ QTimeEdit:disabled {
                         <string>Yes</string>
                        </property>
                        <property name="icon">
-                        <iconset>
-                         <normaloff>../../b2_search/RaidBuilder/icons/carry.png</normaloff>
-                         <disabledoff>../../b2_search/RaidBuilder/icons/carry.png</disabledoff>
-                         <selectedoff>../../b2_search/RaidBuilder/icons/carry.png</selectedoff>../../b2_search/RaidBuilder/icons/carry.png</iconset>
+                        <iconset resource="resources.qrc">
+                         <normaloff>:/icons/carry.png</normaloff>
+                         <disabledoff>:/icons/carry.png</disabledoff>:/icons/carry.png</iconset>
                        </property>
                       </item>
                      </widget>
@@ -1849,8 +1867,8 @@ QTimeEdit:disabled {
                           <string/>
                          </property>
                          <property name="icon">
-                          <iconset>
-                           <normaloff>../../b2_search/RaidBuilder/icons/iconfinder_edit-change-pencil_2931178.svg</normaloff>../../b2_search/RaidBuilder/icons/iconfinder_edit-change-pencil_2931178.svg</iconset>
+                          <iconset resource="resources.qrc">
+                           <normaloff>:/icons/edit.svg</normaloff>:/icons/edit.svg</iconset>
                          </property>
                          <property name="shortcut">
                           <string>Del</string>
@@ -1869,8 +1887,8 @@ QTimeEdit:disabled {
                           <string/>
                          </property>
                          <property name="icon">
-                          <iconset>
-                           <normaloff>../../b2_search/RaidBuilder/icons/iconfinder_save-guardar-diskette_2931176.svg</normaloff>../../b2_search/RaidBuilder/icons/iconfinder_save-guardar-diskette_2931176.svg</iconset>
+                          <iconset resource="resources.qrc">
+                           <normaloff>:/icons/save.svg</normaloff>:/icons/save.svg</iconset>
                          </property>
                          <property name="shortcut">
                           <string>Ctrl+S</string>
@@ -1892,8 +1910,8 @@ QTimeEdit:disabled {
                        <string/>
                       </property>
                       <property name="icon">
-                       <iconset>
-                        <normaloff>../../b2_search/RaidBuilder/icons/iconfinder_trash-delete-remove_2931168.svg</normaloff>../../b2_search/RaidBuilder/icons/iconfinder_trash-delete-remove_2931168.svg</iconset>
+                       <iconset resource="resources.qrc">
+                        <normaloff>:/icons/delete.svg</normaloff>:/icons/delete.svg</iconset>
                       </property>
                       <property name="shortcut">
                        <string>Del</string>
@@ -1997,8 +2015,8 @@ QTimeEdit:disabled {
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset>
-                  <normaloff>icons/iconfinder_zoom-normal-regular_2931184.svg</normaloff>icons/iconfinder_zoom-normal-regular_2931184.svg</iconset>
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/icons/search.svg</normaloff>:/icons/search.svg</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -2192,8 +2210,8 @@ QTimeEdit:disabled {
                  <string/>
                 </property>
                 <property name="icon">
-                 <iconset>
-                  <normaloff>icons/iconfinder_plus-add-new-create-attach-maximize_2931155.svg</normaloff>icons/iconfinder_plus-add-new-create-attach-maximize_2931155.svg</iconset>
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/icons/add.svg</normaloff>:/icons/add.svg</iconset>
                 </property>
                 <property name="shortcut">
                  <string>Ctrl+N</string>
@@ -2212,58 +2230,105 @@ QTimeEdit:disabled {
        <attribute name="title">
         <string>Saved Rosters</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_15">
+       <layout class="QVBoxLayout" name="verticalLayout_12">
         <item>
-         <layout class="QHBoxLayout" name="saved_rosters_frame">
+         <layout class="QVBoxLayout" name="verticalLayout_13">
           <item>
-           <widget class="QFrame" name="roster_load_area_frame">
+           <widget class="QFrame" name="s_roster_grid">
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_13">
-             <property name="leftMargin">
-              <number>1</number>
-             </property>
-             <property name="topMargin">
-              <number>1</number>
-             </property>
-             <property name="rightMargin">
-              <number>1</number>
-             </property>
-             <property name="bottomMargin">
-              <number>1</number>
-             </property>
-             <item>
-              <widget class="QFrame" name="s_roster_frame">
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <layout class="QGridLayout" name="s_roster_menu_grid">
+               <property name="sizeConstraint">
+                <enum>QLayout::SetDefaultConstraint</enum>
+               </property>
+               <item row="1" column="1">
+                <spacer name="horizontalSpacer_11">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="0">
+                <widget class="QFrame" name="s_roster_frame">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_15"/>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QPushButton" name="saved_rosters_btn">
+                 <property name="toolTip">
+                  <string>Saved Rosters (Shortcut: Ctrl + M)</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="resources.qrc">
+                   <normaloff>:/icons/menu.svg</normaloff>:/icons/menu.svg</iconset>
+                 </property>
+                 <property name="shortcut">
+                  <string>Ctrl+M</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="default">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="import_roster_btn">
+                 <property name="toolTip">
+                  <string>Import Roster</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="resources.qrc">
+                   <normaloff>:/icons/import.svg</normaloff>:/icons/import.svg</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="0" column="1">
+              <widget class="QFrame" name="s_roster_info_frame">
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_12">
-                <property name="leftMargin">
-                 <number>1</number>
-                </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <property name="topMargin">
-                 <number>1</number>
-                </property>
-                <property name="rightMargin">
                  <number>1</number>
                 </property>
                 <property name="bottomMargin">
                  <number>1</number>
                 </property>
                 <item>
-                 <layout class="QGridLayout" name="s_roster_grid" columnstretch="0,0,0,0,0,0,0,0">
-                  <property name="spacing">
-                   <number>10</number>
-                  </property>
-                  <item row="3" column="5">
-                   <widget class="QListWidget" name="s_rosterGrp_list_8">
+                 <layout class="QGridLayout" name="s_roster_info_grid">
+                  <item row="1" column="0">
+                   <widget class="QListWidget" name="s_rosterGrp_list_1">
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2275,34 +2340,11 @@ QTimeEdit:disabled {
                     </property>
                     <property name="defaultDropAction">
                      <enum>Qt::MoveAction</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="5">
-                   <widget class="QLabel" name="s_rosterGrp_lbl_4">
-                    <property name="text">
-                     <string>Group 4</string>
                     </property>
                    </widget>
                   </item>
                   <item row="1" column="1">
-                   <spacer name="horizontalSpacer_4">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Ignored</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="1" column="5">
-                   <widget class="QListWidget" name="s_rosterGrp_list_4">
+                   <widget class="QListWidget" name="s_rosterGrp_list_2">
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2317,112 +2359,7 @@ QTimeEdit:disabled {
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="0">
-                   <widget class="QPushButton" name="saved_rosters_btn">
-                    <property name="toolTip">
-                     <string>Saved Rosters (Shortcut: Ctrl + M)</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/iconfinder_menu-lines-list_2931181.svg</normaloff>icons/iconfinder_menu-lines-list_2931181.svg</iconset>
-                    </property>
-                    <property name="shortcut">
-                     <string>Ctrl+M</string>
-                    </property>
-                    <property name="checkable">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="4">
-                   <widget class="QListWidget" name="s_rosterGrp_list_7">
-                    <property name="acceptDrops">
-                     <bool>true</bool>
-                    </property>
-                    <property name="editTriggers">
-                     <set>QAbstractItemView::NoEditTriggers</set>
-                    </property>
-                    <property name="dragDropMode">
-                     <enum>QAbstractItemView::NoDragDrop</enum>
-                    </property>
-                    <property name="defaultDropAction">
-                     <enum>Qt::MoveAction</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="2">
-                   <widget class="QLabel" name="s_rosterGrp_lbl_5">
-                    <property name="text">
-                     <string>Group 5</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="2">
-                   <widget class="QListWidget" name="s_rosterGrp_list_5">
-                    <property name="acceptDrops">
-                     <bool>true</bool>
-                    </property>
-                    <property name="editTriggers">
-                     <set>QAbstractItemView::NoEditTriggers</set>
-                    </property>
-                    <property name="dragDropMode">
-                     <enum>QAbstractItemView::NoDragDrop</enum>
-                    </property>
-                    <property name="defaultDropAction">
-                     <enum>Qt::MoveAction</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="3">
-                   <widget class="QLabel" name="s_rosterGrp_lbl_6">
-                    <property name="text">
-                     <string>Group 6</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="7">
-                   <widget class="QLabel" name="s_standby_lbl_2">
-                    <property name="text">
-                     <string>Standby 2</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="7">
-                   <widget class="QListWidget" name="s_rosterStandby_list_2">
-                    <property name="acceptDrops">
-                     <bool>true</bool>
-                    </property>
-                    <property name="editTriggers">
-                     <set>QAbstractItemView::NoEditTriggers</set>
-                    </property>
-                    <property name="dragDropMode">
-                     <enum>QAbstractItemView::NoDragDrop</enum>
-                    </property>
-                    <property name="defaultDropAction">
-                     <enum>Qt::MoveAction</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="3">
-                   <widget class="QListWidget" name="s_rosterGrp_list_6">
-                    <property name="acceptDrops">
-                     <bool>true</bool>
-                    </property>
-                    <property name="editTriggers">
-                     <set>QAbstractItemView::NoEditTriggers</set>
-                    </property>
-                    <property name="dragDropMode">
-                     <enum>QAbstractItemView::NoDragDrop</enum>
-                    </property>
-                    <property name="defaultDropAction">
-                     <enum>Qt::MoveAction</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="4">
+                  <item row="1" column="2">
                    <widget class="QListWidget" name="s_rosterGrp_list_3">
                     <property name="acceptDrops">
                      <bool>true</bool>
@@ -2439,7 +2376,7 @@ QTimeEdit:disabled {
                    </widget>
                   </item>
                   <item row="1" column="3">
-                   <widget class="QListWidget" name="s_rosterGrp_list_2">
+                   <widget class="QListWidget" name="s_rosterGrp_list_4">
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2454,74 +2391,14 @@ QTimeEdit:disabled {
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="4">
-                   <widget class="QLabel" name="s_rosterGrp_lbl_3">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_1">
                     <property name="text">
-                     <string>Group 3</string>
+                     <string>Group 1</string>
                     </property>
                    </widget>
-                  </item>
-                  <item row="5" column="2">
-                   <spacer name="verticalSpacer_4">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Fixed</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>300</height>
-                     </size>
-                    </property>
-                   </spacer>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QPushButton" name="import_roster_btn">
-                    <property name="toolTip">
-                     <string>Import Roster</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/iconfinder_import-download-save_2931171.svg</normaloff>icons/iconfinder_import-download-save_2931171.svg</iconset>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="4">
-                   <widget class="QLabel" name="s_rosterGrp_lbl_7">
-                    <property name="text">
-                     <string>Group 7</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="2">
-                   <widget class="QListWidget" name="s_rosterGrp_list_1">
-                    <property name="acceptDrops">
-                     <bool>true</bool>
-                    </property>
-                    <property name="editTriggers">
-                     <set>QAbstractItemView::NoEditTriggers</set>
-                    </property>
-                    <property name="dragDropMode">
-                     <enum>QAbstractItemView::NoDragDrop</enum>
-                    </property>
-                    <property name="defaultDropAction">
-                     <enum>Qt::MoveAction</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="5">
-                   <widget class="QLabel" name="s_rosterGrp_lbl_8">
-                    <property name="text">
-                     <string>Group 8</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="3">
                    <widget class="QLabel" name="s_rosterGrp_lbl_2">
                     <property name="text">
                      <string>Group 2</string>
@@ -2529,13 +2406,168 @@ QTimeEdit:disabled {
                    </widget>
                   </item>
                   <item row="0" column="2">
-                   <widget class="QLabel" name="s_rosterGrp_lbl_1">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_3">
                     <property name="text">
-                     <string>Group 1</string>
+                     <string>Group 3</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="6">
+                  <item row="0" column="3">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_4">
+                    <property name="text">
+                     <string>Group 4</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_5">
+                    <property name="text">
+                     <string>Group 5</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QListWidget" name="s_rosterGrp_list_5">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_6">
+                    <property name="text">
+                     <string>Group 6</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="2">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_7">
+                    <property name="text">
+                     <string>Group 7</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="3">
+                   <widget class="QLabel" name="s_rosterGrp_lbl_8">
+                    <property name="text">
+                     <string>Group 8</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QListWidget" name="s_rosterGrp_list_6">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QListWidget" name="s_rosterGrp_list_7">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="3">
+                   <widget class="QListWidget" name="s_rosterGrp_list_8">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <spacer name="prefill_save_spacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Minimum</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <layout class="QGridLayout" name="standby_grid_2">
+                  <property name="horizontalSpacing">
+                   <number>0</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="s_standby_lbl_1">
+                    <property name="text">
+                     <string>Standby</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="3">
+                   <spacer name="horizontalSpacer_15">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="1" column="1">
+                   <spacer name="horizontalSpacer_14">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="1" column="0">
                    <widget class="QListWidget" name="s_rosterStandby_list_1">
                     <property name="acceptDrops">
                      <bool>true</bool>
@@ -2551,88 +2583,133 @@ QTimeEdit:disabled {
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="6">
-                   <widget class="QLabel" name="s_standby_lbl_1">
-                    <property name="text">
-                     <string>Standby 1</string>
+                  <item row="1" column="2">
+                   <widget class="QListWidget" name="s_rosterStandby_list_2">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
                     </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="7">
-                   <widget class="QFrame" name="export_roster_frame">
-                    <property name="frameShape">
-                     <enum>QFrame::StyledPanel</enum>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
                     </property>
-                    <property name="frameShadow">
-                     <enum>QFrame::Raised</enum>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::NoDragDrop</enum>
                     </property>
-                    <layout class="QHBoxLayout" name="horizontalLayout_7">
-                     <property name="spacing">
-                      <number>1</number>
-                     </property>
-                     <property name="leftMargin">
-                      <number>1</number>
-                     </property>
-                     <property name="topMargin">
-                      <number>1</number>
-                     </property>
-                     <property name="rightMargin">
-                      <number>1</number>
-                     </property>
-                     <property name="bottomMargin">
-                      <number>1</number>
-                     </property>
-                     <item>
-                      <spacer name="export_roster_spacer">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>40</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="delete_roster_btn">
-                       <property name="toolTip">
-                        <string>Delete Roster (Shortcut: Delete)</string>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="icon">
-                        <iconset>
-                         <normaloff>icons/iconfinder_trash-delete-remove_2931168.svg</normaloff>icons/iconfinder_trash-delete-remove_2931168.svg</iconset>
-                       </property>
-                       <property name="shortcut">
-                        <string>Del</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="export_roster_btn">
-                       <property name="toolTip">
-                        <string>Export Roster</string>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="icon">
-                        <iconset>
-                         <normaloff>icons/iconfinder_export-share-upload_2931143 (1).svg</normaloff>icons/iconfinder_export-share-upload_2931143 (1).svg</iconset>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
                    </widget>
                   </item>
                  </layout>
                 </item>
                </layout>
               </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_8">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>18</number>
+             </property>
+             <item>
+              <spacer name="horizontalSpacer_12">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>998</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="delete_roster_btn">
+               <property name="toolTip">
+                <string>Delete Roster (Shortcut: Delete)</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/icons/delete.svg</normaloff>:/icons/delete.svg</iconset>
+               </property>
+               <property name="shortcut">
+                <string>Del</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="screenshot_roster_btn">
+               <property name="toolTip">
+                <string>Screenshot Roster (drag window so that roster is desired width and height first)</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/icons/camera.svg</normaloff>:/icons/camera.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="export_roster_btn">
+               <property name="toolTip">
+                <string>Export Roster</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/icons/export.svg</normaloff>:/icons/export.svg</iconset>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_7">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>258</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -2651,12 +2728,14 @@ QTimeEdit:disabled {
      <x>0</x>
      <y>0</y>
      <width>1200</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

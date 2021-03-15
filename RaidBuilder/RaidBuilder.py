@@ -1,27 +1,32 @@
 """
 @author: Ashley Tufo
 """
+from PyQt5 import uic
+from PyQt5 import QtWidgets
+from PyQt5 import QtGui
+from PyQt5 import QtCore
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtGui import QPixmap
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import (QListWidget, QListWidgetItem,
-                             QTableWidget, QTableWidgetItem, QInputDialog,
-                             QLineEdit, QFrame, QVBoxLayout,
-                             QHBoxLayout, QAbstractItemView,
-                             QFileDialog)
 from PyQt5.QtCore import *
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5 import uic
-from os import path
-import sys
-from PyQt5 import QtGui
+
+from PyQt5.QtWidgets import (QApplication, QListWidget, QListWidgetItem,
+                             QTableWidgetItem, QMainWindow, QLineEdit,
+                             QMessageBox, QAbstractItemView,
+                             QInputDialog, QFileDialog)
+from PyQt5.QtGui import (QPixmap, QClipboard, QIcon, QRegion,
+                         QImage, QImageWriter, QPainter)
+from PyQt5.QtCore import QPoint
+
 from Query import Query
 from Signups import Signup
 from Rosters import Roster
+
 import json
+import logging
+from os import path
+import sys
+from datetime import datetime
 
 
 def resource_path(relative_path):
@@ -30,24 +35,19 @@ def resource_path(relative_path):
 
 
 class RBWindow(QMainWindow):
+    pyClassLog = logging.getLogger(__name__)
 
     def __init__(self):
         super(RBWindow, self).__init__()
         QMainWindow.__init__(self)
         uic.loadUi(resource_path('main.ui'), self)
-
         self.saved_rosters_list = QListWidget(self.s_roster_frame)
         self.saved_rosters_list.setObjectName(u"saved_rosters_list")
-        self.s_roster_grid.addWidget(self.saved_rosters_list, 1, 0, 6, 1)
-        
-        # self.saved_rosters_list.setStyleSheet("QListWidget#saved_rosters_list{border-style: None;\
-        #                                         color: rgb(195, 206, 255);\
-        #                                         alternate-background-color:\
-        #                                             rgb(46, 48, 62);}\
-        #                                         QListWidget:item{\
-        #                                             padding: 5px;}")
+        self.s_roster_menu_grid.addWidget(self.saved_rosters_btn, 0, 0, 1, 1)
+        self.s_roster_menu_grid.addWidget(self.saved_rosters_list, 1, 0, 1, 1)
+        self.saved_rosters_list.setFixedWidth(150)
         self.saved_rosters_list.setAlternatingRowColors(True)
-        self.saved_rosters_list.setEditTriggers(QAbstractItemView.\
+        self.saved_rosters_list.setEditTriggers(QAbstractItemView.
                                                 NoEditTriggers)
         self.saved_rosters_list.setWordWrap(True)
         self.saved_rosters_list.setVisible(False)
@@ -56,20 +56,18 @@ class RBWindow(QMainWindow):
         self.saved_signups_list.setObjectName(u"saved_signups_list")
         self.signups_grid.addWidget(self.saved_signups_list, 1, 0, 3, 1)
         self.saved_signups_list.setAlternatingRowColors(True)
-        self.saved_signups_list.setEditTriggers(QAbstractItemView.\
+        self.saved_signups_list.setEditTriggers(QAbstractItemView.
                                                 NoEditTriggers)
         self.saved_signups_list.setWordWrap(True)
         self.saved_signups_list.setVisible(False)
+        self.saved_signups_list.setFixedWidth(150)
 
-        self.s_roster_grid.addWidget(self.s_rosterStandby_list_1, 1, 6, 3, 1)
-        self.s_roster_grid.addWidget(self.s_rosterStandby_list_2, 1, 7, 3, 1)
-        self.players_grid.addWidget(self.players_tbl, 1, 0, 4, 2)
-        self.signups_grid.addWidget(self.signup_name_lbl, 0, 2, 1, 3)   
+        self.signups_grid.addWidget(self.signup_name_lbl, 0, 2, 1, 3)
         self.signups_grid.addWidget(self.signup_name_edit, 1, 2, 1, 3)
         self.signups_grid.addWidget(self.signup_txt_edit, 2, 2, 1, 6)
 
-        self.HandleButtons()
-        self.FillLists()
+        self.players_grid.addWidget(self.players_tbl, 1, 0, 4, 2)
+
         today = QtCore.QDate.currentDate()
         self.signup_date_edit.setDate(today)
         self.reset_signup_btn.setVisible(False)
@@ -85,6 +83,7 @@ class RBWindow(QMainWindow):
         self.players_tbl.setColumnHidden(9, True)
         self.players_tbl.setColumnHidden(10, True)
         self.export_roster_btn.setVisible(False)
+        self.screenshot_roster_btn.setVisible(False)
         self.delete_roster_btn.setVisible(False)
         self.player_info_box.setVisible(False)
         self.save_player_btn.setVisible(False)
@@ -105,52 +104,45 @@ class RBWindow(QMainWindow):
         self.signup_txt_edit.setStyleSheet(readOnlyStyle)
 
         stylesheet = '''
-            QMainWindow {
-                background-image: url(icons/RB_Background.png);
+            QMainWindow {background-image: url(icons/RB_Background.png);
                 background-repeat: no-repeat;
                 background-position: center;
-                background-color: rgb(33, 38, 36);
-                    }
-            QDialog {
-                background-color: rgb(46, 48, 62);
-                border-color: rgb(255, 255, 255);
-            }
+                background-color: rgb(33, 38, 36);}
 
-            QDialog QLineEdit {
-                background-color: rgb(255, 255, 255);
+            QDialog {background-color: rgb(45, 51, 49);
+                border-color: rgb(255, 255, 255);}
+
+            QDialog QLineEdit {background-color: rgb(255, 255, 255);
                 font: 9pt;
-                padding: 2px;
-            }
+                padding: 2px;}
 
-            QDialog QLabel {
-                color: rgb(145, 153, 190);
-                background-color: rgb(46, 48, 62);
-                padding: 1px;
-            }
+            QDialog QLabel {color: rgb(145, 153, 190);
+                background-color: rgb(45, 51, 49);
+                padding: 1px; font: 12pt;}
 
-            QDialog QPushButton {
-                background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0.0738636 rgba(108, 114, 142, 255), stop:1 rgba(255, 255, 255, 255));
-                color: pallete(light);
-                border-style: inset;
-                border-width: 2px;
-                padding: 3px;
-                border-radius: 8px;
-                font: 12px;
-                min-width: 2em;
-                min-height: 1.5em;
-            }
+            QDialog QPushButton {background-color: qlineargradient(
+                        spread:pad, x1:1, y1:1, x2:1, y2:0,
+                        stop:0.0738636 rgba(108, 114, 142, 255),
+                        stop:1 rgba(255, 255, 255, 255));
+                color: pallete(light); border-style: inset;
+                border-width: 2px; padding: 3px; border-radius: 8px;
+                font: 10pt; min-width: 2em; min-height: 1.5em;}
 
-            QDialog QPushButton:hover:pressed {
-                background-color: rgb(145, 153, 190);
-                border-style: inset;
-            }
+            QDialog QPushButton:hover:pressed {background-color: rgb(145, 153, 190);
+                border-style: inset;}
 
-            QDialog QPushButton:hover {
-                background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(195, 206, 255, 255), stop:0.676136 rgba(255, 255, 255, 255));
-                border-style: inset;
-            }
+            QDialog QPushButton:hover {background-color: qlineargradient(
+                    spread:pad, x1:1, y1:1, x2:1, y2:0, 
+                    stop:0 rgba(195, 206, 255, 255), 
+                    stop:0.676136 rgba(255, 255, 255, 255));
+                border-style: inset;}
             '''
+
         self.setStyleSheet(stylesheet)
+        self.HandleButtons()
+        self._fill_players()
+        self._fill_rosters()
+        self._fill_signups()
 
     def createIcons(self):
         raidLeadIcon = QPixmap(resource_path(
@@ -165,7 +157,7 @@ class RBWindow(QMainWindow):
                     'icons/favorite.png')).scaledToHeight(25, 1)
         shitlistIcon = QPixmap(resource_path(
                     'icons/shitlist.png')).scaledToHeight(25, 1)
-       
+
         r0 = QPixmap(resource_path(
             "icons/no-stars.png")).scaledToHeight(25, 1)
         r1 = QPixmap(resource_path(
@@ -178,9 +170,8 @@ class RBWindow(QMainWindow):
             "icons/four-stars.png")).scaledToHeight(25, 1)
         r5 = QPixmap(resource_path(
             "icons/five-stars.png")).scaledToHeight(25, 1)
-        
-        categoryIcons = [raidLeadIcon, guildieIcon, buyerIcon, 
-                        carryIcon, favoriteIcon, shitlistIcon]
+        categoryIcons = [raidLeadIcon, guildieIcon, buyerIcon,
+                         carryIcon, favoriteIcon, shitlistIcon]
         ratingIcons = [r0, r1, r2, r3, r4, r5]
         return categoryIcons, ratingIcons
 
@@ -191,7 +182,7 @@ class RBWindow(QMainWindow):
         tblItem = QTableWidgetItem(str(data))
         tblItem.setTextAlignment(Qt.AlignHCenter)
         tblItem.setTextAlignment(Qt.AlignVCenter)
-        
+
         if column_num == 2:
             tblItem.setData(Qt.EditRole, data)
             tblItem.setForeground(QtGui.QColor('#2e303e'))
@@ -199,81 +190,64 @@ class RBWindow(QMainWindow):
                 iconHolder = QtWidgets.QLabel()
                 tblItem.setTextAlignment(Qt.AlignCenter)
                 iconHolder.setAlignment(Qt.AlignCenter)
-                # tblItem.setIcon(QtGui.QIcon(
-                #     resource_path('icons/raidlead.png')))
                 iconHolder.setPixmap(categoryIcons[0])
                 self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
             else:
                 tblItem.setText("")
-                
+
         elif column_num == 3:
             tblItem.setData(Qt.EditRole, data)
             tblItem.setForeground(QtGui.QColor('#2e303e'))
-            # tblItem.setText("")
             if data:
                 iconHolder = QtWidgets.QLabel()
                 tblItem.setTextAlignment(Qt.AlignCenter)
                 iconHolder.setAlignment(Qt.AlignCenter)
                 iconHolder.setPixmap(categoryIcons[1])
                 self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
-                # tblItem.setIcon(QtGui.QIcon(
-                #     resource_path('icons/guildie.png')))
             else:
                 tblItem.setText("")
         elif column_num == 4:
             tblItem.setData(Qt.EditRole, data)
             tblItem.setForeground(QtGui.QColor('#2e303e'))
-            # tblItem.setText("")
             if data:
                 iconHolder = QtWidgets.QLabel()
                 tblItem.setTextAlignment(Qt.AlignCenter)
                 iconHolder.setAlignment(Qt.AlignCenter)
                 iconHolder.setPixmap(categoryIcons[2])
                 self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
-                # tblItem.setIcon(QtGui.QIcon(
-                #     resource_path('icons/buyer.png')))
             else:
                 tblItem.setText("")
         elif column_num == 5:
             tblItem.setData(Qt.EditRole, data)
             tblItem.setForeground(QtGui.QColor('#2e303e'))
-            # tblItem.setText("")
             if data:
                 iconHolder = QtWidgets.QLabel()
                 tblItem.setTextAlignment(Qt.AlignCenter)
                 iconHolder.setAlignment(Qt.AlignCenter)
                 iconHolder.setPixmap(categoryIcons[3])
                 self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
-                # tblItem.setIcon(QtGui.QIcon(
-                #     resource_path('icons/carry.png')))
             else:
                 tblItem.setText("")
         elif column_num == 6:
             tblItem.setData(Qt.EditRole, data)
             tblItem.setForeground(QtGui.QColor('#2e303e'))
-            # tblItem.setText("")
             if data:
                 iconHolder = QtWidgets.QLabel()
                 tblItem.setTextAlignment(Qt.AlignCenter)
                 iconHolder.setAlignment(Qt.AlignCenter)
                 iconHolder.setPixmap(categoryIcons[4])
                 self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
-                # tblItem.setIcon(QtGui.QIcon(
-                #     resource_path('icons/favorite.png')))
             else:
                 tblItem.setText("")
         elif column_num == 7:
             tblItem.setData(Qt.EditRole, data)
             tblItem.setForeground(QtGui.QColor('#2e303e'))
-            # tblItem.setText("")
             if data:
                 iconHolder = QtWidgets.QLabel()
                 tblItem.setTextAlignment(Qt.AlignCenter)
                 iconHolder.setAlignment(Qt.AlignCenter)
                 iconHolder.setPixmap(categoryIcons[5])
                 self.players_tbl.setCellWidget(row_num, column_num, iconHolder)
-                # tblItem.setIcon(QtGui.QIcon(
-                #     resource_path('icons/shitlist.png')))
             else:
                 tblItem.setText("")
         elif column_num == 10:
@@ -315,24 +289,37 @@ class RBWindow(QMainWindow):
                 rating.setPixmap(ratingIcons[5])
             self.players_tbl.setCellWidget(row_num, column_num, rating)
 
-    def FillLists(self):
-        self.signup_cmbo.clear()
-        self.saved_signups_list.clear()
+    def _fill_players(self):
+        newQuery = Query()
+        players = newQuery.getPlayers()
+        self.players_tbl.setRowCount(0)
+
+        icons = self.createIcons()
+
+        for row_num, row_data in enumerate(players):
+            self.players_tbl.insertRow(row_num)
+            for column_num, data in enumerate(row_data):
+                self.parse_player_tbl(data, row_num, row_data,
+                                      column_num, icons)
+
+        header = self.players_tbl.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(7, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(8, QtWidgets.QHeaderView.Stretch)
+
+        header= self.toons_tbl.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+
+    def _fill_rosters(self):
         self.roster_combo.clear()
         self.saved_rosters_list.clear()
-        newQuery = Query()
-        signups = newQuery.getSignup()
-        resList = []
-        for row_number, row_data in enumerate(signups):
-            resList.append(row_data[0])
-
-        for r in reversed(resList):
-            signupsItem = QListWidgetItem(str(r))
-            self.saved_signups_list.addItem(signupsItem)
-
-        resList.append('Choose a signup list...')
-        self.signup_cmbo.addItems(reversed(resList))
-
         newQuery = Query()
         rosters = newQuery.getRosters()
         resList = []
@@ -349,33 +336,25 @@ class RBWindow(QMainWindow):
                 self.saved_rosters_list.addItem(rosterItem)
 
         resList.append('Choose a saved roster...')
+
         self.roster_combo.addItems(reversed(resList))
 
+    def _fill_signups(self):
+        self.signup_cmbo.clear()
+        self.saved_signups_list.clear()
+
         newQuery = Query()
-        players = newQuery.getPlayers()
-        self.players_tbl.setRowCount(0)
+        signups = newQuery.getSignup()
+        resList = []
+        for row_number, row_data in enumerate(signups):
+            resList.append(row_data[0])
 
-        icons = self.createIcons()
-        
-        for row_num, row_data in enumerate(players):
-            self.players_tbl.insertRow(row_num)
-            for column_num, data in enumerate(row_data):
-                self.parse_player_tbl(data, row_num, row_data, column_num, icons)
+        for r in reversed(resList):
+            signupsItem = QListWidgetItem(str(r))
+            self.saved_signups_list.addItem(signupsItem)
 
-        header = self.players_tbl.horizontalHeader()
-        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(7, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(8, QtWidgets.QHeaderView.Stretch)
-
-        header= self.toons_tbl.horizontalHeader()
-        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        resList.append('Choose a signup list...')
+        self.signup_cmbo.addItems(reversed(resList))
 
     def HandleButtons(self):
         self.load_btn.clicked.connect(self.GET_DATA)
@@ -417,6 +396,7 @@ class RBWindow(QMainWindow):
         self.rosterGrp_list_8.clicked.connect(self.FIX_COLOR)
         self.rosterStandby_list_1.clicked.connect(self.FIX_COLOR)
         self.rosterStandby_list_2.clicked.connect(self.FIX_COLOR)
+        self.screenshot_roster_btn.clicked.connect(self.SCRNSHOT_ROSTER)
 
     def ADD_PLAYER(self):
         # TODO: Add ADD PLAYER functionality
@@ -449,6 +429,47 @@ class RBWindow(QMainWindow):
     def DELETE_ROSTER(self):
         # TODO: Add DELETE ROSTER functionality
         pass
+    
+    def SCRNSHOT_ROSTER(self):
+        msg = QMessageBox()
+        try:
+            now = datetime.now()
+            nowString = now.strftime("%m_%d_%Y__T%H-%m")
+            widg = self.s_roster_info_frame
+            shortName = self.saved_rosters_list.currentItem().text() + nowString + ".png"
+            exportFolder = "exportedRosters/{}".format(shortName)
+
+            image = QImage(widg.size(), QImage.Format_ARGB32_Premultiplied)
+            painter = QPainter()
+
+            painter.begin(image)
+            painter.setRenderHint(QPainter.TextAntialiasing, True)
+            widg.render(painter, QPoint(), QRegion(), QWidget.DrawChildren)
+            path = resource_path(exportFolder)
+            writer = QImageWriter(path)
+            writer.write(image)
+            painter.end()
+            self.pyClassLog.info("Screenshot exported to {}".format(path))
+            QApplication.clipboard().setImage(QImage(image),
+                                              QClipboard.Clipboard)
+
+            msg.setText("Copied to clipboard!")
+            msg.setInformativeText("Roster screenshot has been copied to "\
+                                   " clipboard and written to the "\
+                                   "exportedRosters folder.")
+            msg.setWindowTitle("Screenshot captured")
+            msg.setWindowIcon(QIcon(
+                              resource_path("icons/raidbuilder_icon.ico")))
+            msg.exec_()
+        except Exception as error:
+            msg.setIcon(QMessageBox.Critical)
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
+            msg.setInformativeText(errMsg)
+            msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                              resource_path("icons/raidbuilder_icon.ico")))
 
     def EXPORT_ROSTER(self):
         slctRoster = self.saved_rosters_list.currentItem().toolTip()
@@ -456,14 +477,19 @@ class RBWindow(QMainWindow):
         exportFolder = "exportedRosters/{}".format(shortName)
         name = resource_path(exportFolder)
         try:
-            saveAs = QFileDialog.getSaveFileName(self, "Save Roster", name, "JSON Files (*.json)")[0]
+            saveAs = QFileDialog.getSaveFileName(self, "Save Roster", name,
+                                                 "JSON Files (*.json)")[0]
             if len(saveAs.strip()) > 0:
+                self.pyClassLog.info(slctRoster +
+                                     " to be exported to " + saveAs)
                 newQuery = Query()
                 roster = newQuery.getRoster(slctRoster)
                 rosterDict = json.loads(roster[0])
                 rosterJson = json.dumps(rosterDict, indent=4)
                 with open(saveAs, 'w') as jFile:
                     jFile.write(rosterJson)
+                    self.pyClassLog.info(slctRoster +
+                                         " successfully exported to " + saveAs)
             else:
                 return
 
@@ -472,8 +498,11 @@ class RBWindow(QMainWindow):
             msg.setIcon(QMessageBox.Critical)
             errMsg = "Error: "+str(error)
             msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
             msg.setInformativeText(errMsg)
             msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
             msg.exec_()
 
     def IMPORT_ROSTER(self):
@@ -484,11 +513,16 @@ class RBWindow(QMainWindow):
         try:
             if ok and len(rosterName.strip()) > 0:
                 fname = QFileDialog.getOpenFileName(self, 'Import Roster', './',"JSON Files (*.json)")[0]
+                self.pyClassLog.info(rosterName +
+                                     " chosen to be imported to from " + fname)
                 if len(fname.strip()) > 0:
                     with open(fname, 'r') as jFile:
                         data = jFile.read()
+                        self.pyClassLog.info("Read data from " + fname)
+                        dataCheck = json.loads(data)
+                        self.pyClassLog.info("Loaded file as JSON")
                         newRoster = Roster(rosterName, data)
-                    self.FillLists()
+                    self._fill_rosters()
                     rosterName = newRoster.getName()
                     raidName = newRoster.getRaid()
                     for x in range(self.saved_rosters_list.count()):
@@ -505,8 +539,11 @@ class RBWindow(QMainWindow):
             msg.setIcon(QMessageBox.Critical)
             errMsg = "Error: "+str(error)
             msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
             msg.setInformativeText(errMsg)
             msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
             msg.exec_()
 
     def PLAYER_INFO(self):
@@ -523,105 +560,75 @@ class RBWindow(QMainWindow):
 
         item = self.players_tbl.currentRow()
         p_id = self.players_tbl.item(item, 0).text()
-        newQuery = Query()
-        result = newQuery.getSelectedPlayersInfo(p_id)
 
-        p_name = self.players_tbl.item(item, 1).text()
-        p_alias = result[0]
-        p_rl = int(result[1])
-        p_gld = int(result[2])
-        p_buy = int(result[3])
-        p_carry = int(result[4])
-        p_fav = int(result[5])
-        p_shit = int(result[6])
+        try:
+            newQuery = Query()
+            result = newQuery.getSelectedPlayersInfo(p_id)
 
-        self.disc_name_edit.setText(p_name)
-        self.aliases_edit.setText(p_alias)
-        if p_rl:
-            self.raid_lead_combo.setCurrentIndex(1)
-        if p_gld:
-            self.guildie_combo.setCurrentIndex(1)
-        if p_buy:
-            self.buyer_combo.setCurrentIndex(1)
-        if p_carry:
-            self.carry_combo.setCurrentIndex(1)
-        if p_fav:
-            self.fav_combo.setCurrentIndex(1)
-        if p_shit:
-            self.fav_combo.setCurrentIndex(0)
-            self.shitlist_combo.setCurrentIndex(1)
+            p_name = self.players_tbl.item(item, 1).text()
+            p_alias = result[0]
+            p_rl = int(result[1])
+            p_gld = int(result[2])
+            p_buy = int(result[3])
+            p_carry = int(result[4])
+            p_fav = int(result[5])
+            p_shit = int(result[6])
 
-        newQuery = Query()
-        result = newQuery.getSelectedPlayersToons(p_id)
-        if result[0] is not None:
-            toonList = json.loads(result[0])
-        else:
-            toonList = {}
-        for row, toon in enumerate(toonList):
-            self.toons_tbl.insertRow(row)
-            name = toon
-            wClass = toonList[toon]
-            tblItem_name = QTableWidgetItem(str(name))
-            tblItem_wClass = QTableWidgetItem(str(wClass))
-            self.toons_tbl.setItem(row, 0, tblItem_name)
-            self.toons_tbl.setItem(row, 1, tblItem_wClass)
+            self.disc_name_edit.setText(p_name)
+            self.aliases_edit.setText(p_alias)
+            if p_rl:
+                self.raid_lead_combo.setCurrentIndex(1)
+            if p_gld:
+                self.guildie_combo.setCurrentIndex(1)
+            if p_buy:
+                self.buyer_combo.setCurrentIndex(1)
+            if p_carry:
+                self.carry_combo.setCurrentIndex(1)
+            if p_fav:
+                self.fav_combo.setCurrentIndex(1)
+            if p_shit:
+                self.fav_combo.setCurrentIndex(0)
+                self.shitlist_combo.setCurrentIndex(1)
 
-        header = self.toons_tbl.horizontalHeader()
-        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+            newQuery = Query()
+            result = newQuery.getSelectedPlayersToons(p_id)
+            if result[0] is not None:
+                toonList = json.loads(result[0])
+            else:
+                toonList = {}
+            for row, toon in enumerate(toonList):
+                self.toons_tbl.insertRow(row)
+                name = toon
+                wClass = toonList[toon]
+                tblItem_name = QTableWidgetItem(str(name))
+                tblItem_wClass = QTableWidgetItem(str(wClass))
+                self.toons_tbl.setItem(row, 0, tblItem_name)
+                self.toons_tbl.setItem(row, 1, tblItem_wClass)
+
+            header = self.toons_tbl.horizontalHeader()
+            header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+            header.setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
+        except Exception as error:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
+            msg.setInformativeText(errMsg)
+            msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
+            msg.exec_()
+
 
     def SEARCH_PLAYERS(self):
         searchText = self.search_edit.text().strip()
         items = self.players_tbl.findItems(searchText, Qt.MatchContains)
         for i in range(self.players_tbl.rowCount()):
             self.players_tbl.hideRow(i)
-        
+
         for i in range(len(items)):
             self.players_tbl.showRow(items[i].row())
-        
-        # icons = self.createIcons()
-        # if len(searchText) < 1:
-        #     newQuery = Query()
-        #     results = newQuery.getPlayers()
-        #     if results is not None:
-        #         self.players_tbl.setRowCount(0)
-        #         for row_num, row_data in enumerate(results):
-        #             self.players_tbl.insertRow(row_num)
-        #             for column_num, data in enumerate(row_data):
-        #                 self.parse_player_tbl(data, row_num, row_data,
-        #                                     column_num, icons)
-        # elif len(searchText) > 1:
-        #     newQuery = Query()
-        #     results = newQuery.getSearchedPlayers(searchText)
-
-        #     if results is not None:
-        #         self.players_tbl.setRowCount(0)
-        #         for row_num, row_data in enumerate(results):
-        #             self.players_tbl.insertRow(row_num)
-        #             for column_num, data in enumerate(row_data):
-        #                 self.parse_player_tbl(data, row_num, row_data,
-        #                                     column_num, icons)
-        # else:
-        #     pass
-        header= self.players_tbl.horizontalHeader()
-        header.setSectionResizeMode(0,
-                                    QtWidgets.QHeaderView.ResizeToContents)
-        # header.setSectionResizeMode(1,
-        #                             QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(2,
-                                    QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(3,
-                                    QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(4,
-                                    QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(5,
-                                    QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(6,
-                                    QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(7,
-                                    QtWidgets.QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(8,
-                                    QtWidgets.QHeaderView.Stretch)
 
     def ROSTER_INFO(self):
         self.s_rosterGrp_list_1.clear()
@@ -635,79 +642,93 @@ class RBWindow(QMainWindow):
         self.s_rosterStandby_list_1.clear()
         self.s_rosterStandby_list_2.clear()
         self.export_roster_btn.setVisible(True)
+        self.screenshot_roster_btn.setVisible(True)
         slctRoster = self.saved_rosters_list.currentItem().toolTip()
-        newQuery = Query()
-        roster = newQuery.getRoster(slctRoster)
-        rosterDict = json.loads(roster[0])
-        grp1 = rosterDict["grp1"]
-        for item in grp1:
-            signee = QListWidgetItem(item)
-            role = grp1[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterGrp_list_1.addItem(coloredSignee)
+        try:
+            newQuery = Query()
+            roster = newQuery.getRoster(slctRoster)
+            rosterDict = json.loads(roster[0])
+            grp1 = rosterDict["grp1"]
+            for item in grp1:
+                signee = QListWidgetItem(item)
+                role = grp1[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterGrp_list_1.addItem(coloredSignee)
 
-        grp2 = rosterDict["grp2"]
-        for item in grp2:
-            signee = QListWidgetItem(item)
-            role = grp2[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterGrp_list_2.addItem(coloredSignee)
+            grp2 = rosterDict["grp2"]
+            for item in grp2:
+                signee = QListWidgetItem(item)
+                role = grp2[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterGrp_list_2.addItem(coloredSignee)
 
-        grp3 = rosterDict["grp3"]
-        for item in grp3:
-            signee = QListWidgetItem(item)
-            role = grp3[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterGrp_list_3.addItem(coloredSignee)
+            grp3 = rosterDict["grp3"]
+            for item in grp3:
+                signee = QListWidgetItem(item)
+                role = grp3[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterGrp_list_3.addItem(coloredSignee)
 
-        grp4 = rosterDict["grp4"]
-        for item in grp4:
-            signee = QListWidgetItem(item)
-            role = grp4[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterGrp_list_4.addItem(coloredSignee)
+            grp4 = rosterDict["grp4"]
+            for item in grp4:
+                signee = QListWidgetItem(item)
+                role = grp4[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterGrp_list_4.addItem(coloredSignee)
 
-        grp5 = rosterDict["grp5"]
-        for item in grp5:
-            signee = QListWidgetItem(item)
-            role = grp5[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterGrp_list_5.addItem(coloredSignee)
+            grp5 = rosterDict["grp5"]
+            for item in grp5:
+                signee = QListWidgetItem(item)
+                role = grp5[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterGrp_list_5.addItem(coloredSignee)
 
-        grp6 = rosterDict["grp6"]
-        for item in grp6:
-            signee = QListWidgetItem(item)
-            role = grp6[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterGrp_list_6.addItem(coloredSignee)
+            grp6 = rosterDict["grp6"]
+            for item in grp6:
+                signee = QListWidgetItem(item)
+                role = grp6[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterGrp_list_6.addItem(coloredSignee)
 
-        grp7 = rosterDict["grp7"]
-        for item in grp7:
-            signee = QListWidgetItem(item)
-            role = grp7[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterGrp_list_7.addItem(coloredSignee)
+            grp7 = rosterDict["grp7"]
+            for item in grp7:
+                signee = QListWidgetItem(item)
+                role = grp7[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterGrp_list_7.addItem(coloredSignee)
 
-        grp8 = rosterDict["grp8"]
-        for item in grp8:
-            signee = QListWidgetItem(item)
-            role = grp8[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterGrp_list_8.addItem(coloredSignee)
+            grp8 = rosterDict["grp8"]
+            for item in grp8:
+                signee = QListWidgetItem(item)
+                role = grp8[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterGrp_list_8.addItem(coloredSignee)
 
-        stdby1 = rosterDict["stdby1"]
-        for item in stdby1:
-            signee = QListWidgetItem(item)
-            role = stdby1[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterStandby_list_1.addItem(coloredSignee)
+            stdby1 = rosterDict["stdby1"]
+            for item in stdby1:
+                signee = QListWidgetItem(item)
+                role = stdby1[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterStandby_list_1.addItem(coloredSignee)
 
-        stdby2 = rosterDict["stdby2"]
-        for item in stdby2:
-            signee = QListWidgetItem(item)
-            role = stdby2[item]
-            coloredSignee = self.colorMe(role, signee)
-            self.s_rosterStandby_list_2.addItem(coloredSignee)
+            stdby2 = rosterDict["stdby2"]
+            for item in stdby2:
+                signee = QListWidgetItem(item)
+                role = stdby2[item]
+                coloredSignee = self.colorMe(role, signee)
+                self.s_rosterStandby_list_2.addItem(coloredSignee)
+        except Exception as error:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
+            msg.setInformativeText(errMsg)
+            msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
+            msg.exec_()
+
 
     def OPEN_CLOSE_R_LIST(self):
         if self.saved_rosters_btn.isChecked():
@@ -764,9 +785,7 @@ class RBWindow(QMainWindow):
         self.update_existing_btn.setVisible(False)
 
         self.signup_txt_edit.clear()
-        today = QtCore.QDate.currentDate()
-        self.signup_date_edit.setDate(today)
-        
+
         slctSignup = self.saved_signups_list.currentItem().text()
         self.signup_name_edit.setText(slctSignup)
         newQuery = Query()
@@ -779,6 +798,15 @@ class RBWindow(QMainWindow):
                 rowList = row_data.split("\n")
                 for item in rowList:
                     self.signup_txt_edit.appendPlainText(item)
+
+        newQuery = Query()
+        dateTime = newQuery.getSignupDateTime(slctSignup)
+        if dateTime is not None:
+            for row_number, row_data in enumerate(dateTime):
+                dtformat = "yyyy-MM-dd HH:mm:ss"
+                qdateTime = QtCore.QDateTime.fromString(row_data, dtformat)
+                self.signup_date_edit.setDate(qdateTime.date())
+                self.signup_time_edit.setTime(qdateTime.time())
 
     def EDIT_SIGNUP(self):
         notReadOnlyStyleO = "[readOnly=\"false\"]{color: rgb(0, 0, 0);}"
@@ -812,14 +840,16 @@ class RBWindow(QMainWindow):
                 if len(newName) < 1:
                     raise Exception("Signup not named.")
                 elif len(text) < 1:
-                    raise Exception("Signups are empty. Please paste the signups from discord into the text edit field.")
+                    raise Exception("Signups are empty. Please paste the "\
+                                    "signups from discord into the text "\
+                                    "edit field.")
 
                 signupID = ex_signup_id[0]
                 deleteSignees = Query()
                 deleteSignees.deleteAllSignees(signupID)
                 updateSignup = Signup(newName, s_date, s_time, text, signupID)
 
-                self.FillLists()
+                self._fill_signups()
                 self.RESET_SIGNUP()
                 readOnlyStyle = "[readOnly=\"true\"]{color: rgb(136, 136, 136);}"
 
@@ -843,8 +873,11 @@ class RBWindow(QMainWindow):
             msg.setIcon(QMessageBox.Critical)
             errMsg = "Error: "+str(error)
             msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
             msg.setInformativeText(errMsg)
             msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
             msg.exec_()
 
     def RESET_SIGNUP(self):
@@ -875,8 +908,6 @@ class RBWindow(QMainWindow):
         self.prefill_roster_btn.setVisible(False)
         self.roster_combo.setDisabled(True)
         self.prefill_roster_btn.setDisabled(True)
-        # self.pre_rost_radbtn.setVisible(True)
-        # self.pre_favs_radbtn.setVisible(True)
         self.reset_roster_btn.setVisible(False)
         self.save_roster_btn.setVisible(False)
 
@@ -915,17 +946,19 @@ class RBWindow(QMainWindow):
             if len(name) < 1:
                 raise Exception("Signup not named.")
             elif len(text) < 1:
-                raise Exception("Signups are empty. Please paste the signups from discord into the text edit field.")
+                raise Exception("Signups are empty. Please paste the "\
+                                "signups from discord into the text "\
+                                "edit field.")
 
             newSignup = Signup(name, s_date, s_time, text)
-            self.FillLists()
+            self._fill_signups()
             self.RESET_SIGNUP()
             readOnlyStyle = "[readOnly=\"true\"]{color: rgb(136, 136, 136);}"
             self.signup_name_edit.setReadOnly(True)
             self.signup_date_edit.setReadOnly(True)
             self.signup_time_edit.setReadOnly(True)
             self.signup_txt_edit.setReadOnly(True)
-            
+
             self.signup_name_edit.setStyleSheet(readOnlyStyle)
             self.signup_date_edit.setStyleSheet(readOnlyStyle)
             self.signup_time_edit.setStyleSheet(readOnlyStyle)
@@ -935,113 +968,129 @@ class RBWindow(QMainWindow):
             self.save_signup_btn.setVisible(False)
             self.edit_signup_btn.setVisible(False)
             self.update_existing_btn.setVisible(False)
-    
+
         except Exception as error:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
             errMsg = "Error: "+str(error)
             msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
             msg.setInformativeText(errMsg)
             msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
             msg.exec_()
 
     def SAVE_ROSTER(self):
-        slctSignup = self.signup_cmbo.currentText()
-        saveAs = QInputDialog()
-        rosterName, ok = saveAs.getText(self, 'Input Dialog',
-                                        'Save roster as:',
-                                        QLineEdit.Normal, slctSignup)
+        try:
+            slctSignup = self.signup_cmbo.currentText()
+            saveAs = QInputDialog()
+            rosterName, ok = saveAs.getText(self, 'Input Dialog',
+                                            'Save roster as:',
+                                            QLineEdit.Normal, slctSignup)
+            
+            if ok:
+                self.roster_combo.setVisible(False)
+                self.prefill_roster_btn.setVisible(False)
+                self.pre_rost_radbtn.setVisible(False)
+                self.pre_favs_radbtn.setVisible(False)
+                self.reset_roster_btn.setVisible(True)
+                self.save_roster_btn.setVisible(True)
+                grp1Dict = {}
+                grp1 = self.rosterGrp_list_1
+                for x in range(grp1.count()):
+                    tagrole = grp1.item(x).data(QtCore.Qt.UserRole)
+                    name = grp1.item(x).text()
+                    grp1Dict[name] = str(tagrole)
 
-        if ok:
-            self.roster_combo.setVisible(False)
-            self.prefill_roster_btn.setVisible(False)
-            self.pre_rost_radbtn.setVisible(False)
-            self.pre_favs_radbtn.setVisible(False)
-            self.reset_roster_btn.setVisible(True)
-            self.save_roster_btn.setVisible(True)
-            grp1Dict = {}
-            grp1 = self.rosterGrp_list_1
-            for x in range(grp1.count()):
-                tagrole = grp1.item(x).data(QtCore.Qt.UserRole)
-                name = grp1.item(x).text()
-                grp1Dict[name] = str(tagrole)
+                grp2Dict = {}
+                grp2 = self.rosterGrp_list_2
+                for x in range(grp2.count()):
+                    tagrole = grp2.item(x).data(QtCore.Qt.UserRole)
+                    name = grp2.item(x).text()
+                    grp2Dict[name] = str(tagrole)
 
-            grp2Dict = {}
-            grp2 = self.rosterGrp_list_2
-            for x in range(grp2.count()):
-                tagrole = grp2.item(x).data(QtCore.Qt.UserRole)
-                name = grp2.item(x).text()
-                grp2Dict[name] = str(tagrole)
+                grp3Dict = {}
+                grp3 = self.rosterGrp_list_3
+                for x in range(grp3.count()):
+                    tagrole = grp3.item(x).data(QtCore.Qt.UserRole)
+                    name = grp3.item(x).text()
+                    grp3Dict[name] = str(tagrole)
 
-            grp3Dict = {}
-            grp3 = self.rosterGrp_list_3
-            for x in range(grp3.count()):
-                tagrole = grp3.item(x).data(QtCore.Qt.UserRole)
-                name = grp3.item(x).text()
-                grp3Dict[name] = str(tagrole)
+                grp4Dict = {}
+                grp4 = self.rosterGrp_list_4
+                for x in range(grp4.count()):
+                    tagrole = grp4.item(x).data(QtCore.Qt.UserRole)
+                    name = grp4.item(x).text()
+                    grp4Dict[name] = str(tagrole)
 
-            grp4Dict = {}
-            grp4 = self.rosterGrp_list_4
-            for x in range(grp4.count()):
-                tagrole = grp4.item(x).data(QtCore.Qt.UserRole)
-                name = grp4.item(x).text()
-                grp4Dict[name] = str(tagrole)
+                grp5Dict = {}
+                grp5 = self.rosterGrp_list_5
+                for x in range(grp5.count()):
+                    tagrole = grp5.item(x).data(QtCore.Qt.UserRole)
+                    name = grp5.item(x).text()
+                    grp5Dict[name] = str(tagrole)
 
-            grp5Dict = {}
-            grp5 = self.rosterGrp_list_5
-            for x in range(grp5.count()):
-                tagrole = grp5.item(x).data(QtCore.Qt.UserRole)
-                name = grp5.item(x).text()
-                grp5Dict[name] = str(tagrole)
+                grp6Dict = {}
+                grp6 = self.rosterGrp_list_6
+                for x in range(grp6.count()):
+                    tagrole = grp6.item(x).data(QtCore.Qt.UserRole)
+                    name = grp6.item(x).text()
+                    grp6Dict[name] = str(tagrole)
 
-            grp6Dict = {}
-            grp6 = self.rosterGrp_list_6
-            for x in range(grp6.count()):
-                tagrole = grp6.item(x).data(QtCore.Qt.UserRole)
-                name = grp6.item(x).text()
-                grp6Dict[name] = str(tagrole)
+                grp7Dict = {}
+                grp7 = self.rosterGrp_list_7
+                for x in range(grp7.count()):
+                    tagrole = grp7.item(x).data(QtCore.Qt.UserRole)
+                    name = grp7.item(x).text()
+                    grp7Dict[name] = str(tagrole)
 
-            grp7Dict = {}
-            grp7 = self.rosterGrp_list_7
-            for x in range(grp7.count()):
-                tagrole = grp7.item(x).data(QtCore.Qt.UserRole)
-                name = grp7.item(x).text()
-                grp7Dict[name] = str(tagrole)
+                grp8Dict = {}
+                grp8 = self.rosterGrp_list_8
+                for x in range(grp8.count()):
+                    tagrole = grp8.item(x).data(QtCore.Qt.UserRole)
+                    name = grp8.item(x).text()
+                    grp8Dict[name] = str(tagrole)
 
-            grp8Dict = {}
-            grp8 = self.rosterGrp_list_8
-            for x in range(grp8.count()):
-                tagrole = grp8.item(x).data(QtCore.Qt.UserRole)
-                name = grp8.item(x).text()
-                grp8Dict[name] = str(tagrole)
+                stdby1Dict = {}
+                stdby1 = self.rosterStandby_list_1
+                for x in range(stdby1.count()):
+                    tagrole = stdby1.item(x).data(QtCore.Qt.UserRole)
+                    name = stdby1.item(x).text()
+                    stdby1Dict[name] = str(tagrole)
 
-            stdby1Dict = {}
-            stdby1 = self.rosterStandby_list_1
-            for x in range(stdby1.count()):
-                tagrole = stdby1.item(x).data(QtCore.Qt.UserRole)
-                name = stdby1.item(x).text()
-                stdby1Dict[name] = str(tagrole)
+                stdby2Dict = {}
+                stdby2 = self.rosterStandby_list_2
+                for x in range(stdby2.count()):
+                    tagrole = stdby2.item(x).data(QtCore.Qt.UserRole)
+                    name = stdby2.item(x).text()
+                    stdby2Dict[name] = str(tagrole)
 
-            stdby2Dict = {}
-            stdby2 = self.rosterStandby_list_2
-            for x in range(stdby2.count()):
-                tagrole = stdby2.item(x).data(QtCore.Qt.UserRole)
-                name = stdby2.item(x).text()
-                stdby2Dict[name] = str(tagrole)
+                rosterDict = {"grp1": grp1Dict,
+                            "grp2": grp2Dict,
+                            "grp3": grp3Dict,
+                            "grp4": grp4Dict,
+                            "grp5": grp5Dict,
+                            "grp6": grp6Dict,
+                            "grp7": grp7Dict,
+                            "grp8": grp8Dict,
+                            "stdby1": stdby1Dict,
+                            "stdby2": stdby2Dict}
+                other = json.dumps(rosterDict)
+                newRoster = Roster(rosterName, other)
+                self._fill_rosters()
+        except Exception as error:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
+            msg.setInformativeText(errMsg)
+            msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
+            msg.exec_()
 
-            rosterDict = {"grp1": grp1Dict,
-                          "grp2": grp2Dict,
-                          "grp3": grp3Dict,
-                          "grp4": grp4Dict,
-                          "grp5": grp5Dict,
-                          "grp6": grp6Dict,
-                          "grp7": grp7Dict,
-                          "grp8": grp8Dict,
-                          "stdby1": stdby1Dict,
-                          "stdby2": stdby2Dict}
-            other = json.dumps(rosterDict)
-            newRoster = Roster(rosterName, other)
-            self.FillLists()
 
     def checkOtherWidgs(self, coloredSignee):
         widgs = [self.signup_list_absent,
@@ -1094,207 +1143,230 @@ class RBWindow(QMainWindow):
         return found
 
     def PREFILL_ROSTER(self):
-       
-        prefillOp = "favs"
-        if self.pre_rost_radbtn:
-            prefillOp = "roster"
-        notPrflld = []
-        slctRoster = self.roster_combo.currentText()
-        if slctRoster != "Choose a saved roster...":
-            self.roster_combo.setDisabled(True)
-            self.prefill_roster_btn.setDisabled(True)
-            newQuery = Query()
-            roster = newQuery.getRoster(slctRoster)
-            rosterDict = json.loads(roster[0])
-            grp1 = rosterDict["grp1"]
-            for item in grp1:
-                signee = QListWidgetItem(item)
-                role = grp1[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterGrp_list_1.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Group 1: "+listItem)
+        try:
+            notPrflld = []
+            slctRoster = self.roster_combo.currentText()
+            if slctRoster != "Choose a saved roster...":
+                self.roster_combo.setDisabled(True)
+                self.prefill_roster_btn.setDisabled(True)
+                newQuery = Query()
+                roster = newQuery.getRoster(slctRoster)
+                rosterDict = json.loads(roster[0])
+                grp1 = rosterDict["grp1"]
+                for item in grp1:
+                    signee = QListWidgetItem(item)
+                    role = grp1[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterGrp_list_1.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Group 1: "+listItem)
 
-            grp2 = rosterDict["grp2"]
-            for item in grp2:
-                signee = QListWidgetItem(item)
-                role = grp2[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterGrp_list_2.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Group 2: "+listItem)
+                grp2 = rosterDict["grp2"]
+                for item in grp2:
+                    signee = QListWidgetItem(item)
+                    role = grp2[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterGrp_list_2.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Group 2: "+listItem)
 
-            grp3 = rosterDict["grp3"]
-            for item in grp3:
-                signee = QListWidgetItem(item)
-                role = grp3[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterGrp_list_3.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Group 3: "+listItem)
+                grp3 = rosterDict["grp3"]
+                for item in grp3:
+                    signee = QListWidgetItem(item)
+                    role = grp3[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterGrp_list_3.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Group 3: "+listItem)
 
-            grp4 = rosterDict["grp4"]
-            for item in grp4:
-                signee = QListWidgetItem(item)
-                role = grp4[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterGrp_list_4.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Group 4: "+listItem)
+                grp4 = rosterDict["grp4"]
+                for item in grp4:
+                    signee = QListWidgetItem(item)
+                    role = grp4[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterGrp_list_4.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Group 4: "+listItem)
 
-            grp5 = rosterDict["grp5"]
-            for item in grp5:
-                signee = QListWidgetItem(item)
-                role = grp5[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterGrp_list_5.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Group 5: "+listItem)
+                grp5 = rosterDict["grp5"]
+                for item in grp5:
+                    signee = QListWidgetItem(item)
+                    role = grp5[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterGrp_list_5.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Group 5: "+listItem)
 
-            grp6 = rosterDict["grp6"]
-            for item in grp6:
-                signee = QListWidgetItem(item)
-                role = grp6[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterGrp_list_6.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Group 6: "+listItem)
+                grp6 = rosterDict["grp6"]
+                for item in grp6:
+                    signee = QListWidgetItem(item)
+                    role = grp6[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterGrp_list_6.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Group 6: "+listItem)
 
-            grp7 = rosterDict["grp7"]
-            for item in grp7:
-                signee = QListWidgetItem(item)
-                role = grp7[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterGrp_list_7.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Group 7: "+listItem)
+                grp7 = rosterDict["grp7"]
+                for item in grp7:
+                    signee = QListWidgetItem(item)
+                    role = grp7[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterGrp_list_7.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Group 7: "+listItem)
 
-            grp8 = rosterDict["grp8"]
-            for item in grp8:
-                signee = QListWidgetItem(item)
-                role = grp8[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterGrp_list_8.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Group 8: "+listItem)
+                grp8 = rosterDict["grp8"]
+                for item in grp8:
+                    signee = QListWidgetItem(item)
+                    role = grp8[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterGrp_list_8.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Group 8: "+listItem)
 
-            stdby1 = rosterDict["stdby1"]
-            for item in stdby1:
-                signee = QListWidgetItem(item)
-                role = stdby1[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterStandby_list_1.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Standby 1: "+listItem)
+                stdby1 = rosterDict["stdby1"]
+                for item in stdby1:
+                    signee = QListWidgetItem(item)
+                    role = stdby1[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterStandby_list_1.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Standby 1: "+listItem)
 
-            stdby2 = rosterDict["stdby2"]
-            for item in stdby2:
-                signee = QListWidgetItem(item)
-                role = stdby2[item]
-                coloredSignee = self.colorMe(role, signee)
-                found = self.checkRoleWidgs(coloredSignee)
-                if found:
-                    self.rosterStandby_list_2.addItem(coloredSignee)
-                else:
-                    listItem = self.checkOtherWidgs(coloredSignee)
-                    notPrflld.append("Standby 2: "+listItem)
+                stdby2 = rosterDict["stdby2"]
+                for item in stdby2:
+                    signee = QListWidgetItem(item)
+                    role = stdby2[item]
+                    coloredSignee = self.colorMe(role, signee)
+                    found = self.checkRoleWidgs(coloredSignee)
+                    if found:
+                        self.rosterStandby_list_2.addItem(coloredSignee)
+                    else:
+                        listItem = self.checkOtherWidgs(coloredSignee)
+                        notPrflld.append("Standby 2: "+listItem)
 
-            if len(notPrflld) >= 1:
-                newMsg = "\n".join(notPrflld)
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                msg.setText("Some players could not be prefilled"
-                            " because they are either absent,"
-                            " benched, signed up as different role,"
-                            " or not signed up at all."
-                            "\n\nSee details for the list...")
-                msg.setDetailedText(newMsg)
-                msg.setWindowTitle("Players not prefilled")
-                msg.exec_()
+                if len(notPrflld) >= 1:
+                    newMsg = "\n".join(notPrflld)
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                    msg.setText("Some players could not be prefilled"
+                                " because they are either absent,"
+                                " benched, signed up as different role,"
+                                " or not signed up at all."
+                                "\n\nSee details for the list...")
+                    msg.setDetailedText(newMsg)
+                    msg.setWindowTitle("Players not prefilled")
+                    msg.setWindowIcon(QIcon(
+                                    resource_path("icons/raidbuilder_icon.ico")))
+                    msg.exec_()
+        except Exception as error:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
+            msg.setInformativeText(errMsg)
+            msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
+            msg.exec_()
+
 
     def GET_DATA(self):
-        slctSignup = self.signup_cmbo.currentText()
-        msg = QMessageBox()
-        if slctSignup == 'Choose a signup list...':
+        try:
+            slctSignup = self.signup_cmbo.currentText()
+            msg = QMessageBox()
+            if slctSignup == 'Choose a signup list...':
+                msg.setIcon(QMessageBox.Critical)
+                msg.setText("Signup not found")
+                msg.setInformativeText("Looks like you didn't select a signup name"
+                                    " from the dropdown")
+                msg.setWindowTitle("Oops!")
+                msg.setWindowIcon(QIcon(
+                                    resource_path("icons/raidbuilder_icon.ico")))
+                msg.exec_()
+            else:
+                self.roster_combo.setVisible(True)
+                self.prefill_roster_btn.setVisible(True)
+                self.roster_combo.setEnabled(True)
+                self.prefill_roster_btn.setEnabled(True)
+                self.reset_roster_btn.setVisible(True)
+                self.save_roster_btn.setVisible(True)
+                self.save_roster_btn.setEnabled(True)
+
+                newQuery = Query()
+                result = newQuery.getSignee(slctSignup)
+
+                self.signup_list_absent.clear()
+                self.signup_list_bench.clear()
+                self.signup_list_druids.clear()
+                self.signup_list_hunters.clear()
+                self.signup_list_late.clear()
+                self.signup_list_mages.clear()
+                self.signup_list_other.clear()
+                self.signup_list_priests.clear()
+                self.signup_list_rogues.clear()
+                self.signup_list_shamans.clear()
+                self.signup_list_tanks.clear()
+                self.signup_list_tentative.clear()
+                self.signup_list_warlocks.clear()
+                self.signup_list_warriors.clear()
+                self.rosterGrp_list_1.clear()
+                self.rosterGrp_list_2.clear()
+                self.rosterGrp_list_3.clear()
+                self.rosterGrp_list_4.clear()
+                self.rosterGrp_list_5.clear()
+                self.rosterGrp_list_6.clear()
+                self.rosterGrp_list_7.clear()
+                self.rosterGrp_list_8.clear()
+                self.rosterStandby_list_1.clear()
+                self.rosterStandby_list_2.clear()
+
+                for row_number, row_data in enumerate(result):
+                    role = row_data[0]
+                    player = row_data[1]
+                    stat = row_data[2]
+                    item = QListWidgetItem(player)
+                    self.addToList(role, item, stat)
+            return
+        except Exception as error:
+            msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
-            msg.setText("Signup not found")
-            msg.setInformativeText("Looks like you didn't select a signup name"
-                                   " from the dropdown")
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
+            msg.setInformativeText(errMsg)
             msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
             msg.exec_()
-        else:
-            self.roster_combo.setVisible(True)
-            self.prefill_roster_btn.setVisible(True)
-            self.roster_combo.setEnabled(True)
-            self.prefill_roster_btn.setEnabled(True)
-            # self.pre_rost_radbtn.setVisible(True)
-            # self.pre_favs_radbtn.setVisible(True)
-            self.reset_roster_btn.setVisible(True)
-            self.save_roster_btn.setVisible(True)
-            self.save_roster_btn.setEnabled(True)
-
-            newQuery = Query()
-            result = newQuery.getSignee(slctSignup)
-
-            self.signup_list_absent.clear()
-            self.signup_list_bench.clear()
-            self.signup_list_druids.clear()
-            self.signup_list_hunters.clear()
-            self.signup_list_late.clear()
-            self.signup_list_mages.clear()
-            self.signup_list_other.clear()
-            self.signup_list_priests.clear()
-            self.signup_list_rogues.clear()
-            self.signup_list_shamans.clear()
-            self.signup_list_tanks.clear()
-            self.signup_list_tentative.clear()
-            self.signup_list_warlocks.clear()
-            self.signup_list_warriors.clear()
-            self.rosterGrp_list_1.clear()
-            self.rosterGrp_list_2.clear()
-            self.rosterGrp_list_3.clear()
-            self.rosterGrp_list_4.clear()
-            self.rosterGrp_list_5.clear()
-            self.rosterGrp_list_6.clear()
-            self.rosterGrp_list_7.clear()
-            self.rosterGrp_list_8.clear()
-            self.rosterStandby_list_1.clear()
-            self.rosterStandby_list_2.clear()
-
-            for row_number, row_data in enumerate(result):
-                role = row_data[0]
-                player = row_data[1]
-                stat = row_data[2]
-                item = QListWidgetItem(player)
-                self.addToList(role, item, stat)
-        return
 
     def setItemToolTip(self, signee, role):
         p_name = signee.text()

@@ -1,0 +1,22 @@
+<RCC>
+  <qresource prefix="icons">
+    <file alias="buyer">icons/buyer.png</file>
+    <file alias="carry.png">icons/carry.png</file>
+    <file alias="favorite.png">icons/favorite.png</file>
+    <file alias="guildie.png">icons/guildie.png</file>
+    <file alias="camera.svg">icons/iconfinder_camera_115759.svg</file>
+    <file alias="edit.svg">icons/iconfinder_edit-change-pencil_2931178.svg</file>
+    <file alias="export.svg">icons/iconfinder_export-share-upload_2931143 (1).svg</file>
+    <file alias="import.svg">icons/iconfinder_import-download-save_2931171.svg</file>
+    <file alias="save.svg">icons/iconfinder_import-download-save_2931171.svg</file>
+    <file alias="menu.svg">icons/iconfinder_menu-lines-list_2931181.svg</file>
+    <file alias="add.svg">icons/iconfinder_plus-add-new-create-attach-maximize_2931155.svg</file>
+    <file alias="reset.svg">icons/iconfinder_reload-refresh-repeat-arrow_2937372.svg</file>
+    <file alias="save.svg">icons/iconfinder_save-guardar-diskette_2931176.svg</file>
+    <file alias="tiles.svg">icons/iconfinder_tile-sorting_623069.svg</file>
+    <file alias="delete.svg">icons/iconfinder_trash-delete-remove_2931168.svg</file>
+    <file alias="search.svg">icons/iconfinder_zoom-normal-regular_2931184.svg</file>
+    <file alias="raidlead.png">icons/raidlead.png</file>
+    <file alias="shitlist.png">icons/shitlist.png</file>
+  </qresource>
+</RCC>

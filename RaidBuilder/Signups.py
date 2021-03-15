@@ -21,7 +21,7 @@ class Signup:
             newQuery.setSignup(self.name, self.shortcode, self.dateTime,
                                self.signupText)
             idQuery = Query()
-            result = newQuery.getThisSignup(self.name)
+            result = idQuery.getThisSignup(self.name)
             newId = result[0]
             self.signupID = newId
         else:
