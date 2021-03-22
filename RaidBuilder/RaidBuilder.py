@@ -9,14 +9,16 @@ from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from PyQt5.QtChart import *
 
 from PyQt5.QtWidgets import (QApplication, QListWidget, QListWidgetItem,
                              QTableWidgetItem, QMainWindow, QLineEdit,
                              QMessageBox, QAbstractItemView,
-                             QInputDialog, QFileDialog)
+                             QInputDialog, QFileDialog, QMenu)
 from PyQt5.QtGui import (QPixmap, QClipboard, QIcon, QRegion,
                          QImage, QImageWriter, QPainter)
-from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QPoint, QEvent, Qt
+from PyQt5.QtChart import QPieSeries, QPieSlice, QChart, QChartView
 
 from Query import Query
 from Signups import Signup
@@ -45,12 +47,45 @@ class RBWindow(QMainWindow):
         self.saved_rosters_list.setObjectName(u"saved_rosters_list")
         self.s_roster_menu_grid.addWidget(self.saved_rosters_btn, 0, 0, 1, 1)
         self.s_roster_menu_grid.addWidget(self.saved_rosters_list, 1, 0, 1, 1)
+
         self.saved_rosters_list.setFixedWidth(150)
+        self.import_roster_btn.setFixedWidth(40)
+        self.create_new_btn.setFixedWidth(40)
+        self.reset_signup_btn.setFixedWidth(40)
+        self.save_signup_btn.setFixedWidth(40)
+        self.update_existing_btn.setFixedWidth(40)
+        self.edit_signup_btn.setFixedWidth(40)
+        self.prefill_roster_btn.setFixedWidth(40)
+        self.reset_roster_btn.setFixedWidth(40)
+        self.save_roster_btn.setFixedWidth(40)
+        self.search_btn.setFixedWidth(40)
+        self.add_player_btn.setFixedWidth(40)
+        self.delete_player_btn.setFixedWidth(40)
+        self.edit_player_btn.setFixedWidth(40)
+        self.save_player_btn.setFixedWidth(40)
+        self.delete_roster_btn.setFixedWidth(40)
+        self.export_roster_btn.setFixedWidth(40)
+        self.screenshot_roster_btn.setFixedWidth(40)
+
         self.saved_rosters_list.setAlternatingRowColors(True)
         self.saved_rosters_list.setEditTriggers(QAbstractItemView.
                                                 NoEditTriggers)
         self.saved_rosters_list.setWordWrap(True)
         self.saved_rosters_list.setVisible(False)
+
+        self.chart = QChart()
+        self.chart.setAnimationOptions(QChart.AllAnimations)
+
+        self.chart.setTitle("Roster Composition")
+        self.chart.legend().hide()
+
+        self.charview = QChartView(self.chart)
+        self.charview.setGeometry(0, 0, 500, 500)
+        self.charview.setRenderHint(QPainter.Antialiasing)
+        self.horizontalLayout_7.addWidget(self.charview)
+        self.charview.setFixedWidth(350)
+        self.charview.setFixedHeight(250)
+        self.charview.hide()
 
         self.saved_signups_list = QListWidget(self.signups_frame)
         self.saved_signups_list.setObjectName(u"saved_signups_list")
@@ -91,6 +126,16 @@ class RBWindow(QMainWindow):
         self.delete_player_btn.setVisible(False)
         self.add_player_btn.setVisible(False)
 
+        self.s_rosterGrp_list_1.installEventFilter(self)
+        self.signup_list_tanks.installEventFilter(self)
+        self.signup_list_warriors.installEventFilter(self)
+        self.signup_list_rogues.installEventFilter(self)
+        self.signup_list_hunters.installEventFilter(self)
+        self.signup_list_druids.installEventFilter(self)
+        self.signup_list_shamans.installEventFilter(self)
+        self.signup_list_mages.installEventFilter(self)
+        self.signup_list_warlocks.installEventFilter(self)
+        self.signup_list_priests.installEventFilter(self)
         readOnlyStyle = "[readOnly=\"true\"]{color: rgb(136, 136, 136);}"
 
         self.signup_name_edit.setReadOnly(True)
@@ -128,12 +173,13 @@ class RBWindow(QMainWindow):
                 border-width: 2px; padding: 3px; border-radius: 8px;
                 font: 10pt; min-width: 2em; min-height: 1.5em;}
 
-            QDialog QPushButton:hover:pressed {background-color: rgb(145, 153, 190);
+            QDialog QPushButton:hover:pressed {
+                background-color: rgb(145, 153, 190);
                 border-style: inset;}
 
             QDialog QPushButton:hover {background-color: qlineargradient(
-                    spread:pad, x1:1, y1:1, x2:1, y2:0, 
-                    stop:0 rgba(195, 206, 255, 255), 
+                    spread:pad, x1:1, y1:1, x2:1, y2:0,
+                    stop:0 rgba(195, 206, 255, 255),
                     stop:0.676136 rgba(255, 255, 255, 255));
                 border-style: inset;}
             '''
@@ -355,6 +401,69 @@ class RBWindow(QMainWindow):
 
         resList.append('Choose a signup list...')
         self.signup_cmbo.addItems(reversed(resList))
+    
+    def eventFilter(self, source, event):
+        signupsMenu = QMenu()
+        actions = [self.action_moveGrp1, self.action_moveGrp2,
+                   self.action_moveGrp3, self.action_moveGrp4,
+                   self.action_moveGrp5, self.action_moveGrp6,
+                   self.action_moveGrp7, self.action_moveGrp8]
+        for a in actions:
+            signupsMenu.addAction(a)
+
+        sources = [self.signup_list_tanks, self.signup_list_warriors,
+                   self.signup_list_rogues, self.signup_list_hunters,
+                   self.signup_list_druids, self.signup_list_shamans,
+                   self.signup_list_mages, self.signup_list_warlocks,
+                   self.signup_list_priests]
+
+        if event.type() == QEvent.ContextMenu and source in sources\
+                and source.itemAt(event.pos()) is not None:
+
+            action = signupsMenu.exec_(event.globalPos())
+            if action == self.action_moveGrp1:
+                item = source.itemAt(event.pos())
+                itemRow = source.row(item)
+                takenItem = source.takeItem(itemRow)
+                self.rosterGrp_list_1.addItem(takenItem)
+            elif action == self.action_moveGrp2:
+                item = source.itemAt(event.pos())
+                itemRow = source.row(item)
+                takenItem = source.takeItem(itemRow)
+                self.rosterGrp_list_2.addItem(takenItem)
+            elif action == self.action_moveGrp3:
+                item = source.itemAt(event.pos())
+                itemRow = source.row(item)
+                takenItem = source.takeItem(itemRow)
+                self.rosterGrp_list_3.addItem(takenItem)
+            elif action == self.action_moveGrp4:
+                item = source.itemAt(event.pos())
+                itemRow = source.row(item)
+                takenItem = source.takeItem(itemRow)
+                self.rosterGrp_list_4.addItem(takenItem)
+            elif action == self.action_moveGrp5:
+                item = source.itemAt(event.pos())
+                itemRow = source.row(item)
+                takenItem = source.takeItem(itemRow)
+                self.rosterGrp_list_5.addItem(takenItem)
+            elif action == self.action_moveGrp6:
+                item = source.itemAt(event.pos())
+                itemRow = source.row(item)
+                takenItem = source.takeItem(itemRow)
+                self.rosterGrp_list_6.addItem(takenItem)
+            elif action == self.action_moveGrp7:
+                item = source.itemAt(event.pos())
+                itemRow = source.row(item)
+                takenItem = source.takeItem(itemRow)
+                self.rosterGrp_list_7.addItem(takenItem)
+            elif action == self.action_moveGrp8:
+                item = source.itemAt(event.pos())
+                itemRow = source.row(item)
+                takenItem = source.takeItem(itemRow)
+                self.rosterGrp_list_8.addItem(takenItem)
+            return True
+
+        return super().eventFilter(source, event)
 
     def HandleButtons(self):
         self.load_btn.clicked.connect(self.GET_DATA)
@@ -427,16 +536,50 @@ class RBWindow(QMainWindow):
         self.rosterStandby_list_2.clearSelection()
 
     def DELETE_ROSTER(self):
-        # TODO: Add DELETE ROSTER functionality
-        pass
-    
+        slctRoster = self.saved_rosters_list.currentItem().toolTip()
+
+        try:
+            newQuery = Query()
+            newQuery.deleteRoster(slctRoster)
+
+            self.s_rosterGrp_list_1.clear()
+            self.s_rosterGrp_list_2.clear()
+            self.s_rosterGrp_list_3.clear()
+            self.s_rosterGrp_list_4.clear()
+            self.s_rosterGrp_list_5.clear()
+            self.s_rosterGrp_list_6.clear()
+            self.s_rosterGrp_list_7.clear()
+            self.s_rosterGrp_list_8.clear()
+            self.s_rosterStandby_list_1.clear()
+            self.s_rosterStandby_list_2.clear()
+
+            self.export_roster_btn.setVisible(False)
+            self.screenshot_roster_btn.setVisible(False)
+            self.delete_roster_btn.setVisible(False)
+
+            # self.charview.hide()
+            self._fill_rosters()
+
+        except Exception as error:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            errMsg = "Error: "+str(error)
+            msg.setText("Something went wrong")
+            self.pyClassLog.error(errMsg)
+            msg.setInformativeText(errMsg)
+            msg.setWindowTitle("Oops!")
+            msg.setWindowIcon(QIcon(
+                                resource_path("icons/raidbuilder_icon.ico")))
+            msg.exec_()
+
     def SCRNSHOT_ROSTER(self):
         msg = QMessageBox()
         try:
             now = datetime.now()
             nowString = now.strftime("%m_%d_%Y__T%H-%m")
             widg = self.s_roster_info_frame
-            shortName = self.saved_rosters_list.currentItem().text() + nowString + ".png"
+            shortName = self.saved_rosters_list.currentItem().text()
+            shortName = shortName + nowString + ".png"
             exportFolder = "exportedRosters/{}".format(shortName)
 
             image = QImage(widg.size(), QImage.Format_ARGB32_Premultiplied)
@@ -512,7 +655,9 @@ class RBWindow(QMainWindow):
                                         QLineEdit.Normal)
         try:
             if ok and len(rosterName.strip()) > 0:
-                fname = QFileDialog.getOpenFileName(self, 'Import Roster', './',"JSON Files (*.json)")[0]
+                fname = QFileDialog.getOpenFileName(self,
+                                                    'Import Roster', './',
+                                                    "JSON Files (*.json)")[0]
                 self.pyClassLog.info(rosterName +
                                      " chosen to be imported to from " + fname)
                 if len(fname.strip()) > 0:
@@ -620,7 +765,6 @@ class RBWindow(QMainWindow):
                                 resource_path("icons/raidbuilder_icon.ico")))
             msg.exec_()
 
-
     def SEARCH_PLAYERS(self):
         searchText = self.search_edit.text().strip()
         items = self.players_tbl.findItems(searchText, Qt.MatchContains)
@@ -629,6 +773,29 @@ class RBWindow(QMainWindow):
 
         for i in range(len(items)):
             self.players_tbl.showRow(items[i].row())
+
+    def countRoster(self, countJson, role):
+        healers = countJson["healers"]
+        tanks = countJson["tanks"]
+        melee = countJson["melee"]
+        ranged = countJson["ranged"]
+        rosterNum = countJson["rosterNum"]
+
+        rosterNum += 1
+        if role in ("RestoDruid", "RestoShaman", "Priest"):
+            healers += 1
+        elif role in ("Tank", "BearTank", "ProtPaladin"):
+            tanks += 1
+        elif role in ("Hunter", "Mage", "Warlock", "ElemShaman",
+                      "ShadowPriest"):
+            ranged += 1
+        elif role in ("Warrior", "Rogue", "FeralDruid", "BalanceDruid",
+                      "EnhShaman"):
+            melee += 1
+
+        countJson = {"healers": healers, "tanks": tanks, "melee": melee,
+                     "ranged": ranged, "rosterNum": rosterNum}
+        return countJson
 
     def ROSTER_INFO(self):
         self.s_rosterGrp_list_1.clear()
@@ -643,7 +810,11 @@ class RBWindow(QMainWindow):
         self.s_rosterStandby_list_2.clear()
         self.export_roster_btn.setVisible(True)
         self.screenshot_roster_btn.setVisible(True)
+        self.delete_roster_btn.setVisible(True)
         slctRoster = self.saved_rosters_list.currentItem().toolTip()
+
+        countJson = {"healers": 0, "tanks": 0, "melee": 0, "ranged": 0,
+                     "rosterNum": 0}
         try:
             newQuery = Query()
             roster = newQuery.getRoster(slctRoster)
@@ -654,6 +825,7 @@ class RBWindow(QMainWindow):
                 role = grp1[item]
                 coloredSignee = self.colorMe(role, signee)
                 self.s_rosterGrp_list_1.addItem(coloredSignee)
+                countJson = self.countRoster(countJson, role)
 
             grp2 = rosterDict["grp2"]
             for item in grp2:
@@ -661,6 +833,7 @@ class RBWindow(QMainWindow):
                 role = grp2[item]
                 coloredSignee = self.colorMe(role, signee)
                 self.s_rosterGrp_list_2.addItem(coloredSignee)
+                countJson = self.countRoster(countJson, role)
 
             grp3 = rosterDict["grp3"]
             for item in grp3:
@@ -668,6 +841,7 @@ class RBWindow(QMainWindow):
                 role = grp3[item]
                 coloredSignee = self.colorMe(role, signee)
                 self.s_rosterGrp_list_3.addItem(coloredSignee)
+                countJson = self.countRoster(countJson, role)
 
             grp4 = rosterDict["grp4"]
             for item in grp4:
@@ -675,6 +849,7 @@ class RBWindow(QMainWindow):
                 role = grp4[item]
                 coloredSignee = self.colorMe(role, signee)
                 self.s_rosterGrp_list_4.addItem(coloredSignee)
+                countJson = self.countRoster(countJson, role)
 
             grp5 = rosterDict["grp5"]
             for item in grp5:
@@ -682,6 +857,7 @@ class RBWindow(QMainWindow):
                 role = grp5[item]
                 coloredSignee = self.colorMe(role, signee)
                 self.s_rosterGrp_list_5.addItem(coloredSignee)
+                countJson = self.countRoster(countJson, role)
 
             grp6 = rosterDict["grp6"]
             for item in grp6:
@@ -689,6 +865,7 @@ class RBWindow(QMainWindow):
                 role = grp6[item]
                 coloredSignee = self.colorMe(role, signee)
                 self.s_rosterGrp_list_6.addItem(coloredSignee)
+                countJson = self.countRoster(countJson, role)
 
             grp7 = rosterDict["grp7"]
             for item in grp7:
@@ -696,6 +873,7 @@ class RBWindow(QMainWindow):
                 role = grp7[item]
                 coloredSignee = self.colorMe(role, signee)
                 self.s_rosterGrp_list_7.addItem(coloredSignee)
+                countJson = self.countRoster(countJson, role)
 
             grp8 = rosterDict["grp8"]
             for item in grp8:
@@ -703,6 +881,7 @@ class RBWindow(QMainWindow):
                 role = grp8[item]
                 coloredSignee = self.colorMe(role, signee)
                 self.s_rosterGrp_list_8.addItem(coloredSignee)
+                countJson = self.countRoster(countJson, role)
 
             stdby1 = rosterDict["stdby1"]
             for item in stdby1:
@@ -717,6 +896,28 @@ class RBWindow(QMainWindow):
                 role = stdby2[item]
                 coloredSignee = self.colorMe(role, signee)
                 self.s_rosterStandby_list_2.addItem(coloredSignee)
+
+            self.pieseries = QPieSeries()
+            countHealers = countJson["healers"]
+            countTanks = countJson["tanks"]
+            countMelee = countJson["melee"]
+            countRanged = countJson["ranged"]
+            self.chart.removeAllSeries()
+            self.pieseries.append("Healers ({})".format(countHealers),
+                                  countHealers)
+            self.pieseries.append("Tanks ({})".format(countTanks),
+                                  countTanks)
+            self.pieseries.append("Ranged ({})".format(countRanged),
+                                  countRanged)
+            self.pieseries.append("Melee ({})".format(countMelee),
+                                  countMelee)
+            for i in self.pieseries.slices():
+                i.setLabelVisible()
+                i.setLabelPosition(QPieSlice.LabelOutside)
+                i.setLabelArmLengthFactor(0.1)
+            self.chart.addSeries(self.pieseries)
+            self.charview.show()
+
         except Exception as error:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
@@ -728,7 +929,6 @@ class RBWindow(QMainWindow):
             msg.setWindowIcon(QIcon(
                                 resource_path("icons/raidbuilder_icon.ico")))
             msg.exec_()
-
 
     def OPEN_CLOSE_R_LIST(self):
         if self.saved_rosters_btn.isChecked():
@@ -988,7 +1188,7 @@ class RBWindow(QMainWindow):
             rosterName, ok = saveAs.getText(self, 'Input Dialog',
                                             'Save roster as:',
                                             QLineEdit.Normal, slctSignup)
-            
+
             if ok:
                 self.roster_combo.setVisible(False)
                 self.prefill_roster_btn.setVisible(False)
@@ -1090,7 +1290,6 @@ class RBWindow(QMainWindow):
             msg.setWindowIcon(QIcon(
                                 resource_path("icons/raidbuilder_icon.ico")))
             msg.exec_()
-
 
     def checkOtherWidgs(self, coloredSignee):
         widgs = [self.signup_list_absent,
@@ -1298,7 +1497,6 @@ class RBWindow(QMainWindow):
                                 resource_path("icons/raidbuilder_icon.ico")))
             msg.exec_()
 
-
     def GET_DATA(self):
         try:
             slctSignup = self.signup_cmbo.currentText()
@@ -1306,11 +1504,11 @@ class RBWindow(QMainWindow):
             if slctSignup == 'Choose a signup list...':
                 msg.setIcon(QMessageBox.Critical)
                 msg.setText("Signup not found")
-                msg.setInformativeText("Looks like you didn't select a signup name"
-                                    " from the dropdown")
+                msg.setInformativeText("Looks like you didn't select a signup"
+                                       " name from the dropdown")
                 msg.setWindowTitle("Oops!")
-                msg.setWindowIcon(QIcon(
-                                    resource_path("icons/raidbuilder_icon.ico")))
+                msg.setWindowIcon(QIcon(resource_path(
+                                    "icons/raidbuilder_icon.ico")))
                 msg.exec_()
             else:
                 self.roster_combo.setVisible(True)

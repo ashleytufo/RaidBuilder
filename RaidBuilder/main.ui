@@ -98,7 +98,7 @@ QWidget QScrollBar {
 }
 
 QWidget QComboBox:disabled {
-    background-color: rgb(189, 189, 189);
+    background-color: rgb(227, 227, 227);
     color: rgb(136, 136, 136);
 }
 
@@ -2247,28 +2247,18 @@ QTimeEdit:disabled {
                <property name="sizeConstraint">
                 <enum>QLayout::SetDefaultConstraint</enum>
                </property>
-               <item row="1" column="1">
-                <spacer name="horizontalSpacer_11">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+               <item row="0" column="2">
+                <widget class="QPushButton" name="import_roster_btn">
+                 <property name="toolTip">
+                  <string>Import Roster</string>
                  </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
+                 <property name="text">
+                  <string/>
                  </property>
-                </spacer>
-               </item>
-               <item row="1" column="0">
-                <widget class="QFrame" name="s_roster_frame">
-                 <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
+                 <property name="icon">
+                  <iconset resource="resources.qrc">
+                   <normaloff>:/icons/import.svg</normaloff>:/icons/import.svg</iconset>
                  </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_15"/>
                 </widget>
                </item>
                <item row="0" column="0">
@@ -2294,19 +2284,29 @@ QTimeEdit:disabled {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="import_roster_btn">
-                 <property name="toolTip">
-                  <string>Import Roster</string>
+               <item row="1" column="0">
+                <widget class="QFrame" name="s_roster_frame">
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
                  </property>
-                 <property name="text">
-                  <string/>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
                  </property>
-                 <property name="icon">
-                  <iconset resource="resources.qrc">
-                   <normaloff>:/icons/import.svg</normaloff>:/icons/import.svg</iconset>
-                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_15"/>
                 </widget>
+               </item>
+               <item row="1" column="1">
+                <spacer name="horizontalSpacer_11">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </item>
@@ -2329,6 +2329,12 @@ QTimeEdit:disabled {
                  <layout class="QGridLayout" name="s_roster_info_grid">
                   <item row="1" column="0">
                    <widget class="QListWidget" name="s_rosterGrp_list_1">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2345,6 +2351,12 @@ QTimeEdit:disabled {
                   </item>
                   <item row="1" column="1">
                    <widget class="QListWidget" name="s_rosterGrp_list_2">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2361,6 +2373,12 @@ QTimeEdit:disabled {
                   </item>
                   <item row="1" column="2">
                    <widget class="QListWidget" name="s_rosterGrp_list_3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2377,6 +2395,12 @@ QTimeEdit:disabled {
                   </item>
                   <item row="1" column="3">
                    <widget class="QListWidget" name="s_rosterGrp_list_4">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2428,6 +2452,12 @@ QTimeEdit:disabled {
                   </item>
                   <item row="3" column="0">
                    <widget class="QListWidget" name="s_rosterGrp_list_5">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2465,6 +2495,12 @@ QTimeEdit:disabled {
                   </item>
                   <item row="3" column="1">
                    <widget class="QListWidget" name="s_rosterGrp_list_6">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2481,6 +2517,12 @@ QTimeEdit:disabled {
                   </item>
                   <item row="3" column="2">
                    <widget class="QListWidget" name="s_rosterGrp_list_7">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2497,6 +2539,12 @@ QTimeEdit:disabled {
                   </item>
                   <item row="3" column="3">
                    <widget class="QListWidget" name="s_rosterGrp_list_8">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2541,34 +2589,14 @@ QTimeEdit:disabled {
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="3">
-                   <spacer name="horizontalSpacer_15">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
                   <item row="1" column="1">
-                   <spacer name="horizontalSpacer_14">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
+                   <widget class="QListWidget" name="s_rosterStandby_list_2">
+                    <property name="minimumSize">
                      <size>
-                      <width>40</width>
-                      <height>20</height>
+                      <width>150</width>
+                      <height>0</height>
                      </size>
                     </property>
-                   </spacer>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QListWidget" name="s_rosterStandby_list_1">
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2583,8 +2611,14 @@ QTimeEdit:disabled {
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="2">
-                   <widget class="QListWidget" name="s_rosterStandby_list_2">
+                  <item row="1" column="0">
+                   <widget class="QListWidget" name="s_rosterStandby_list_1">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="acceptDrops">
                      <bool>true</bool>
                     </property>
@@ -2697,7 +2731,20 @@ QTimeEdit:disabled {
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_11">
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <spacer name="horizontalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item>
               <spacer name="verticalSpacer_2">
                <property name="orientation">
@@ -2733,6 +2780,64 @@ QTimeEdit:disabled {
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_moveGrp1">
+   <property name="text">
+    <string>Move to Group &amp;1</string>
+   </property>
+  </action>
+  <action name="action_moveGrp2">
+   <property name="text">
+    <string>Move to Group &amp;2</string>
+   </property>
+  </action>
+  <action name="action_moveGrp3">
+   <property name="text">
+    <string>Move to Group &amp;3</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to Group 3</string>
+   </property>
+  </action>
+  <action name="action_moveGrp4">
+   <property name="text">
+    <string>Move to Group &amp;4</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to Group 4</string>
+   </property>
+  </action>
+  <action name="action_moveGrp5">
+   <property name="text">
+    <string>Move to Group &amp;5</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to Group 5</string>
+   </property>
+  </action>
+  <action name="action_moveGrp6">
+   <property name="text">
+    <string>Move to Group &amp;6</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to Group 6</string>
+   </property>
+  </action>
+  <action name="action_moveGrp7">
+   <property name="text">
+    <string>Move to Group &amp;7</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to Group 7</string>
+   </property>
+  </action>
+  <action name="action_moveGrp8">
+   <property name="text">
+    <string>Move to Group &amp;8</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to Group 8</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="resources.qrc"/>

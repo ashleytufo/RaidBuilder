@@ -71,6 +71,14 @@ class Query:
         self.db.commit()
         self.pyClassLog.info("Signup %d and all signees deleted from db", (signup_id))
 
+    def deleteRoster(self, name):
+        cursor = self.db.cursor()
+        params = (name,)
+        command = "DELETE FROM rb_rosters WHERE Name = ?"
+        cursor.execute(command, params)
+        self.db.commit()
+        self.pyClassLog.info("Roster %s was deleted from db", (name))
+
     def deleteAllSignees(self, signup_id):
         cursor = self.db.cursor()
         params = (str(signup_id),)
@@ -255,6 +263,15 @@ class Query:
         result = cursor.execute(command).fetchone()
         self.pyClassLog.debug("Roster %s retrieved from db", (name))
         return result
+    
+    def getRosterID(self, name):
+        cursor = self.db.cursor()
+        command = """ SELECT ID from rb_rosters
+                    WHERE Name = '{}'; """.format(name)
+
+        result = cursor.execute(command).fetchone()
+        self.pyClassLog.debug("Roster %s retrieved from db", (name))
+        return result
 
     def getRosterRaid(self, name):
         cursor = self.db.cursor()
@@ -263,6 +280,14 @@ class Query:
 
         result = cursor.execute(command).fetchone()
         self.pyClassLog.debug("Roster %s retrieved from db", (name))
+        return result
+    
+    def getAllRosters(self):
+        cursor = self.db.cursor()
+        command = """ SELECT Roster from rb_rosters; """
+
+        result = cursor.execute(command)
+        self.pyClassLog.debug("All rosters retrieved from db")
         return result
 
     def getRosters(self):

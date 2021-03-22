@@ -8,7 +8,7 @@ class Roster:
         self.raid = raid
         self.roster = rosterJson
         self.createdOn = datetime.datetime.now()
-        self.tempDate = self.createdOn.strftime("%d/%b/%y @%H:%M")
+        self.tempDate = self.createdOn.strftime("%d/%b/%y @%H:%M:%S")
         self.name = self.raid + " (saved " + str(self.tempDate) + ")"
         newQuery = Query()
         newQuery.setRoster(self.name, self.raid, self.roster, self.createdOn)

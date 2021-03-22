@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file alias= "move">icons/iconfinder_right-forward-arrow_2931159.svg</file>
     <file alias="buyer">icons/buyer.png</file>
     <file alias="carry.png">icons/carry.png</file>
     <file alias="favorite.png">icons/favorite.png</file>
