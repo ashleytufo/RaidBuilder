@@ -539,26 +539,30 @@ class RBWindow(QMainWindow):
         slctRoster = self.saved_rosters_list.currentItem().toolTip()
 
         try:
-            newQuery = Query()
-            newQuery.deleteRoster(slctRoster)
+            choice = QMessageBox.question(self, 'Delete Roster Confirmation',
+                                            "Are you sure you want to delete this roster?",
+                                            QMessageBox.Yes | QMessageBox.No)
+            if choice == QMessageBox.Yes:
+                newQuery = Query()
+                newQuery.deleteRoster(slctRoster)
 
-            self.s_rosterGrp_list_1.clear()
-            self.s_rosterGrp_list_2.clear()
-            self.s_rosterGrp_list_3.clear()
-            self.s_rosterGrp_list_4.clear()
-            self.s_rosterGrp_list_5.clear()
-            self.s_rosterGrp_list_6.clear()
-            self.s_rosterGrp_list_7.clear()
-            self.s_rosterGrp_list_8.clear()
-            self.s_rosterStandby_list_1.clear()
-            self.s_rosterStandby_list_2.clear()
+                self.s_rosterGrp_list_1.clear()
+                self.s_rosterGrp_list_2.clear()
+                self.s_rosterGrp_list_3.clear()
+                self.s_rosterGrp_list_4.clear()
+                self.s_rosterGrp_list_5.clear()
+                self.s_rosterGrp_list_6.clear()
+                self.s_rosterGrp_list_7.clear()
+                self.s_rosterGrp_list_8.clear()
+                self.s_rosterStandby_list_1.clear()
+                self.s_rosterStandby_list_2.clear()
 
-            self.export_roster_btn.setVisible(False)
-            self.screenshot_roster_btn.setVisible(False)
-            self.delete_roster_btn.setVisible(False)
+                self.export_roster_btn.setVisible(False)
+                self.screenshot_roster_btn.setVisible(False)
+                self.delete_roster_btn.setVisible(False)
 
-            # self.charview.hide()
-            self._fill_rosters()
+                # self.charview.hide()
+                self._fill_rosters()
 
         except Exception as error:
             msg = QMessageBox()
