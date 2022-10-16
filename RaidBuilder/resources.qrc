@@ -18,6 +18,6 @@
     <file alias="delete.svg">icons/iconfinder_trash-delete-remove_2931168.svg</file>
     <file alias="search.svg">icons/iconfinder_zoom-normal-regular_2931184.svg</file>
     <file alias="raidlead.png">icons/raidlead.png</file>
-    <file alias="shitlist.png">icons/shitlist.png</file>
+    <file alias="badlist.png">icons/badlist.png</file>
   </qresource>
 </RCC>

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>900</height>
+    <width>1190</width>
+    <height>887</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -687,6 +687,9 @@ QTimeEdit:disabled {
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="bottomMargin">
+            <number>1</number>
+           </property>
            <item>
             <widget class="QFrame" name="load_btn_frame">
              <property name="styleSheet">
@@ -751,16 +754,25 @@ QTimeEdit:disabled {
            </item>
            <item>
             <widget class="QFrame" name="signup_frame">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>300</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <property name="spacing">
-               <number>6</number>
-              </property>
+             <layout class="QVBoxLayout" name="verticalLayout_18">
               <property name="topMargin">
                <number>5</number>
               </property>
@@ -768,8 +780,97 @@ QTimeEdit:disabled {
                <number>5</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="signup_grid">
-                <item row="1" column="6">
+               <layout class="QGridLayout" name="gridLayout">
+                <item row="2" column="3">
+                 <widget class="QLabel" name="paladin_lbl">
+                  <property name="text">
+                   <string>Paladin</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QListWidget" name="signup_list_warriors">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="5">
+                 <widget class="QLabel" name="shaman_lbl">
+                  <property name="text">
+                   <string>Shamans</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="QListWidget" name="signup_list_priests">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QListWidget" name="signup_list_tanks">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QLabel" name="priest_lbl">
+                  <property name="text">
+                   <string>Priests</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QLabel" name="hunter_lbl">
+                  <property name="text">
+                   <string>Hunters</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="rogue_lbl">
+                  <property name="text">
+                   <string>Rogues</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
                  <widget class="QListWidget" name="signup_list_mages">
                   <property name="acceptDrops">
                    <bool>true</bool>
@@ -782,16 +883,17 @@ QTimeEdit:disabled {
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="3">
-                 <widget class="QListWidget" name="signup_list_hunters">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="mage_lbl">
+                  <property name="text">
+                   <string>Mages</string>
                   </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
+                 </widget>
+                </item>
+                <item row="2" column="5">
+                 <widget class="QLabel" name="other_lbl">
+                  <property name="text">
+                   <string>Other</string>
                   </property>
                  </widget>
                 </item>
@@ -815,27 +917,10 @@ QTimeEdit:disabled {
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="5">
-                 <widget class="QLabel" name="shaman_lbl">
-                  <property name="text">
-                   <string>Shamans</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="tank_lbl">
-                  <property name="text">
-                   <string>Tanks</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QListWidget" name="signup_list_warriors">
+                <item row="1" column="4">
+                 <widget class="QListWidget" name="signup_list_druids">
                   <property name="acceptDrops">
                    <bool>true</bool>
-                  </property>
-                  <property name="editTriggers">
-                   <set>QAbstractItemView::NoEditTriggers</set>
                   </property>
                   <property name="dragDropMode">
                    <enum>QAbstractItemView::DragDrop</enum>
@@ -852,25 +937,8 @@ QTimeEdit:disabled {
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2">
-                 <widget class="QLabel" name="rogue_lbl">
-                  <property name="text">
-                   <string>Rogues</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="6">
-                 <widget class="QLabel" name="mage_lbl">
-                  <property name="text">
-                   <string>Mages</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="4">
-                 <widget class="QListWidget" name="signup_list_druids">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
+                <item row="3" column="5">
+                 <widget class="QListWidget" name="signup_list_other">
                   <property name="dragDropMode">
                    <enum>QAbstractItemView::DragDrop</enum>
                   </property>
@@ -892,88 +960,41 @@ QTimeEdit:disabled {
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QListWidget" name="signup_list_tanks">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="editTriggers">
-                   <set>QAbstractItemView::NoEditTriggers</set>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="3">
-                 <widget class="QLabel" name="hunter_lbl">
-                  <property name="text">
-                   <string>Hunters</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QGridLayout" name="gridLayout">
-                <item row="1" column="6">
-                 <widget class="QListWidget" name="signup_list_other">
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="4">
-                 <widget class="QListWidget" name="signup_list_bench">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QListWidget" name="signup_list_priests">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="0">
+                 <widget class="QLabel" name="tank_lbl">
+                  <property name="text">
+                   <string>Tanks</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QListWidget" name="signup_list_hunters">
+                  <property name="acceptDrops">
+                   <bool>true</bool>
+                  </property>
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
                  <widget class="QLabel" name="warlock_lbl">
                   <property name="text">
                    <string>Warlocks</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1">
-                 <widget class="QLabel" name="priest_lbl">
-                  <property name="text">
-                   <string>Priests</string>
+                <item row="3" column="1">
+                 <widget class="QListWidget" name="signup_list_warlocks">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
                   </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QListWidget" name="signup_list_late">
                   <property name="acceptDrops">
                    <bool>true</bool>
                   </property>
@@ -985,77 +1006,107 @@ QTimeEdit:disabled {
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="4">
+                <item row="0" column="6">
                  <widget class="QLabel" name="bench_lbl">
                   <property name="text">
                    <string>Bench</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="5">
-                 <widget class="QListWidget" name="signup_list_absent">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="5">
-                 <widget class="QLabel" name="absent_lbl">
-                  <property name="text">
-                   <string>Absent</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QListWidget" name="signup_list_warlocks">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="3">
-                 <widget class="QListWidget" name="signup_list_tentative">
-                  <property name="acceptDrops">
-                   <bool>true</bool>
-                  </property>
-                  <property name="dragDropMode">
-                   <enum>QAbstractItemView::DragDrop</enum>
-                  </property>
-                  <property name="defaultDropAction">
-                   <enum>Qt::MoveAction</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
+                <item row="2" column="6">
                  <widget class="QLabel" name="late_lbl">
                   <property name="text">
                    <string>Late</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="3">
-                 <widget class="QLabel" name="tentative_lbl">
-                  <property name="text">
-                   <string>Tentative</string>
-                  </property>
-                 </widget>
+                <item row="1" column="6">
+                 <layout class="QVBoxLayout" name="verticalLayout_6">
+                  <item>
+                   <widget class="QListWidget" name="signup_list_bench">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::DragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="absent_lbl">
+                    <property name="text">
+                     <string>Absent</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QListWidget" name="signup_list_absent">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::DragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
-                <item row="0" column="6">
-                 <widget class="QLabel" name="other_lbl">
-                  <property name="text">
-                   <string>Other</string>
+                <item row="3" column="6">
+                 <layout class="QVBoxLayout" name="verticalLayout_11">
+                  <item>
+                   <widget class="QListWidget" name="signup_list_late">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::DragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="tentative_lbl">
+                    <property name="text">
+                     <string>Tentative</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QListWidget" name="signup_list_tentative">
+                    <property name="acceptDrops">
+                     <bool>true</bool>
+                    </property>
+                    <property name="dragDropMode">
+                     <enum>QAbstractItemView::DragDrop</enum>
+                    </property>
+                    <property name="defaultDropAction">
+                     <enum>Qt::MoveAction</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item row="3" column="3">
+                 <widget class="QListWidget" name="signup_list_paladin">
+                  <property name="dragDropMode">
+                   <enum>QAbstractItemView::DragDrop</enum>
+                  </property>
+                  <property name="defaultDropAction">
+                   <enum>Qt::MoveAction</enum>
                   </property>
                  </widget>
                 </item>
@@ -1079,6 +1130,12 @@ QTimeEdit:disabled {
            </item>
            <item>
             <widget class="QFrame" name="roster_frame">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>290</height>
+              </size>
+             </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
              </property>
@@ -1324,14 +1381,20 @@ QTimeEdit:disabled {
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <property name="spacing">
+               <number>5</number>
+              </property>
               <property name="leftMargin">
-               <number>9</number>
+               <number>0</number>
               </property>
               <property name="topMargin">
-               <number>2</number>
+               <number>1</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
               </property>
               <property name="bottomMargin">
-               <number>2</number>
+               <number>1</number>
               </property>
               <item>
                <widget class="QFrame" name="prefill_frame">
@@ -1370,16 +1433,16 @@ QTimeEdit:disabled {
                      <number>6</number>
                     </property>
                     <property name="leftMargin">
-                     <number>5</number>
+                     <number>0</number>
                     </property>
                     <property name="topMargin">
-                     <number>2</number>
+                     <number>0</number>
                     </property>
                     <property name="rightMargin">
                      <number>5</number>
                     </property>
                     <property name="bottomMargin">
-                     <number>2</number>
+                     <number>0</number>
                     </property>
                     <item>
                      <widget class="QComboBox" name="roster_combo">
@@ -1465,7 +1528,7 @@ QTimeEdit:disabled {
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>40</width>
-                  <height>20</height>
+                  <height>0</height>
                  </size>
                 </property>
                </spacer>
@@ -1500,8 +1563,8 @@ QTimeEdit:disabled {
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>40</width>
-                  <height>32</height>
+                  <width>36</width>
+                  <height>29</height>
                  </size>
                 </property>
                 <property name="toolTip">
@@ -1638,7 +1701,7 @@ QTimeEdit:disabled {
                    </property>
                    <layout class="QGridLayout" name="gridLayout_5">
                     <item row="3" column="2">
-                     <widget class="QComboBox" name="shitlist_combo">
+                     <widget class="QComboBox" name="badlist_combo">
                       <property name="enabled">
                        <bool>false</bool>
                       </property>
@@ -1653,8 +1716,8 @@ QTimeEdit:disabled {
                        </property>
                        <property name="icon">
                         <iconset resource="resources.qrc">
-                         <normaloff>:/icons/shitlist.png</normaloff>
-                         <disabledoff>:/icons/shitlist.png</disabledoff>:/icons/shitlist.png</iconset>
+                         <normaloff>:/icons/badlist.png</normaloff>
+                         <disabledoff>:/icons/badlist.png</disabledoff>:/icons/badlist.png</iconset>
                        </property>
                       </item>
                      </widget>
@@ -1734,9 +1797,9 @@ QTimeEdit:disabled {
                      </widget>
                     </item>
                     <item row="2" column="2">
-                     <widget class="QLabel" name="shitlist_lbl">
+                     <widget class="QLabel" name="badlist_lbl">
                       <property name="text">
-                       <string>Shitlist</string>
+                       <string>Badlist</string>
                       </property>
                      </widget>
                     </item>
@@ -2159,7 +2222,7 @@ QTimeEdit:disabled {
                 </column>
                 <column>
                  <property name="text">
-                  <string>Shitlist</string>
+                  <string>Badlist</string>
                  </property>
                  <property name="textAlignment">
                   <set>AlignCenter</set>
@@ -2822,8 +2885,8 @@ QTimeEdit:disabled {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
-     <height>22</height>
+     <width>1190</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
